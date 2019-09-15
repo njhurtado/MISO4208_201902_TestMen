@@ -14,6 +14,8 @@ app.use(bodyParser.json())
 
 // Require Notes routes
 require('./app/routes/application.routes.js')(app);
+require('./app/routes/execution.routes.js')(app);
+require('./app/routes/test.routes.js')(app);
 
 
 // define a simple route
