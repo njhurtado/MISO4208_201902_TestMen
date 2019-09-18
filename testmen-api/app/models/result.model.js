@@ -5,7 +5,7 @@ var resultSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    id_test:{
+    test_id:{
         type: String,
         required: true
     },
@@ -18,21 +18,12 @@ var resultSchema = mongoose.Schema({
         required: true,
         enum: ['Web','Movil']
     },
-    type_test:{
-        type: String,
-        required: true,
-        enum: ['e2e', 'bdt','random','datos','headless_small_chrome','headless_medium_chrome','headless_large_chrome','headless_firefox','mutation']
-    },
     state: {
         type: String,
         required: true,
         enum: ['Executed','Pending']
     },
-    path_results: {
-        type: String,
-        required: false
-    }, 
-    path_vrt:{
+    url_result:{
         type:String,
         required: false
     },
