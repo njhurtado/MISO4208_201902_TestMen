@@ -2,8 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
-var cors = require('cors');
-const scriptTest=" '   /// <reference types=\"Cypress\" />  '  + 
+//var cors = require('cors');
 
 // create express app
 const app = express();
