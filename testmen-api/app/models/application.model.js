@@ -10,10 +10,10 @@ const ApplicationSchema = mongoose.Schema({
         required: true,
         enum: ['WEB', 'MOVIL']
     },
-    version: String,
-    url_test: String,
-    url_repo: String,
-    url_app: String
+    versions: 
+		[{
+			version_id: String,
+		}],
     },
     //Mongoose uses this option to automatically add two new fields - createdAt and updatedAt to the schema.
     {

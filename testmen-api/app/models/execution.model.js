@@ -1,34 +1,30 @@
 var mongoose = require('mongoose');
 
-var executionSchema = mongoose.Schema({
+var ExecutionSchema = mongoose.Schema({
     test_id: {
         type: String,
         required: true
     },
-    aplication_id:{
-        type: String,
-        required:true
+    result_id: {
+        type: String
     },
     state: {
         type: String,
         required: true,
-        enum: ['Register', 'Executed','Pending']
+        enum: ['REGISTER', 'EXECUTED','PENDING']
     },
-    type: {
-        type: String,
-        required: true,
-        enum: ['Normal', 'Scheduler']
-    }, 
-    schedule:{
-        type: Date
-    },
-    create_date: {
+    schedule: {
         type: Date,
         default: Date.now
     }
-});
+}
+//Mongoose uses this option to automatically add two new fields - createdAt and updatedAt to the schema.
+{
+	timestamps: true
+}
+);
 
-var Execution = module.exports = mongoose.model('execution', executionSchema);
+var Execution = module.exports = mongoose.model('Execution', ExecutionSchema);
 
 module.exports.get = function (callback, limit) {
     Execution.find(callback).limit(limit);

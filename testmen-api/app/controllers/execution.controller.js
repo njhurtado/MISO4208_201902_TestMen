@@ -35,7 +35,7 @@ exports.index = function (req, res) {
 // Handle create exceution actions
 exports.new = function (req, res) {
     var execution = new Execution(req.body);
-    execution.state="Register";
+    execution.state="REGISTER";
     // save the app and check for errors
     execution.save(function (err) {
         if (err)
@@ -62,11 +62,10 @@ exports.update = function (req, res) {
     Execution.findById(req.params.execution_id, function (err, execution) {
         if (err)
             res.send(err);
-            execution.type = req.body.type;
-            execution.aplication_id = req.body.aplication_id;
             execution.test_id = req.body.test_id;
+            execution.result_id = req.body.aplication_id;
             execution.state = req.body.state;
-        
+			execution.schedule = req.body.schedule;
         // save the execution and check for errors
         execution.save(function (err) {
             if (err)
