@@ -24,7 +24,11 @@ app.use(function(req, res, next) {
 require('./app/routes/application.routes.js')(app);
 require('./app/routes/execution.routes.js')(app);
 require('./app/routes/test.routes.js')(app);
-
+require('./app/routes/file.routes.js')(app);
+require('./app/routes/param.routes.js')(app);
+require('./app/routes/result.routes.js')(app);
+require('./app/routes/tool.routes.js')(app);
+require('./app/routes/version.routes.js')(app);
 
 // define a simple route
 app.get('/', (req, res) => {

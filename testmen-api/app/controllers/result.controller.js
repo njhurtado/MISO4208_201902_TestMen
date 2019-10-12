@@ -1,7 +1,7 @@
 // Import model
-Result = require('./resultModel');
+const Result = require('../models/result.model.js');
 // Handle index actions
-exports.index = function (req, res) {
+exports.index = (req, res) => {
     if(req.query && req.query.execution_id){
         Result.find({execution_id:req.query.execution_id}, function (err, results) {
             if (err){
@@ -62,12 +62,8 @@ exports.update = function (req, res) {
         if (err)
             res.send(err);
         result.execution_id = req.body.execution_id;
-        result.name_test = req.body.name_test;
-        result.type = req.body.type;
-        result.id_test = req.body.id_test;
-        result.state = req.body.state;
-        result.type_test= req.body.type_test;
-        result.path_results = req.body.path_results;
+        result.file_id = req.body.file_id;
+        result.run_date = req.body.run_date;
         
         // save the app and check for errors
         result.save(function (err) {

@@ -1,7 +1,7 @@
 // Import model
-Execution = require('../models/execution.model.js');
+const Execution = require('../models/execution.model.js');
 // Handle index actions
-exports.index = function (req, res) {
+exports.index = (req, res) => {
     if(req.query && req.query.state){
         Execution.find({state:req.query.state}, function (err, executions) {
             if (err){
@@ -62,10 +62,10 @@ exports.update = function (req, res) {
     Execution.findById(req.params.execution_id, function (err, execution) {
         if (err)
             res.send(err);
-            execution.test_id = req.body.test_id;
-            execution.result_id = req.body.aplication_id;
-            execution.state = req.body.state;
-			execution.schedule = req.body.schedule;
+		execution.test_id = req.body.test_id;
+		execution.result_id = req.body.aplication_id;
+		execution.state = req.body.state;
+		execution.schedule = req.body.schedule;
         // save the execution and check for errors
         execution.save(function (err) {
             if (err)

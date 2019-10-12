@@ -10,7 +10,7 @@ var testSchema = mongoose.Schema({
 		type: String,
 		required: true,
 		enum: ['HEADLESS','HEADFULL']
-	}
+	},
     script: {
 		type: String,
 		requiered: true
@@ -30,7 +30,7 @@ var testSchema = mongoose.Schema({
 	params: [{
         param: String,
     }],
-}
+},
 {
 	timestamps: true
 }

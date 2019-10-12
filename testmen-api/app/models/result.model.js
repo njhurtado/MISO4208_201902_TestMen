@@ -12,7 +12,7 @@ var ResultSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
-}
+},
 //Mongoose uses this option to automatically add two new fields - createdAt and updatedAt to the schema.
 {
 	timestamps: true
