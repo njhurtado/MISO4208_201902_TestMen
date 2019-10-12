@@ -11,23 +11,20 @@ exports.create = (req, res) => {
 
     // Create a Application
     const application = new Application({
-    name : req.body.name || "Untitled Application",
-    type :req.body.type,
-    version:req.body.version,
-    url_test : req.body.url_test,
-    url_repo:req.body.url_repo,
-    url_app: req.body.url_app
+		name : req.body.name || "Untitled Application",
+		type :req.body.type,
+		versions:req.body.versions,
     });
 
     // Save Application in the database
-    application.save()
-    .then(data => {
+    application.save().then(data => {
         res.send(data);
         /*res.json({
             message: 'New Application created.',
             data: data
         })*/
-    }).catch(err => {
+    }).catch(err => 
+	{
         res.status(500).send({
             message: err.message || "Some error occurred while creating the Application."
         });
@@ -116,10 +113,7 @@ exports.update = (req, res) => {
     Application.findByIdAndUpdate(req.params.applicationId, {
         name :req.body.name || "Untitled Application",
         type : req.body.type,
-        version:req.body.version,
-        url_test : req.body.url_test,
-        url_repo: req.body.url_repo,
-        url_app: req.body.url_app
+        versions:req.body.versions,
     }, {new: true})
     .then(application => {
         if(!application) {

@@ -1,39 +1,24 @@
 var mongoose = require('mongoose');
-// Setup schema
-var resultSchema = mongoose.Schema({
+
+var ResultSchema = mongoose.Schema({
     execution_id: {
         type: String,
         required: true
     },
-    test_id:{
-        type: String,
-        required: true
+    file_id:{
+        type:String
     },
-    name_test:{
-        type: String,
-        required: true
-    },
-    type:{
-        type: String,
-        required: true,
-        enum: ['Web','Movil']
-    },
-    state: {
-        type: String,
-        required: true,
-        enum: ['Executed','Pending']
-    },
-    url_result:{
-        type:String,
-        required: false
-    },
-    create_date: {
+    run_date: {
         type: Date,
         default: Date.now
     }
-});
-// Export Prueba model
-var Result = module.exports = mongoose.model('result', resultSchema);
+}
+//Mongoose uses this option to automatically add two new fields - createdAt and updatedAt to the schema.
+{
+	timestamps: true
+}
+);
+var Result = module.exports = mongoose.model('Result', ResultSchema);
 module.exports.get = function (callback, limit) {
     Result.find(callback).limit(limit);
 }

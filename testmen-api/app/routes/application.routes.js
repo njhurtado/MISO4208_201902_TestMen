@@ -9,8 +9,9 @@ module.exports = (app) => {
     // Delete a Application with AplicationId
     app.delete('/applications/:applicationId', Applications.delete);
 
-     // Retrieve a single Application with AplicationId
-     app.get('/applications/:applicationId', Applications.findOne);
-    // Retrieve all Aplications
+	// Retrieve a single Application with AplicationId
+	app.get('/applications/:applicationId', Applications.findOne);
+    
+	// Retrieve all Aplications
     app.get('/applications', Applications.findAll);
 }
