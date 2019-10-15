@@ -1,18 +1,20 @@
 const mongoose = require('mongoose');
 
-const ToolSchema = mongoose.Schema({
-    name: {
+const FileSchema = mongoose.Schema({
+    result_id: {
+		type: String,
+		required: true
+	},
+	name: {
         type: String,
         required: true
     },
-    version: String,
-	test_id: {
-        type: String
-    },
+    url: String
 },
 //Mongoose uses this option to automatically add two new fields - createdAt and updatedAt to the schema.
 {
 	timestamps: true
-});
+}
+);
 
-module.exports = mongoose.model('Tool', ToolSchema);
+module.exports = mongoose.model('File', FileSchema);

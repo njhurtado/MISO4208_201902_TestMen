@@ -11,6 +11,11 @@ const srvS3=require('./s3manager');
 
 Execution = require('./models/execution.model.js');
 Test = require('./models/test.model.js');
+File = require('./models/file.model.js');
+Result = require('./models/result.model.js');
+const STATE_REGISTER='REGISTER';
+const STATE_EXECUTED='EXECUTED';
+const STATE_PENDING='PENDING';
 
 app = express();
 
@@ -18,14 +23,14 @@ app = express();
 	console.log('Printing this line every minute in the terminal');
 });*/
 // To backup a database
-var task=cron.schedule("* * * * *", function() {
+var task=cron.schedule("*/3 * * * * *", function() {
   console.log("---------WORKER 001------------");
 
 
 //busca execuciones en estado Register
     Execution.findOneAndUpdate(    
-        { state:'Register' }, //Register     Executed
-        { $set: { state: 'Pending' } },      
+        { state:STATE_REGISTER }, //Register     Executed
+        { $set: { state: STATE_PENDING } },      
         {
            returnNewDocument: true
         }    
@@ -40,7 +45,8 @@ var task=cron.schedule("* * * * *", function() {
             }
             pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
             //console.log("-------------------------------------------------------------------------");
-            var contentFileBody=test.tests[0].script.replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+            var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+            contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
             contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
             
             //var contentFile=unescape(addScrenErro);
@@ -60,22 +66,50 @@ var task=cron.schedule("* * * * *", function() {
           exec(pathTest, (err, stdout, stderr) => {
             if (err) {
               // node couldn't execute the command
-              Execution.updateOne({ _id: exec._id }, { state: 'Register' }).then(u=>{
-                console.log("Execution id:" +exec._id+".spec.js Failed.");
+              Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
+                console.log("Execution id:" +exec1._id+".spec.js Failed.");
               });
               return;
             }
 
             //se genera reporte en s3
-           // srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
+            srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
      
             shell.echo("S3 complete"); 
           
          
             shell.echo("Cypress complete");            
-            Execution.updateOne({ _id: exec._id }, { state: 'Executed' }).then(u=>{
-              console.log("Execution id:" +exec._id+" Executed.");
+            Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
+              console.log("Execution id:" +exec1._id+" Executed.");
+              
+              var result = new Result({
+                execution_id:exec1._id 
+              }
+              );
+              // save the app and check for errors
+              result.save(function (err) {
+                  if (err)
+                  console.log("Error registrando Resultado :" +err);     
+                  else
+                  console.log("Result id:" +result._id+" saved.");          
+              });
+  
+              var file = new File({
+                result_id:result._id,
+                name: exec1.test_id,
+                url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1.test_id+'.html'
+              }
+              );
+  
+              file.save(function (err) {
+                if (err)
+                console.log("Error registrando Archivo :" +err);   
+                else
+                console.log("File id:" +file._id+" saved.");              
             });
+            });
+
+
           });
        
 
@@ -85,7 +119,7 @@ var task=cron.schedule("* * * * *", function() {
       }
       }).catch(err => {
         if(exec1.test_id )
-        Execution.updateOne({ _id: exec1.test_id }, { state: 'Register' }).exec();
+        Execution.updateOne({ _id: exec1.test_id }, { state: STATE_REGISTER }).exec();
 
         console.log("---------WORKER ERROR------------")+err;
       });

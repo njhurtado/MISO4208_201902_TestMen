@@ -1,11 +1,11 @@
 module.exports = (app) => {
 	const testController = require('../controllers/test.controller.js');
 	//Retrieve test index
-	app.get('/test', testController.index)
+	app.get('/tests', testController.index)
 	//Create a new test
-	app.post('/test', testController.new)
+	app.post('/tests', testController.new)
 	//Retrieve a single test
-	app.get('/test/:test_id', testController.view)
+	app.get('/tests/:test_id', testController.view)
 	//Delete a single test
-	app.delete('/test/:test_id', testController.delete)
+	app.delete('/tests/:test_id', testController.delete)
 }

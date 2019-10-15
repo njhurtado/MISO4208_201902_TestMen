@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    const Tools = require('../controllers/application.controller.js');
+    const Tools = require('../controllers/tool.controller.js');
 
     // Create a new Tool
     app.post('/tools', Tools.create); 

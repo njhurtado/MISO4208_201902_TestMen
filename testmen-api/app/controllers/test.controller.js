@@ -16,11 +16,16 @@ exports.index = function (req, res) {
         });
     });
 };
+
 // Handle create test actions
 exports.new = function (req, res) {
+    /*console.log(req.body);
+    var varTest=req.body;
+    varTest.script=unescape(varTest.script)*/
     var tests = new Test(req.body);
+      // console.log(varTest);
     // save the test and check for errors
-    tests.save(function (err) {
+   tests.save(function (err) {
         if (err){
             res.json({
                 status: "error",

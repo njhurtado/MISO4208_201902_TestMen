@@ -1,11 +1,11 @@
 module.exports = (app) => {
 	const resultController = require('../controllers/result.controller.js');
 	//Retrieve result index
-	app.get('/test', resultController.index)
+	app.get('/results', resultController.index)
 	//Create a new result
-	app.post('/result', resultController.new)
+	app.post('/results', resultController.new)
 	//Retrieve a single result
-	app.get('/result/:result_id', resultController.view)
+	app.get('/results/:result_id', resultController.view)
 	//Delete a single test
-	app.delete('/result/:result_id', resultController.delete)
+	app.delete('/results/:result_id', resultController.delete)
 }

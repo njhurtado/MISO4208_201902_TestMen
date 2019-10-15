@@ -3,7 +3,7 @@ const Version = require('../models/version.model.js');
 // Create and Save a new Version
 exports.create = (req, res) => {
     // Validate request
-    if(!req.body.name) {
+    if(!req.body.version) {
         return res.status(400).send({
             message: "Version name can not be empty"
         });
