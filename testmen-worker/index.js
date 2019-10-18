@@ -29,12 +29,15 @@ var task=cron.schedule("*/3 * * * * *", function() {
 
 //busca execuciones en estado Register
     Execution.findOneAndUpdate(    
-        { state:STATE_REGISTER }, //Register     Executed
+        { state:STATE_REGISTER, 
+          test_type: "E2E",
+          test_mode: "HEADLESS",
+          app_type: "WEB"}, //Register     Executed
         { $set: { state: STATE_PENDING } },      
         {
            returnNewDocument: true
-        }    
-      ).then(exec1 => {
+        })
+        .then(exec1 => {
         var pathSript;
         if(exec1){
           console.log("-execs-"+exec1);
@@ -62,7 +65,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
 
           console.log("Running Cypress");
 
-          var pathTest='node cypress_runner.js --h false --n '+exec1.test_id;
+          var pathTest='node cypress_runner.js --h true --n '+exec1.test_id;
           exec(pathTest, (err, stdout, stderr) => {
             if (err) {
               // node couldn't execute the command
@@ -73,7 +76,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
             }
 
             //se genera reporte en s3
-            srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
+           // srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
      
             shell.echo("S3 complete"); 
           

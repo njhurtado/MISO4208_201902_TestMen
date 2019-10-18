@@ -1,5 +1,7 @@
 // Import model
 const Execution = require('../models/execution.model.js');
+const Application = require('../models/application.model.js');
+const Test = require('../models/test.model.js');
 // Handle index actions
 exports.index = (req, res) => {
     if(req.query && req.query.state){
@@ -36,15 +38,32 @@ exports.index = (req, res) => {
 exports.new = function (req, res) {
     var execution = new Execution(req.body);
     execution.state="REGISTER";
-    // save the app and check for errors
-    execution.save(function (err) {
+
+
+    Test.findById(execution.test_id, function (err, test) {
         if (err)
-             res.json(err);
-        res.json({
-            message: 'New execution created!',
-            data: execution
+        res.json(err);
+            execution.test_type=test.type;
+            execution.test_mode=test.mode;
+            console.log(test.aplication_id);
+
+            Application.findById(test.aplication_id, function (err, app) {
+                if (err)
+                res.json(err);
+
+                execution.app_type=app.type; 
+
+                     // save the app and check for errors
+                    execution.save(function (err) {
+                        if (err)
+                            res.json(err);
+                        res.json({
+                            message: 'New execution created!',
+                            data: execution
+                        });
+                    });
+                });
         });
-    });
 };
 // Handle view execution info
 exports.view = function (req, res) {

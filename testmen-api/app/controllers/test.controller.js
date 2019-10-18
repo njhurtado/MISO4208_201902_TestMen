@@ -1,5 +1,6 @@
 // Import model
 Test = require('../models/test.model.js');
+const Version = require('../models/version.model.js');
 // Handle index actions
 exports.index = function (req, res) {
     Test.get(function (err, tests) {
@@ -23,20 +24,35 @@ exports.new = function (req, res) {
     var varTest=req.body;
     varTest.script=unescape(varTest.script)*/
     var tests = new Test(req.body);
-      // console.log(varTest);
-    // save the test and check for errors
-   tests.save(function (err) {
+
+    Version.findById(tests.version_id, function (err, ver) {
         if (err){
             res.json({
                 status: "error",
                 message: err
             });
-        }
-        res.json({
-            message: 'New tests registered!',
-            data: tests
-        });
+        };
+
+            tests.aplication_id=ver.aplication_id;
+
+             // console.log(varTest);
+            // save the test and check for errors
+                tests.save(function (err) {
+                    if (err){
+                        res.json({
+                            status: "error",
+                            message: err
+                        });
+                    }
+                    res.json({
+                        message: 'New tests registered!',
+                        data: tests
+                    });
+                });
     });
+
+
+     
 };
 // Handle view test info
 exports.view = function (req, res) {
