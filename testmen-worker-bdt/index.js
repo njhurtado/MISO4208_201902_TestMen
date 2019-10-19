@@ -24,15 +24,106 @@ app = express();
 });*/
 // To backup a database
 var task=cron.schedule("*/3 * * * * *", function() {
-  console.log("---------WORKER 002------------");
-  exec('npm test', (err, stdout, stderr) => {
-    if (err) {
-      // node couldn't execute the command
-      //Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
-      //  console.log("Execution id:" +exec1._id+".spec.js Failed.");
-      //});
-      return;
-    }});
+
+  console.log(' worker bdt');
+  Execution.findOneAndUpdate(    
+    { state:STATE_REGISTER, 
+      test_type: "BDT",
+      test_mode: "HEADLESS",
+      app_type: "WEB"}, //Register     Executed
+    { $set: { state: STATE_PENDING } },      
+    {
+       returnNewDocument: true
+    }   
+  ).then(exec1 => {
+    var pathSript;
+    if(exec1){
+      console.log("-execs-"+exec1);
+      //consulta el test para obtener el script
+      Test.findById(exec1.test_id, function (err, test) {
+          if(err) {
+            return console.log(err);
+        }
+        pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
+        //console.log("-------------------------------------------------------------------------");
+        var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+        contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
+        contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
+        
+        //var contentFile=unescape(addScrenErro);
+        //console.log(contentFile);
+        fs.writeFile(pathSript,contentFileBody, function(err) {
+           if(err) {
+              return console.log(err);
+            }
+        //  console.log(contentFileBody);
+        }); 
+
+      console.log("The file "+exec1.test_id+".spec.js was saved!");
+
+      console.log("Running Cypress");
+
+      var pathTest='node cypress_runner.js --h false --n '+exec1.test_id;
+      exec(pathTest, (err, stdout, stderr) => {
+        if (err) {
+          // node couldn't execute the command
+          Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
+            console.log("Execution id:" +exec1._id+".spec.js Failed.");
+          });
+          return;
+        }
+
+        //se genera reporte en s3
+        //srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
+ 
+        shell.echo("S3 complete"); 
+      
+     
+        shell.echo("Cypress complete");            
+        Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
+          console.log("Execution id:" +exec1._id+" Executed.");
+          
+          var result = new Result({
+            execution_id:exec1._id 
+          }
+          );
+          // save the app and check for errors
+          result.save(function (err) {
+              if (err)
+              console.log("Error registrando Resultado :" +err);     
+              else
+              console.log("Result id:" +result._id+" saved.");          
+          });
+
+          var file = new File({
+            result_id:result._id,
+            name: exec1.test_id,
+            url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1.test_id+'.html'
+          }
+          );
+
+          file.save(function (err) {
+            if (err)
+            console.log("Error registrando Archivo :" +err);   
+            else
+            console.log("File id:" +file._id+" saved.");              
+        });
+        });
+
+
+      });
+   
+
+      });
+  }else{
+    console.log("-----NO HAY PRUEBAS POR EJECUTAR------");
+  }
+  }).catch(err => {
+    if(exec1.test_id )
+    Execution.updateOne({ _id: exec1.test_id }, { state: STATE_REGISTER }).exec();
+
+    console.log("---------WORKER ERROR------------")+err;
+  });
 });
 
 task.start();
