@@ -11,6 +11,7 @@ const srvS3=require('./s3manager');
 
 Execution = require('./models/execution.model.js');
 Test = require('./models/test.model.js');
+Param = require('./models/param.model.js');
 File = require('./models/file.model.js');
 Result = require('./models/result.model.js');
 const STATE_REGISTER='REGISTER';
@@ -44,7 +45,8 @@ var task=cron.schedule("*/3 * * * * *", function() {
           if(err) {
             return console.log(err);
         }
-        pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
+        //pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
+        pathSript="./features/createThirdParty.feature"
         //console.log("-------------------------------------------------------------------------");
         var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
         contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
@@ -59,11 +61,19 @@ var task=cron.schedule("*/3 * * * * *", function() {
         //  console.log(contentFileBody);
         }); 
 
-      console.log("The file "+exec1.test_id+".spec.js was saved!");
+      console.log("The file createThirdParty.feature was saved!");
+      //Param.findOneAndUpdate({ test_id:exec1.test_id, 
+      //  param: "STEP_DEF"}, //Register     Executed
+      //{ $set: { param: "STEP_DEF" } },      
+      //{
+      //   returnNewDocument: true
+      //}).then(exec1 => {
+        
+      //}
 
-      console.log("Running Cypress");
+      console.log("Running Cucumber");
 
-      var pathTest='node cypress_runner.js --h false --n '+exec1.test_id;
+      var pathTest='npm test';
       exec(pathTest, (err, stdout, stderr) => {
         if (err) {
           // node couldn't execute the command
@@ -79,7 +89,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
         shell.echo("S3 complete"); 
       
      
-        shell.echo("Cypress complete");            
+        shell.echo("Cucumber complete");            
         Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
           console.log("Execution id:" +exec1._id+" Executed.");
           
