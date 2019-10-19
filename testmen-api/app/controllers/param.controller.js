@@ -3,7 +3,7 @@ const Param = require('../models/param.model.js');
 // Create and Save a new Param
 exports.create = (req, res) => {
     // Validate request
-    if(!req.body.name) {
+    if(!req.body.param) {
         return res.status(400).send({
             message: "Param name can not be empty"
         });
@@ -12,6 +12,7 @@ exports.create = (req, res) => {
     // Create a Param
     const param = new Param({
     param : req.body.param || "Untitled Param",
+    value : req.body.value,
     test_id :req.body.test_id
     });
 

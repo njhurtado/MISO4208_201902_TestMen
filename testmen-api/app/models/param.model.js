@@ -5,6 +5,10 @@ const ParamSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    value: {
+        type: String,
+        required: true
+    },
     test_id: String,
 },
 //Mongoose uses this option to automatically add two new fields - createdAt and updatedAt to the schema.
