@@ -62,67 +62,82 @@ var task=cron.schedule("*/3 * * * * *", function() {
         }); 
 
       console.log("The file createThirdParty.feature was saved!");
-      //Param.findOneAndUpdate({ test_id:exec1.test_id, 
-      //  param: "STEP_DEF"}, //Register     Executed
-      //{ $set: { param: "STEP_DEF" } },      
-      //{
-      //   returnNewDocument: true
-      //}).then(exec1 => {
-        
-      //}
+      Param.findOneAndUpdate(
+        { test_id:exec1.test_id, 
+        param: "STEP_DEF"}, 
+        { $set: { param: "STEP_DEF" } },      
+        {
+         returnNewDocument: true
+        }).then(exec2 => {
+          console.log("Running Cucumber");
+          if(exec2) {
+            pathSript="./features/step-definitions/index.js"
+            contentFileBody=unescape(exec2st.value).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+            contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
+            contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
+            
+            //var contentFile=unescape(addScrenErro);
+            //console.log(contentFile);
+            fs.writeFile(pathSript,contentFileBody, function(err) {
+              if(err) {
+                  return console.log(err);
+                }
+            //  console.log(contentFileBody);
+            }); 
+            console.log("The file index.js was saved!");
+          var pathTest='npm test';
+          exec(pathTest, (err, stdout, stderr) => {
+            if (err) {
+              // node couldn't execute the command
+              console.log("Fails execution of Cucumber");
+              Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
+                console.log("Execution id:" +exec1._id+".spec.js Failed.");
+              });
+              return;
+            }
 
-      console.log("Running Cucumber");
-
-      var pathTest='npm test';
-      exec(pathTest, (err, stdout, stderr) => {
-        if (err) {
-          // node couldn't execute the command
-          Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
-            console.log("Execution id:" +exec1._id+".spec.js Failed.");
-          });
-          return;
-        }
-
-        //se genera reporte en s3
-        //srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
- 
-        shell.echo("S3 complete"); 
-      
-     
-        shell.echo("Cucumber complete");            
-        Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
-          console.log("Execution id:" +exec1._id+" Executed.");
+            //se genera reporte en s3
+            //srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
+    
+            shell.echo("S3 complete"); 
           
-          var result = new Result({
-            execution_id:exec1._id 
-          }
-          );
-          // save the app and check for errors
-          result.save(function (err) {
-              if (err)
-              console.log("Error registrando Resultado :" +err);     
-              else
-              console.log("Result id:" +result._id+" saved.");          
+        
+            shell.echo("Cucumber complete");            
+            Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
+              console.log("Execution id:" +exec1._id+" Executed.");
+              
+              var result = new Result({
+                execution_id:exec1._id 
+              }
+              );
+              // save the app and check for errors
+              result.save(function (err) {
+                  if (err)
+                  console.log("Error registrando Resultado :" +err);     
+                  else
+                  console.log("Result id:" +result._id+" saved.");          
+              });
+
+              var file = new File({
+                result_id:result._id,
+                name: exec1.test_id,
+                url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1.test_id+'.html'
+              }
+              );
+
+              file.save(function (err) {
+                if (err)
+                console.log("Error registrando Archivo :" +err);   
+                else
+                console.log("File id:" +file._id+" saved.");              
+            });
+            });
+
+
           });
-
-          var file = new File({
-            result_id:result._id,
-            name: exec1.test_id,
-            url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1.test_id+'.html'
-          }
-          );
-
-          file.save(function (err) {
-            if (err)
-            console.log("Error registrando Archivo :" +err);   
-            else
-            console.log("File id:" +file._id+" saved.");              
-        });
-        });
-
-
-      });
-   
+        }
+      
+          });
 
       });
   }else{
