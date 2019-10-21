@@ -1,0 +1,109 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2019-10-21T01:17:43.897Z",
+    "end": "2019-10-21T01:17:49.150Z",
+    "duration": 5253,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "7001d53a-32af-46a7-91a6-9b732a103f3f",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1e16da12-7764-4a5f-a776-ed1050924680",
+          "title": "Dollibar Fill a ticket ",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Fill a ticket succesfull",
+              "fullTitle": "Dollibar Fill a ticket  Fill a ticket succesfull",
+              "timedOut": null,
+              "duration": 3980,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "\"assets/5dac64c9956add4152a052be.spec.js/Dollibar Fill a ticket -- Fill a ticket succesfull (failed).png\"",
+              "code": "cy.visit('http://localhost/');\ncy.get('.login_table').find('input[name=\"username\"]').click().type(\"admin\");\ncy.get('.login_table').find('input[name=\"password\"]').click().type(\"Temporal01\");\ncy.get('.login_table').find('input[type=\"submit\"]').click();\ncy.wait(1000);\ncy.contains('Billing').click();\ncy.contains('New invoice').click(); //cy.get('.select2-selection.select2-selection--single.flat.minwidth300').find('.select2-selection__arrow').click().contains('Nels').click()\ncy.get('.select2-selection.select2-selection--single.flat.minwidth300').click();\ncy.get('.select2-search.select2-search--dropdown').find('input[type=\"search\"]').type('{downarrow}{downarrow}{enter}', {\n  force: true\n});\ncy.get('.tabBar.tabBarWithBottom').find('button[name=\"_useless\"]').click();\ncy.get('.tabBar.tabBarWithBottom').find('select[name=\"mode_reglement_id\"]').select('Cash');\ncy.get('.tabBar.tabBarWithBottom').find('textarea[name=\"note_public\"]').click().type(\"Pago de productos comprados\");\ncy.get('div.center').find('input[type=\"submit\"]').click();\ncy.wait(1000);\ncy.get('.arearef.heightref.valignmiddle.centpercent').contains('Nelson Hurtado');\ncy.get('.tabBar').find('select[name=\"type\"]').select('Product');\ncy.get('.tabBar').find('textarea[name=\"dp_desc\"]').click().type(\"Resma de papel\");\ncy.get('.tabBar').find('input[name=\"price_ht\"]').click().type(\"12000\");\ncy.get('.tabBar').find('input[name=\"qty\"]').click().type(\"10\");\ncy.get('.tabBar').find('input[name=\"addline\"]').click();\ncy.wait(1000);\ncy.get('.tabBar').contains('1,320,000.00');",
+              "err": {
+                "message": "ReferenceError: CKEDITOR is not defined",
+                "estack": "ReferenceError: CKEDITOR is not defined\n    at HTMLDocument.<anonymous> (http://localhost/compta/facture/card.php?action=create&leftmenu=:303:29)\n    at j (http://localhost/includes/jquery/js/jquery.min.js?layout=classic&version=9.0.0:2:29948)\n    at k (http://localhost/includes/jquery/js/jquery.min.js?layout=classic&version=9.0.0:2:30262)",
+                "diff": null
+              },
+              "uuid": "2f737a2c-f727-4518-b7c7-15d791f94501",
+              "parentUUID": "1e16da12-7764-4a5f-a776-ed1050924680",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "2f737a2c-f727-4518-b7c7-15d791f94501"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 3980,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "5.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false
+      },
+      "version": "4.1.0"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "4.0.1"
+    }
+  }
+}

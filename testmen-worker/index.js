@@ -7,6 +7,8 @@ const express = require("express");
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
 const srvS3=require('./s3manager');
+const rm = require('rimraf')
+const ls = require('ls')
 
 
 Execution = require('./models/execution.model.js');
@@ -16,6 +18,7 @@ Result = require('./models/result.model.js');
 const STATE_REGISTER='REGISTER';
 const STATE_EXECUTED='EXECUTED';
 const STATE_PENDING='PENDING';
+var isExecution=false;
 
 app = express();
 
@@ -24,8 +27,13 @@ app = express();
 });*/
 // To backup a database
 var task=cron.schedule("*/3 * * * * *", function() {
-  console.log("---------WORKER 001------------");
+  console.log("---------WORKER E2E 001------------");
 
+  if(!isExecution){
+   
+    var pathScirptRemove="./cypress/integration/*.spec.js";     
+    // delete all existing report files
+    removeFiles(pathScirptRemove);
 
 //busca execuciones en estado Register
     Execution.findOneAndUpdate(    
@@ -41,18 +49,20 @@ var task=cron.schedule("*/3 * * * * *", function() {
         var pathSript;
         if(exec1){
           console.log("-execs-"+exec1);
+          isExecution=true;
           //consulta el test para obtener el script
           Test.findById(exec1.test_id, function (err, test) {
               if(err) {
                 return console.log(err);
             }
             pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
+
             //console.log("-------------------------------------------------------------------------");
             var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
             contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
             contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
             
-            //var contentFile=unescape(addScrenErro);
+            contentFileBody=contentFileBody+' '+unescape(addScrenErro);
             //console.log(contentFile);
             fs.writeFile(pathSript,contentFileBody, function(err) {
                if(err) {
@@ -61,27 +71,33 @@ var task=cron.schedule("*/3 * * * * *", function() {
             //  console.log(contentFileBody);
             }); 
 
+            ls("./cypress/integration/*.spec.js", { recurse: true }, file => console.log(`script created ${file.full}`));
+
           console.log("The file "+exec1.test_id+".spec.js was saved!");
 
           console.log("Running Cypress");
 
-          var pathTest='node cypress_runner.js --h true --n '+exec1.test_id;
+          var pathTest='node cypress_runner.js --h true --n '+exec1._id ;
           exec(pathTest, (err, stdout, stderr) => {
             if (err) {
               // node couldn't execute the command
               Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
                 console.log("Execution id:" +exec1._id+".spec.js Failed.");
+                isExecution=false;   
               });
               return;
             }
 
             //se genera reporte en s3
            // srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
+           //var bPathImg='reports/assets/'+exec1.test_id+'.spec.js/Fill a ticket succesfull (failed).png'
+           // srvS3.uploadFile('./cypress/'+bPathImg,bPathImg);
      
             shell.echo("S3 complete"); 
           
          
-            shell.echo("Cypress complete");            
+            shell.echo("Cypress complete");  
+            isExecution=false;          
             Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
               console.log("Execution id:" +exec1._id+" Executed.");
               
@@ -100,7 +116,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
               var file = new File({
                 result_id:result._id,
                 name: exec1.test_id,
-                url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1.test_id+'.html'
+                url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1._id +'.html'
               }
               );
   
@@ -110,6 +126,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
                 else
                 console.log("File id:" +file._id+" saved.");              
             });
+
             });
 
 
@@ -125,7 +142,9 @@ var task=cron.schedule("*/3 * * * * *", function() {
         Execution.updateOne({ _id: exec1.test_id }, { state: STATE_REGISTER }).exec();
 
         console.log("---------WORKER ERROR------------")+err;
+        isExecution=false;
       });
+    }
 
 });
 task.start();
@@ -145,6 +164,15 @@ mongoose.connect(dbConfig.url, {
     process.exit();
 });
 
-//const addScrenErro='\r\n const addContext = require(\'mochawesome\/addContext\')\r\nCypress.on(\'test:after:run\', (test, runnable) => {\r\n    if (test.state === \'failed\') {\r\n    const screenshotFileName = `${runnable.parent.title} -- ${test.title} (failed).png`\r\n    addContext({ test }, `assets\/${Cypress.spec.name}\/${screenshotFileName}`)\r\n  }\r\n})';
+const addScrenErro='%0A%2F%2F%20add%20screen%20error%0Aconst%20addContext%20%3D%20require(%27mochawesome%2FaddContext%27)%0ACypress.on(%27test%3Aafter%3Arun%27%2C%20(test%2C%20runnable)%20%3D%3E%20%7B%0A%20%20%20%20if%20(test.state%20%3D%3D%3D%20%27failed%27)%20%7B%0A%20%20%20%20%20%20%20%20const%20screenshotFileName%20%3D%20%60%24%7Brunnable.parent.title.trim()%7D%20--%20%24%7Btest.title%7D%20(failed).png%60%0A%20%20%20%20%20%20%20%20addContext(%7B%20test%20%7D%2C%20%60assets%2F%24%7BCypress.spec.name%7D%2F%24%7BscreenshotFileName%7D%60)%0A%20%20%20%20%7D%0A%7D)%0A';
 
+function  removeFiles(pathFiles){
 
+  rm(pathFiles, (error) => {
+    if (error) {
+    console.error(`Error while removing existing files: ${error}`)
+    process.exit(1)
+    }
+    console.log('Removing all existing files successfully!')
+    })
+}

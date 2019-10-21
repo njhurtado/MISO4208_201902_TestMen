@@ -1,7 +1,7 @@
 describe('Dollibar under test monkeys', function() {
 
     it('Visits Dollinnar and survives monkeys', function() {
-        cy.visit('http://localhost/dolibarr/')
+        cy.visit('http://localhost/')
         cy.get('.login_table').find('input[name="username"]').click().type("admin")
         cy.get('.login_table').find('input[name="password"]').click().type("Temporal01")
         cy.get('.login_table').find('input[type="submit"]').click()

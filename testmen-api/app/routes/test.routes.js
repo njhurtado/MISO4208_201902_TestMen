@@ -4,6 +4,8 @@ module.exports = (app) => {
 	app.get('/tests', testController.index)
 	//Create a new test
 	app.post('/tests', testController.new)
+	    // Update a Application with AplicationId
+    app.put('/tests/:test_id', testController.update);
 	//Retrieve a single test
 	app.get('/tests/:test_id', testController.view)
 	//Delete a single test

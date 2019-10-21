@@ -33,22 +33,23 @@ const argv = yargs.options({
 
 const reportDir = cypressConfig.reporterOptions.reportDir
 const reportFiles = `${reportDir}/*.json`
+const reportFilesHtml = `${reportDir}/*.html`
 // list all of existing report files
 ls(reportFiles, { recurse: true }, file => console.log(`removing ${file.full}`))
 
 // delete all existing report files
-rm(reportFiles, (error) => {
-    if (error) {
-        console.error(`Error while removing existing report files: ${error}`)
-        process.exit(1)
-    }
-    console.log('Removing all existing report files successfully!')
-})
+removeFiles(reportFiles);
+removeFiles(reportFilesHtml);
+const imageFilesRemove=`${reportDir}/assets/*.spec.js`;
+removeFiles(imageFilesRemove);
+
 
 cypress.run(getOptions(argv)).then((results) => {
     const reporterOptions = {
         reportDir: results.config.reporterOptions.reportDir,
-        reportFilename: argv.name
+        reportFilename: argv.name,
+        screenshotOnRunFailure:true,
+        screenshotsFolder:results.config.screenshotsFolder
     }
     generateReport(reporterOptions)
 }).catch((error) => {
@@ -77,3 +78,13 @@ let mode=argv.headless;
    }
 }
 
+function  removeFiles(pathFiles){
+
+    rm(pathFiles, (error) => {
+      if (error) {
+      console.error(`Error while removing existing files: ${error}`)
+      process.exit(1)
+      }
+      console.log('Removing all existing files successfully!')
+      })
+  }
