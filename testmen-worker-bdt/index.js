@@ -24,7 +24,7 @@ app = express();
 	console.log('Printing this line every minute in the terminal');
 });*/
 // To backup a database
-var task=cron.schedule("*/3 * * * * *", function() {
+var task=cron.schedule("*/2 * * * * *", function() {
 
   console.log(' worker bdt');
   Execution.findOneAndUpdate(    
@@ -72,7 +72,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
           console.log("Running Cucumber");
           if(exec2) {
             pathSript="./features/step-definitions/index.js"
-            contentFileBody=unescape(exec2st.value).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+            contentFileBody=unescape(exec2.value).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
             contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
             contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
             
@@ -96,6 +96,14 @@ var task=cron.schedule("*/3 * * * * *", function() {
               return;
             }
 
+            //Se comprime el archivo allure report
+            pathTest="zip -r " + exec1.test_id + "_reporte.zip . -i /allure-reports/allure/*";
+          exec(pathTest, (err, stdout, stderr) => {
+            if (err) {
+              // node couldn't execute the command
+              console.log("Fails to zip report files");
+              return;
+            }
             //se genera reporte en s3
             //srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
     
@@ -130,6 +138,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
                 console.log("Error registrando Archivo :" +err);   
                 else
                 console.log("File id:" +file._id+" saved.");              
+            });
             });
             });
 
