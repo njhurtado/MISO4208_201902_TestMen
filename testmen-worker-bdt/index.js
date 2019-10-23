@@ -7,7 +7,7 @@ const express = require("express");
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
 const srvS3=require('./s3manager');
-
+const readline = require("readline");
 
 Execution = require('./models/execution.model.js');
 Test = require('./models/test.model.js');
@@ -17,8 +17,90 @@ Result = require('./models/result.model.js');
 const STATE_REGISTER='REGISTER';
 const STATE_EXECUTED='EXECUTED';
 const STATE_PENDING='PENDING';
+const NOMBRE_ARCHIVO = "./tercer.csv";
+const NOMBRE_ARCHIVO_ORIGEN = "./features/createThirdParty.feature";
+const NOMBRE_ARCHIVO_MODIFICADO = "./createThirdParty.feature";
+
+var nombre, email, direccion, alias, zip, pueblo, telefono, contenidoArchivo = "";
 
 app = express();
+
+
+exec('curl "https://api.mockaroo.com/api/95e33690?count=1&key=1483a6f0" > "./tercer.csv"', (err, stdout, stderr) => {
+  if (err) {
+    // node couldn't execute the command
+    console.log("Fails data generation");
+    return;
+  }
+  console.log("Download data");
+});
+   
+ 
+      
+  let lector = readline.createInterface({
+    input: fs.createReadStream(NOMBRE_ARCHIVO)
+    });
+     
+  lector.on("line", lin => {
+      console.log("Tenemos una línea:", lin);
+      var arreglo = lin.split(",");
+      console.log("Tamaño del arrego:"  + arreglo.length);
+      nombre = arreglo[0];
+      email = arreglo[1];
+      direccion = arreglo[2];
+      telefono = arreglo[3];
+      alias = arreglo[4];
+      zip = arreglo[5];
+      pueblo = arreglo[6];   
+  });
+  
+  let lector2 = readline.createInterface({
+    input: fs.createReadStream(NOMBRE_ARCHIVO_ORIGEN)
+    });
+    
+  lector2.on("line", linea => {
+      console.log("Tenemos una línea para modificar:", linea);
+      var modificada;
+      if(linea.indexOf("{nombre}") >= 0) {
+          modificada = linea.replace("{nombre}", nombre);
+      }
+  
+      if(linea.indexOf("{email}") >= 0) {
+          modificada = linea.replace("{email}", email);
+      }
+  
+      if(linea.indexOf("{direccion}") >= 0) {
+          modificada = linea.replace("{direccion}", direccion);
+      } 
+  
+      if(linea.indexOf("{alias}") >= 0) {
+          modificada = linea.replace("{alias}", alias);
+      } 
+  
+      if(linea.indexOf("{zip}") >= 0) {
+          modificada = linea.replace("{zip}", zip);
+      } 
+  
+      if(linea.indexOf("{pueblo}") >= 0) {
+          modificada = linea.replace("{pueblo}", pueblo);
+      } 
+  
+      if(linea.indexOf("{telefono}") >= 0) {
+          modificada = linea.replace("{telefono}", telefono);
+      }  
+  
+      if(!modificada) {
+          modificada = linea;
+      }
+  
+      console.log("Línea modificada:"  + modificada);
+      contenidoArchivo += modificada +"\n";
+      fs.writeFile(NOMBRE_ARCHIVO_MODIFICADO, contenidoArchivo, function(err) {
+          // If an error occurred, show it and return
+          if(err) return console.error(err);
+          // Successfully wrote to the file!
+        }); 
+  });
 
 /*var task = cron.schedule('* * * * *', () => {
 	console.log('Printing this line every minute in the terminal');
