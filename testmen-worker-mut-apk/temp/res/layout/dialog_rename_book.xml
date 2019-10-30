@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:padding="@dimen/dialog_padding" android:layout_width="fill_parent" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditText android:textSize="16.0sp" android:id="@id/input_book_title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="textCapWords" />
-</LinearLayout>

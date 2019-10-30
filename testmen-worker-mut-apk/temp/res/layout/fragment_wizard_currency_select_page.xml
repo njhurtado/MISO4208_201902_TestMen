@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" style="@style/WizardPageContainer"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:text="@string/wizard_title_select_currency" style="@style/WizardPageTitle" />
-    <ListView android:id="@android:id/list" android:tag="currency_list_view" android:padding="@dimen/dialog_padding" android:layout_width="fill_parent" android:layout_height="fill_parent" />
-</LinearLayout>

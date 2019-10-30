@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ProgressBar android:id="@id/toolbar_progress" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="@dimen/toolbar_progress_height" android:indeterminate="true" app:elevation="@dimen/elevation_default" style="?android:progressBarStyleHorizontal"
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

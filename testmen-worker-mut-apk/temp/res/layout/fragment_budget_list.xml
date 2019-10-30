@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/fragment_budget_list" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <org.gnucash.android.ui.util.widget.EmptyRecyclerView android:id="@id/budget_recycler_view" android:paddingBottom="@dimen/card_min_height" android:scrollbars="vertical" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="fill_parent" />
-    <Button android:textColor="@android:color/white" android:gravity="center" android:layout_gravity="center" android:id="@id/empty_view" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Propose Budgets" />
-</LinearLayout>

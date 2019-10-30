@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <include android:id="@id/accounts_options" layout="@layout/radio_group_delete_or_move" />
-    <include android:id="@id/transactions_options" layout="@layout/radio_group_delete_or_move" />
-    <include android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/default_buttons" />
-</LinearLayout>
