@@ -11,16 +11,16 @@ Scenario: Create a third-party succesfull
     Then I expect to see admin
     Then I click modulo Terceros
     Then I click menu Nuevo tercero
-    When I fill name with Evangelina McCurley
-    When I fill alias with Evangelina
+    When I fill name with {nombre}
+    When I fill alias with {alias}
     When I select customer
-    When I fill address with 4 Red Cloud Junction
-    When I fill zipcode with 4384
-    When I fill town with Vlissingen
-    When I fill email with emccurley0@eepurl.com
-    When I fill phone with 616-623-6332
+    When I fill address with {direccion}
+    When I fill zipcode with {zip}
+    When I fill town with {pueblo}
+    When I fill email with {email}
+    When I fill phone with {telefono}
     When I try to create a customer
-    Then I expect to have a new customer Evangelina McCurley 
+    Then I expect to have a new customer {nombre} 
 
 Scenario: Create a ticket succesfull
 

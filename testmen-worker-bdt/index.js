@@ -18,7 +18,7 @@ const STATE_REGISTER='REGISTER';
 const STATE_EXECUTED='EXECUTED';
 const STATE_PENDING='PENDING';
 const NOMBRE_ARCHIVO = "./tercer.csv";
-const NOMBRE_ARCHIVO_ORIGEN = "./features/createThirdParty.feature";
+const NOMBRE_ARCHIVO_ORIGEN = "./plantillaThirdParty.feature";
 const NOMBRE_ARCHIVO_MODIFICADO = "./createThirdParty.feature";
 
 var nombre, email, direccion, alias, zip, pueblo, telefono, contenidoArchivo = "";
@@ -26,7 +26,7 @@ var nombre, email, direccion, alias, zip, pueblo, telefono, contenidoArchivo = "
 app = express();
 
 
-exec('curl "https://api.mockaroo.com/api/95e33690?count=1&key=1483a6f0" > "./tercer.csv"', (err, stdout, stderr) => {
+exec('curl "https://api.mockaroo.com/api/95e33690?count=1&key=1483a6f0" > "./tercerl.csv"', (err, stdout, stderr) => {
   if (err) {
     // node couldn't execute the command
     console.log("Fails data generation");
@@ -60,6 +60,7 @@ exec('curl "https://api.mockaroo.com/api/95e33690?count=1&key=1483a6f0" > "./ter
     
   lector2.on("line", linea => {
       console.log("Tenemos una línea para modificar:", linea);
+      
       var modificada;
       if(linea.indexOf("{nombre}") >= 0) {
           modificada = linea.replace("{nombre}", nombre);
