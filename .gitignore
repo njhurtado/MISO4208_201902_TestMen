@@ -2,3 +2,5 @@
 **/logs
 **/node_modules/
 **/errorShots
+**/temp/
+**/test_servers/
