@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="14.0sp" android:id="@id/account_name" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+    <TextView android:textSize="14.0sp" android:gravity="right" android:id="@id/account_balance" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+</TableRow>

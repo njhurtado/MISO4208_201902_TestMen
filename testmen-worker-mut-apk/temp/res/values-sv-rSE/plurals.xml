@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="book_account_stats">
+        <item quantity="other">%d konton</item>
+        <item quantity="one">%d konto</item>
+    </plurals>
+    <plurals name="book_transaction_stats">
+        <item quantity="other">%d transaktioner</item>
+        <item quantity="one">%d transaktion</item>
+    </plurals>
+    <plurals name="label_every_x_days">
+        <item quantity="other">Varje %d dagar</item>
+        <item quantity="one">Dagligen</item>
+    </plurals>
+    <plurals name="label_every_x_hours">
+        <item quantity="other">Varje %d timme</item>
+        <item quantity="one">Varje timme</item>
+    </plurals>
+    <plurals name="label_every_x_months">
+        <item quantity="other">Varje %d månad</item>
+        <item quantity="one">Månadsvis</item>
+    </plurals>
+    <plurals name="label_every_x_weeks">
+        <item quantity="other">Var %d:e vecka</item>
+        <item quantity="one">Veckovis</item>
+    </plurals>
+    <plurals name="label_every_x_years">
+        <item quantity="other">Varje %d år</item>
+        <item quantity="one">Årligen</item>
+    </plurals>
+    <plurals name="label_sub_accounts">
+        <item quantity="other">%d underkonton</item>
+        <item quantity="one">%d underkonto</item>
+    </plurals>
+</resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="daily">
+        <item quantity="other">Co %d dni</item>
+        <item quantity="one">Raz dziennie</item>
+    </plurals>
+    <plurals name="endByCount">
+        <item quantity="other">; %d razy</item>
+        <item quantity="one">; jeden raz</item>
+    </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="other">Co %d wystapień</item>
+        <item quantity="one">Co %d wystąpienie</item>
+    </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="other">Co %d dni</item>
+        <item quantity="one">Co %d dzień</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="other">Co %d miesięcy</item>
+        <item quantity="one">Co %d miesiąc</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="other">Co %d tygodni</item>
+        <item quantity="one">Co %d tydzień</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="other">Co %d lat</item>
+        <item quantity="one">Co %d rok</item>
+    </plurals>
+    <plurals name="uv_articles">
+        <item quantity="other">artykuły</item>
+        <item quantity="one">artykuł</item>
+    </plurals>
+    <plurals name="uv_comments">
+        <item quantity="other">komentarze</item>
+        <item quantity="one">komentarz</item>
+    </plurals>
+    <plurals name="uv_ideas">
+        <item quantity="other">pomysły</item>
+        <item quantity="one">pomysł</item>
+    </plurals>
+    <plurals name="uv_number_of_subscribers_format">
+        <item quantity="other">%1$s użytkownik chce skorzystać z tego pomysłu</item>
+        <item quantity="one">%1$s użytkowników chce skorzystać z tego pomysłu</item>
+    </plurals>
+    <plurals name="uv_people">
+        <item quantity="other">osoby</item>
+        <item quantity="one">osoba</item>
+    </plurals>
+    <plurals name="uv_subscribers">
+        <item quantity="other">subskrybenci</item>
+        <item quantity="one">subskrybent</item>
+    </plurals>
+    <plurals name="weekly">
+        <item quantity="other">Co %1$d tygodni w %2$s</item>
+        <item quantity="one">Co tydzień w %2$s</item>
+    </plurals>
+</resources>

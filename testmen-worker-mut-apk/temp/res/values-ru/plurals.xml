@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="book_account_stats">
+        <item quantity="other">%d счетов</item>
+        <item quantity="one">%d счета</item>
+        <item quantity="few">%d счета</item>
+        <item quantity="many">%d accounts</item>
+    </plurals>
+    <plurals name="book_transaction_stats">
+        <item quantity="other">%d транзакций</item>
+        <item quantity="one">%d транзакция</item>
+        <item quantity="few">%d транзакции</item>
+        <item quantity="many">%d transactions</item>
+    </plurals>
+    <plurals name="daily">
+        <item quantity="other">Каждые %d дн.</item>
+        <item quantity="one">Ежедневно</item>
+    </plurals>
+    <plurals name="endByCount">
+        <item quantity="other">; для %d раз</item>
+        <item quantity="one">; один раз</item>
+    </plurals>
+    <plurals name="label_every_x_days">
+        <item quantity="other">Каждые %d дней</item>
+        <item quantity="one">Ежедневно</item>
+        <item quantity="few">Каждые %d дня</item>
+        <item quantity="many">Every %d days</item>
+    </plurals>
+    <plurals name="label_every_x_hours">
+        <item quantity="other">Каждые %d часов</item>
+        <item quantity="one">Каждый час</item>
+        <item quantity="few">Каждые %d часа</item>
+        <item quantity="many">Every %d hours</item>
+    </plurals>
+    <plurals name="label_every_x_months">
+        <item quantity="other">Каждые %d месяцев</item>
+        <item quantity="one">Ежемесячно</item>
+        <item quantity="few">Каждые %d месяца</item>
+        <item quantity="many">Every %d months</item>
+    </plurals>
+    <plurals name="label_every_x_weeks">
+        <item quantity="other">Каждые %d недель</item>
+        <item quantity="one">Еженедельно</item>
+        <item quantity="few">Каждые %d недели</item>
+        <item quantity="many">Every %d weeks</item>
+    </plurals>
+    <plurals name="label_every_x_years">
+        <item quantity="other">Каждые %d лет</item>
+        <item quantity="one">Ежегодно</item>
+        <item quantity="few">Каждые %d года</item>
+        <item quantity="many">Every %d years</item>
+    </plurals>
+    <plurals name="label_sub_accounts">
+        <item quantity="other">%d шт. дочерних счетов</item>
+        <item quantity="one">%d дочерний счёт</item>
+        <item quantity="few">%d шт. дочерних счетов</item>
+        <item quantity="many">%d sub-accounts</item>
+    </plurals>
+    <plurals name="recurrence_end_count">
+        <item quantity="other">Для %d событий</item>
+        <item quantity="one">Для %d события</item>
+    </plurals>
+    <plurals name="recurrence_interval_daily">
+        <item quantity="other">Каждые %d дн.</item>
+        <item quantity="one">Каждый %d день</item>
+    </plurals>
+    <plurals name="recurrence_interval_monthly">
+        <item quantity="other">Каждые %d мес.</item>
+        <item quantity="one">Каждый %d месяц</item>
+    </plurals>
+    <plurals name="recurrence_interval_weekly">
+        <item quantity="other">Каждые %d нед.</item>
+        <item quantity="one">Каждую %d неделю</item>
+    </plurals>
+    <plurals name="recurrence_interval_yearly">
+        <item quantity="other">Каждые %d лет</item>
+        <item quantity="one">Каждый %d год</item>
+    </plurals>
+    <plurals name="uv_articles">
+        <item quantity="other">статьи</item>
+        <item quantity="one">статья</item>
+    </plurals>
+    <plurals name="uv_comments">
+        <item quantity="other">комментарии</item>
+        <item quantity="one">комментарий</item>
+    </plurals>
+    <plurals name="uv_ideas">
+        <item quantity="other">идеи</item>
+        <item quantity="one">идея</item>
+    </plurals>
+    <plurals name="uv_number_of_subscribers_format">
+        <item quantity="other">%1$s понравилась эта идея</item>
+        <item quantity="one">%1$s понравилась эта идея</item>
+    </plurals>
+    <plurals name="uv_people">
+        <item quantity="other">люди</item>
+        <item quantity="one">человек</item>
+    </plurals>
+    <plurals name="uv_subscribers">
+        <item quantity="other">подписчики</item>
+        <item quantity="one">подписчик</item>
+    </plurals>
+    <plurals name="weekly">
+        <item quantity="other">Каждые %1$d недель в %2$s</item>
+        <item quantity="one">Еженедельно в %2$s</item>
+    </plurals>
+</resources>

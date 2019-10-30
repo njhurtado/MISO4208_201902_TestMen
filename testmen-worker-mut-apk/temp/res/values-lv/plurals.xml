@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="uv_articles">
+        <item quantity="other">raksti</item>
+        <item quantity="one">raksts</item>
+    </plurals>
+    <plurals name="uv_comments">
+        <item quantity="other">komentāri</item>
+        <item quantity="one">komentārs</item>
+    </plurals>
+    <plurals name="uv_ideas">
+        <item quantity="other">idejas</item>
+        <item quantity="one">ideja</item>
+    </plurals>
+    <plurals name="uv_number_of_subscribers_format">
+        <item quantity="other">%1$s vēlas šo ideju</item>
+        <item quantity="one">%1$s vēlas šo ideju</item>
+    </plurals>
+    <plurals name="uv_people">
+        <item quantity="other">personas</item>
+        <item quantity="one">persona</item>
+    </plurals>
+    <plurals name="uv_subscribers">
+        <item quantity="other">abonenti</item>
+        <item quantity="one">abonents</item>
+    </plurals>
+</resources>

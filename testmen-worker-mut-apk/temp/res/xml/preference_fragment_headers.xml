@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:title="GnuCash Settings"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference android:title="@string/header_general_settings" android:key="@string/key_prefs_header_general" app:fragment="org.gnucash.android.ui.settings.GeneralPreferenceFragment" />
+    <Preference android:title="@string/title_manage_books" app:fragment="org.gnucash.android.ui.settings.BookManagerFragment" />
+    <Preference android:title="@string/header_account_settings" app:fragment="org.gnucash.android.ui.settings.AccountPreferencesFragment" />
+    <Preference android:title="@string/header_transaction_settings" app:fragment="org.gnucash.android.ui.settings.TransactionsPreferenceFragment" />
+    <Preference android:title="@string/header_backup_and_export_settings" app:fragment="org.gnucash.android.ui.settings.BackupPreferenceFragment" />
+    <Preference android:title="@string/header_about_gnucash" app:fragment="org.gnucash.android.ui.settings.AboutPreferenceFragment" />
+    <Preference android:title="@string/label_recommend_app">
+        <intent android:action="android.intent.action.VIEW" android:data="market://details?id=org.gnucash.android" />
+    </Preference>
+</PreferenceScreen>

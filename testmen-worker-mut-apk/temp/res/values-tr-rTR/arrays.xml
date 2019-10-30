@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="account_type_entry_values">
+        <item>NAKİT</item>
+        <item>BANKA</item>
+        <item>KREDİ KARTI</item>
+        <item>VARLIK</item>
+        <item>BORÇ</item>
+        <item>GELİR</item>
+        <item>GİDER</item>
+        <item>ÖDENECEK</item>
+        <item>TAHSİL EDİLECEK</item>
+        <item>ÖZKAYNAK</item>
+        <item>PARA BİRİMİ</item>
+        <item>SERMAYE</item>
+        <item>YATIRIM FONU</item>
+        <item>TİCARİ</item>
+    </string-array>
+    <string-array name="export_destinations">
+        <item>Farklı Kaydet…</item>
+        <item>Dropbox</item>
+        <item>ownCloud</item>
+        <item>Şuna Gönder…</item>
+    </string-array>
+    <string-array name="export_formats">
+        <item>QIF</item>
+        <item>OFX</item>
+        <item>XML</item>
+    </string-array>
+    <string-array name="report_account_types">
+        <item>GİDER</item>
+        <item>GELİR</item>
+    </string-array>
+    <string-array name="report_time_range">
+        <item>Bu ay</item>
+        <item>Son 3 ay</item>
+        <item>Son 6 ay</item>
+        <item>Son 12 ay</item>
+        <item>Tüm zaman</item>
+        <item>Özel aralık…</item>
+    </string-array>
+    <string-array name="transaction_types">
+        <item>KREDİ</item>
+        <item>BANKA</item>
+    </string-array>
+</resources>

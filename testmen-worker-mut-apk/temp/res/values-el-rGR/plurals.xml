@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="book_account_stats">
+        <item quantity="other">%d accounts</item>
+        <item quantity="one">%d account</item>
+    </plurals>
+    <plurals name="book_transaction_stats">
+        <item quantity="other">%d transactions</item>
+        <item quantity="one">%d transaction</item>
+    </plurals>
+    <plurals name="label_every_x_days">
+        <item quantity="other">Every %d days</item>
+        <item quantity="one">Daily</item>
+    </plurals>
+    <plurals name="label_every_x_hours">
+        <item quantity="other">Every %d hours</item>
+        <item quantity="one">Hourly</item>
+    </plurals>
+    <plurals name="label_every_x_months">
+        <item quantity="other">Every %d months</item>
+        <item quantity="one">Monthly</item>
+    </plurals>
+    <plurals name="label_every_x_weeks">
+        <item quantity="other">Every %d weeks</item>
+        <item quantity="one">Weekly</item>
+    </plurals>
+    <plurals name="label_every_x_years">
+        <item quantity="other">Every %d years</item>
+        <item quantity="one">Yearly</item>
+    </plurals>
+    <plurals name="label_sub_accounts">
+        <item quantity="other">%d υπο-λογαριασμοί</item>
+        <item quantity="one">%d υπο-λογαριασμός</item>
+    </plurals>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="book_account_stats">
+        <item quantity="other">%d accounts</item>
+    </plurals>
+    <plurals name="book_transaction_stats">
+        <item quantity="other">%d transactions</item>
+    </plurals>
+    <plurals name="label_every_x_days">
+        <item quantity="other">%d일마다</item>
+    </plurals>
+    <plurals name="label_every_x_hours">
+        <item quantity="other">Every %d hours</item>
+    </plurals>
+    <plurals name="label_every_x_months">
+        <item quantity="other">%d개월마다</item>
+    </plurals>
+    <plurals name="label_every_x_weeks">
+        <item quantity="other">%d주마다</item>
+    </plurals>
+    <plurals name="label_every_x_years">
+        <item quantity="other">%d년마다</item>
+    </plurals>
+    <plurals name="label_sub_accounts">
+        <item quantity="other">%d의 하위 계정</item>
+    </plurals>
+</resources>

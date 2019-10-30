@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:icon="@drawable/content_edit_holo_dark" android:id="@id/context_menu_edit_budget" android:orderInCategory="1" android:title="Edit Budget" app:showAsAction="always" />
+    <item android:icon="@drawable/content_discard_holo_dark" android:id="@id/context_menu_delete" android:orderInCategory="2" android:title="@string/menu_delete" app:showAsAction="ifRoom" />
+</menu>

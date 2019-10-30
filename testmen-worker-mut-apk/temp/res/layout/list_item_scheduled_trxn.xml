@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.gnucash.android.ui.util.widget.CheckableLinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" style="@style/ListItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBox android:id="@id/checkbox" android:focusable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <RelativeLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_weight="1.0" android:layout_marginStart="5.0dip"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+        <TextView android:textSize="15.0sp" android:ellipsize="end" android:id="@id/primary_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_transaction_name" android:singleLine="true" style="@style/ListItemText" />
+        <TextView android:textAppearance="?android:textAppearanceSmall" android:ellipsize="end" android:id="@id/secondary_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_transaction_name" android:maxLines="2" android:singleLine="false" android:layout_below="@id/primary_text" />
+        <TextView android:textAppearance="?android:textAppearanceMedium" android:textColor="@android:color/black" android:ellipsize="start" android:gravity="right" android:id="@id/right_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Amount" android:singleLine="true" android:layout_toRightOf="@id/primary_text" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_toEndOf="@id/primary_text" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</org.gnucash.android.ui.util.widget.CheckableLinearLayout>

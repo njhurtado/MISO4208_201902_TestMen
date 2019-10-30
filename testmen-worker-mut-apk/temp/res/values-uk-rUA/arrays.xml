@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="account_type_entry_values">
+        <item>ГОТІВКА</item>
+        <item>БАНК</item>
+        <item>КРЕДИТНА КАРТКА</item>
+        <item>АКТИВ</item>
+        <item>ПАСИВ</item>
+        <item>ДОХОДИ</item>
+        <item>ВИТРАТИ</item>
+        <item>ОПЛАЧУВАНИЙ</item>
+        <item>ОТРИМУВАНИЙ</item>
+        <item>ЦІННІ ПАПЕРИ</item>
+        <item>ВАЛЮТА</item>
+        <item>АКЦІЇ</item>
+        <item>ВЗАЄМНИЙ ФОНД</item>
+        <item>ТОРГІВЕЛЬНИЙ</item>
+    </string-array>
+    <string-array name="export_destinations">
+        <item>Зберегти як...</item>
+        <item>Dropbox</item>
+        <item>ownCloud</item>
+        <item>Надіслати до...</item>
+    </string-array>
+    <string-array name="export_formats">
+        <item>QIF</item>
+        <item>OFX</item>
+        <item>XML</item>
+    </string-array>
+    <string-array name="report_account_types">
+        <item>ВИТРАТИ</item>
+        <item>ДОХОДИ</item>
+    </string-array>
+    <string-array name="report_time_range">
+        <item>Поточний місяць</item>
+        <item>Останній квартал</item>
+        <item>Останнє півріччя</item>
+        <item>Останній рік</item>
+        <item>Весь час</item>
+        <item>Інший інтервал…</item>
+    </string-array>
+    <string-array name="transaction_types">
+        <item>КРЕДИТ</item>
+        <item>ДЕБЕТ</item>
+    </string-array>
+</resources>

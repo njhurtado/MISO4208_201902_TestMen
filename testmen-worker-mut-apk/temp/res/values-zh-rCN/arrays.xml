@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="account_type_entry_values">
+        <item>现金</item>
+        <item>银行</item>
+        <item>信用卡</item>
+        <item>资产</item>
+        <item>负债</item>
+        <item>收入</item>
+        <item>支出</item>
+        <item>应付账款</item>
+        <item>应收账款</item>
+        <item>所有者权益</item>
+        <item>货币</item>
+        <item>股票</item>
+        <item>共同基金</item>
+        <item>贸易</item>
+    </string-array>
+    <string-array name="export_destinations">
+        <item>另存为...</item>
+        <item>Dropbox</item>
+        <item>ownCloud</item>
+        <item>发送到...</item>
+    </string-array>
+    <string-array name="export_formats">
+        <item>QIF</item>
+        <item>OFX</item>
+        <item>XML</item>
+    </string-array>
+    <string-array name="report_account_types">
+        <item>支出</item>
+        <item>收入</item>
+    </string-array>
+    <string-array name="report_time_range">
+        <item>本月</item>
+        <item>最近3个月</item>
+        <item>最近6个月</item>
+        <item>最近12个月</item>
+        <item>全部时间</item>
+        <item>自定义…</item>
+    </string-array>
+    <string-array name="transaction_types">
+        <item>贷方</item>
+        <item>借方</item>
+    </string-array>
+</resources>

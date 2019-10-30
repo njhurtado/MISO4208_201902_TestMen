@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" style="@style/WizardPageContainer"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:gravity="bottom" android:text="@string/wizard_title_welcome_to_gnucash" android:drawableLeft="@drawable/ic_launcher" android:drawablePadding="10.0dip" style="@style/WizardPageTitle" />
+    <TextView android:textSize="24.0sp" android:gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/edge_padding" android:text="@string/msg_wizard_welcome_page" />
+</LinearLayout>

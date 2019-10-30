@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="account_type_entry_values">
+        <item>현금</item>
+        <item>은행</item>
+        <item>신용카드</item>
+        <item>자산</item>
+        <item>부채</item>
+        <item>소득</item>
+        <item>지출</item>
+        <item>미지급</item>
+        <item>미수금</item>
+        <item>자본</item>
+        <item>통화</item>
+        <item>주식</item>
+        <item>뮤추얼 펀드</item>
+        <item>TRADING</item>
+    </string-array>
+    <string-array name="export_destinations">
+        <item>다른 이름으로 저장...</item>
+        <item>Dropbox</item>
+        <item>ownCloud</item>
+        <item>보내기...</item>
+    </string-array>
+    <string-array name="export_formats">
+        <item>QIF</item>
+        <item>OFX</item>
+        <item>XML</item>
+    </string-array>
+    <string-array name="report_account_types">
+        <item>지출</item>
+        <item>소득</item>
+    </string-array>
+    <string-array name="report_time_range">
+        <item>이번달</item>
+        <item>지난 3개월</item>
+        <item>지난 6개월</item>
+        <item>지난 12개월</item>
+        <item>모든 기간</item>
+        <item>기간 직접 지정</item>
+    </string-array>
+    <string-array name="transaction_types">
+        <item>신용거래</item>
+        <item>직불거래</item>
+    </string-array>
+</resources>

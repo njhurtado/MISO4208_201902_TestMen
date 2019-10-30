@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="book_account_stats">
+        <item quantity="other">%d 勘定</item>
+    </plurals>
+    <plurals name="book_transaction_stats">
+        <item quantity="other">%d 取引</item>
+    </plurals>
+    <plurals name="label_every_x_days">
+        <item quantity="other">%d 日ごと</item>
+    </plurals>
+    <plurals name="label_every_x_hours">
+        <item quantity="other">%d 時間ごと</item>
+    </plurals>
+    <plurals name="label_every_x_months">
+        <item quantity="other">%d ヶ月ごと</item>
+    </plurals>
+    <plurals name="label_every_x_weeks">
+        <item quantity="other">%d 週間ごと</item>
+    </plurals>
+    <plurals name="label_every_x_years">
+        <item quantity="other">%d 年ごと</item>
+    </plurals>
+    <plurals name="label_sub_accounts">
+        <item quantity="other">%d件の補助科目</item>
+    </plurals>
+</resources>

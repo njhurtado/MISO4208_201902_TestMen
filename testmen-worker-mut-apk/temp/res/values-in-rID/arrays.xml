@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="account_type_entry_values">
+        <item>TUNAI</item>
+        <item>BANK</item>
+        <item>KARTU KREDIT</item>
+        <item>ASET</item>
+        <item>LIABILITAS</item>
+        <item>PENDAPATAN</item>
+        <item>PENGELUARAN</item>
+        <item>UTANG</item>
+        <item>PIUTANG</item>
+        <item>EKUITAS</item>
+        <item>MATA UANG</item>
+        <item>SAHAM</item>
+        <item>REKSA DANA</item>
+        <item>PERDAGANGAN</item>
+    </string-array>
+    <string-array name="export_destinations">
+        <item>Simpan sbg…</item>
+        <item>Dropbox</item>
+        <item>ownCloud</item>
+        <item>Kirim ke…</item>
+    </string-array>
+    <string-array name="export_formats">
+        <item>QIF</item>
+        <item>OFX</item>
+        <item>XML</item>
+    </string-array>
+    <string-array name="report_account_types">
+        <item>PENGELUARAN</item>
+        <item>PENDAPATAN</item>
+    </string-array>
+    <string-array name="report_time_range">
+        <item>Bulan berjalan</item>
+        <item>3 bulan terakhir</item>
+        <item>6 bulan terakhir</item>
+        <item>12 bulan terakhir</item>
+        <item>Sepanjang waktu</item>
+        <item>Rentang ubahsuai…</item>
+    </string-array>
+    <string-array name="transaction_types">
+        <item>KREDIT</item>
+        <item>DEBIT</item>
+    </string-array>
+</resources>

@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="account_colors">
+        <item>#ff0b57a4</item>
+        <item>#ff2a82d7</item>
+        <item>#ff3714a4</item>
+        <item>#ff964b00</item>
+        <item>#ffa50516</item>
+        <item>#fffb3c8f</item>
+        <item>#ff1b4f15</item>
+        <item>#ffa51497</item>
+        <item>#ff686868</item>
+        <item>#ff3aa03a</item>
+        <item>#ffff0080</item>
+        <item>#ff8bbdeb</item>
+        <item>#fffc6a6c</item>
+        <item>#fffc1cad</item>
+        <item>#ff7f2b14</item>
+        <item>#ff000066</item>
+        <item>#ff2b4726</item>
+        <item>#fffd7222</item>
+        <item>#fffc331c</item>
+        <item>#fffc5ab8</item>
+        <item>#ffaf31f2</item>
+        <item>#fffc0d1b</item>
+        <item>#ffd7462c</item>
+        <item>#fff69e94</item>
+        <item>#ff2b8a6d</item>
+        <item>#ff6b28ce</item>
+        <item>#ff6041fa</item>
+        <item>#fffec42e</item>
+    </array>
+    <string-array name="account_type_entry_values">
+        <item>CASH</item>
+        <item>BANK</item>
+        <item>CREDIT CARD</item>
+        <item>ASSET</item>
+        <item>LIABILITY</item>
+        <item>INCOME</item>
+        <item>EXPENSE</item>
+        <item>PAYABLE</item>
+        <item>RECEIVABLE</item>
+        <item>EQUITY</item>
+        <item>CURRENCY</item>
+        <item>STOCK</item>
+        <item>MUTUAL FUND</item>
+        <item>TRADING</item>
+    </string-array>
+    <string-array name="backup_country_codes">
+        <item>SX</item>
+        <item>BQ</item>
+        <item>CW</item>
+        <item>SS</item>
+    </string-array>
+    <string-array name="backup_country_names">
+        <item>Sint Maarten</item>
+        <item>Caribbean Netherlands</item>
+        <item>Curaçao</item>
+        <item>South Sudan</item>
+    </string-array>
+    <string-array name="csv_account_headers">
+        <item>Type</item>
+        <item>Full Name</item>
+        <item>Name</item>
+        <item>Code</item>
+        <item>Description</item>
+        <item>Color</item>
+        <item>Notes</item>
+        <item>Commoditym</item>
+        <item>Commodityn</item>
+        <item>Hidden</item>
+        <item>Tax</item>
+        <item>Placeholder</item>
+    </string-array>
+    <string-array name="csv_transaction_headers">
+        <item>Date</item>
+        <item>Transaction ID</item>
+        <item>Number</item>
+        <item>Description</item>
+        <item>Notes</item>
+        <item>Commodity/Currency</item>
+        <item>Void Reason</item>
+        <item>Action</item>
+        <item>Memo</item>
+        <item>Full Account Name</item>
+        <item>Account Name</item>
+        <item>Amount With Sym.</item>
+        <item>Amount Num</item>
+        <item>Reconcile</item>
+        <item>Reconcile Date</item>
+        <item>Rate/Price</item>
+    </string-array>
+    <string-array name="export_destinations">
+        <item>Save As…</item>
+        <item>Dropbox</item>
+        <item>ownCloud</item>
+        <item>Send to…</item>
+    </string-array>
+    <string-array name="export_formats">
+        <item>CSV</item>
+        <item>QIF</item>
+        <item>OFX</item>
+        <item>XML</item>
+    </string-array>
+    <string-array name="image_photo_sources">
+        <item>Pick from gallery</item>
+        <item>Capture new photo</item>
+    </string-array>
+    <string-array name="key_account_type_entries">
+        <item>CASH</item>
+        <item>BANK</item>
+        <item>CREDIT</item>
+        <item>ASSET</item>
+        <item>LIABILITY</item>
+        <item>INCOME</item>
+        <item>EXPENSE</item>
+        <item>PAYABLE</item>
+        <item>RECEIVABLE</item>
+        <item>EQUITY</item>
+        <item>CURRENCY</item>
+        <item>STOCK</item>
+        <item>MUTUAL</item>
+        <item>TRADING</item>
+    </string-array>
+    <string-array name="key_currency_codes">
+        <item>AFN</item>
+        <item>DZD</item>
+        <item>ARS</item>
+        <item>AMD</item>
+        <item>AWG</item>
+        <item>AUD</item>
+        <item>AZN</item>
+        <item>BSD</item>
+        <item>BHD</item>
+        <item>THB</item>
+        <item>PAB</item>
+        <item>BBD</item>
+        <item>BYR</item>
+        <item>BZD</item>
+        <item>BMD</item>
+        <item>VEF</item>
+        <item>BOB</item>
+        <item>BRL</item>
+        <item>BND</item>
+        <item>BGN</item>
+        <item>BIF</item>
+        <item>CAD</item>
+        <item>CVE</item>
+        <item>KYD</item>
+        <item>XOF</item>
+        <item>XAF</item>
+        <item>XPF</item>
+        <item>CLP</item>
+        <item>XTS</item>
+        <item>COP</item>
+        <item>KMF</item>
+        <item>CDF</item>
+        <item>BAM</item>
+        <item>NIO</item>
+        <item>CRC</item>
+        <item>HRK</item>
+        <item>CUC</item>
+        <item>CUP</item>
+        <item>CZK</item>
+        <item>GMD</item>
+        <item>DKK</item>
+        <item>MKD</item>
+        <item>DJF</item>
+        <item>STD</item>
+        <item>DOP</item>
+        <item>VND</item>
+        <item>XCD</item>
+        <item>EGP</item>
+        <item>SVC</item>
+        <item>ETB</item>
+        <item>EUR</item>
+        <item>FKP</item>
+        <item>FJD</item>
+        <item>HUF</item>
+        <item>GHS</item>
+        <item>GIP</item>
+        <item>XAU</item>
+        <item>HTG</item>
+        <item>PYG</item>
+        <item>GNF</item>
+        <item>GYD</item>
+        <item>HKD</item>
+        <item>UAH</item>
+        <item>ISK</item>
+        <item>INR</item>
+        <item>IRR</item>
+        <item>IQD</item>
+        <item>JMD</item>
+        <item>JOD</item>
+        <item>KES</item>
+        <item>PGK</item>
+        <item>LAK</item>
+        <item>KWD</item>
+        <item>MWK</item>
+        <item>AOA</item>
+        <item>MMK</item>
+        <item>GEL</item>
+        <item>LVL</item>
+        <item>LBP</item>
+        <item>ALL</item>
+        <item>HNL</item>
+        <item>SLL</item>
+        <item>LRD</item>
+        <item>LYD</item>
+        <item>SZL</item>
+        <item>LTL</item>
+        <item>LSL</item>
+        <item>MGA</item>
+        <item>MYR</item>
+        <item>MUR</item>
+        <item>MXN</item>
+        <item>MXV</item>
+        <item>MDL</item>
+        <item>MAD</item>
+        <item>MZN</item>
+        <item>BOV</item>
+        <item>NGN</item>
+        <item>ERN</item>
+        <item>NAD</item>
+        <item>NPR</item>
+        <item>ANG</item>
+        <item>ILS</item>
+        <item>RON</item>
+        <item>TWD</item>
+        <item>NZD</item>
+        <item>BTN</item>
+        <item>KPW</item>
+        <item>NOK</item>
+        <item>PEN</item>
+        <item>MRO</item>
+        <item>TOP</item>
+        <item>PKR</item>
+        <item>XPD</item>
+        <item>MOP</item>
+        <item>PHP</item>
+        <item>XPT</item>
+        <item>GBP</item>
+        <item>BWP</item>
+        <item>QAR</item>
+        <item>GTQ</item>
+        <item>ZAR</item>
+        <item>OMR</item>
+        <item>KHR</item>
+        <item>MVR</item>
+        <item>IDR</item>
+        <item>RUB</item>
+        <item>RWF</item>
+        <item>SHP</item>
+        <item>SAR</item>
+        <item>XDR</item>
+        <item>RSD</item>
+        <item>SCR</item>
+        <item>XAG</item>
+        <item>SGD</item>
+        <item>SBD</item>
+        <item>KGS</item>
+        <item>SOS</item>
+        <item>TJS</item>
+        <item>SSP</item>
+        <item>LKR</item>
+        <item>XSU</item>
+        <item>SDG</item>
+        <item>SRD</item>
+        <item>SEK</item>
+        <item>CHF</item>
+        <item>SYP</item>
+        <item>BDT</item>
+        <item>WST</item>
+        <item>TZS</item>
+        <item>KZT</item>
+        <item>XXX</item>
+        <item>TTD</item>
+        <item>MNT</item>
+        <item>TND</item>
+        <item>TRY</item>
+        <item>TMT</item>
+        <item>AED</item>
+        <item>UGX</item>
+        <item>XFU</item>
+        <item>COU</item>
+        <item>CLF</item>
+        <item>UYI</item>
+        <item>UYU</item>
+        <item>USD</item>
+        <item>UZS</item>
+        <item>VUV</item>
+        <item>CHE</item>
+        <item>CHW</item>
+        <item>KRW</item>
+        <item>YER</item>
+        <item>JPY</item>
+        <item>CNY</item>
+        <item>ZMK</item>
+        <item>ZWL</item>
+        <item>PLN</item>
+    </string-array>
+    <string-array name="key_export_format_values">
+        <item>CSVT</item>
+        <item>QIF</item>
+        <item>OFX</item>
+        <item>XML</item>
+    </string-array>
+    <string-array name="key_transaction_type_values">
+        <item>CREDIT</item>
+        <item>DEBIT</item>
+    </string-array>
+    <string-array name="recurrence_freq">
+        <item>REPEAT HOURLY</item>
+        <item>REPEAT DAILY</item>
+        <item>REPEAT WEEKLY</item>
+        <item>REPEAT MONTHLY</item>
+        <item>REPEAT YEARLY</item>
+    </string-array>
+    <string-array name="repeat_by_nth_fri">
+        <item>on every first Friday</item>
+        <item>on every second Friday</item>
+        <item>on every third Friday</item>
+        <item>on every fourth Friday</item>
+        <item>on every last Friday</item>
+    </string-array>
+    <string-array name="repeat_by_nth_mon">
+        <item>on every first Monday</item>
+        <item>on every second Monday</item>
+        <item>on every third Monday</item>
+        <item>on every fourth Monday</item>
+        <item>on every last Monday</item>
+    </string-array>
+    <string-array name="repeat_by_nth_sat">
+        <item>on every first Saturday</item>
+        <item>on every second Saturday</item>
+        <item>on every third Saturday</item>
+        <item>on every fourth Saturday</item>
+        <item>on every last Saturday</item>
+    </string-array>
+    <string-array name="repeat_by_nth_sun">
+        <item>on every first Sunday</item>
+        <item>on every second Sunday</item>
+        <item>on every third Sunday</item>
+        <item>on every fourth Sunday</item>
+        <item>on every last Sunday</item>
+    </string-array>
+    <string-array name="repeat_by_nth_thurs">
+        <item>on every first Thursday</item>
+        <item>on every second Thursday</item>
+        <item>on every third Thursday</item>
+        <item>on every fourth Thursday</item>
+        <item>on every last Thursday</item>
+    </string-array>
+    <string-array name="repeat_by_nth_tues">
+        <item>on every first Tuesday</item>
+        <item>on every second Tuesday</item>
+        <item>on every third Tuesday</item>
+        <item>on every fourth Tuesday</item>
+        <item>on every last Tuesday</item>
+    </string-array>
+    <string-array name="repeat_by_nth_wed">
+        <item>on every first Wednesday</item>
+        <item>on every second Wednesday</item>
+        <item>on every third Wednesday</item>
+        <item>on every fourth Wednesday</item>
+        <item>on every last Wednesday</item>
+    </string-array>
+    <string-array name="report_account_types">
+        <item>EXPENSE</item>
+        <item>INCOME</item>
+    </string-array>
+    <string-array name="report_time_range">
+        <item>Current month</item>
+        <item>Last 3 months</item>
+        <item>Last 6 months</item>
+        <item>Last 12 months</item>
+        <item>All time</item>
+        <item>Custom range…</item>
+    </string-array>
+    <string-array name="timezone_rename_ids">
+        <item>Australia/Darwin</item>
+        <item>Australia/Adelaide</item>
+        <item>Australia/Brisbane</item>
+        <item>Australia/Sydney</item>
+        <item>America/Dawson_Creek</item>
+        <item>America/Regina</item>
+        <item>America/Atikokan</item>
+        <item>America/Blanc-Sablon</item>
+        <item>Pacific/Honolulu</item>
+        <item>America/Adak</item>
+        <item>America/Metlakatla</item>
+        <item>America/Phoenix</item>
+        <item>America/Tijuana</item>
+        <item>America/Ojinaga</item>
+        <item>America/Matamoros</item>
+        <item>America/Hermosillo</item>
+        <item>Africa/Juba</item>
+        <item>America/Kralendijk</item>
+        <item>America/Lower_Princes</item>
+        <item>Europe/Minsk</item>
+        <item>Europe/Kaliningrad</item>
+        <item>America/Porto_Velho</item>
+        <item>America/Belem</item>
+    </string-array>
+    <string-array name="timezone_rename_labels">
+        <item>Australian Central - NT</item>
+        <item>Australian Central - SA</item>
+        <item>Australian Eastern - QLD</item>
+        <item>Australian Eastern - NSW</item>
+        <item>Mountain Standard - Dawson Creek</item>
+        <item>Central Standard - Saskatchewan</item>
+        <item>Eastern Standard - Atikokan</item>
+        <item>Atlantic Standard - Quebec</item>
+        <item>Hawaii-Aleutian - Hawaii</item>
+        <item>Hawaii-Aleutian - Alaska</item>
+        <item>Pacific Standard - Metlakatla</item>
+        <item>Mountain Standard - Arizona</item>
+        <item>Pacific - Baja California</item>
+        <item>Mountain - Chihuahua</item>
+        <item>Central - Tamaulipas</item>
+        <item>Mountain - Sonora</item>
+        <item>East Africa Time</item>
+        <item>Atlantic Standard Time</item>
+        <item>Atlantic Standard Time</item>
+        <item>Eastern European Time</item>
+        <item>Kaliningrad Time</item>
+        <item>Amazon - Rondônia</item>
+        <item>Brasilia - Pará</item>
+    </string-array>
+    <string-array name="transaction_types">
+        <item>CREDIT</item>
+        <item>DEBIT</item>
+    </string-array>
+</resources>

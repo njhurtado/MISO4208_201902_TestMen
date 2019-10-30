@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:id="@id/account_balance_toolbar" android:background="@drawable/abc_ab_share_pack_mtrl_alpha" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="50.0dip" android:layout_alignParentBottom="true" style="@style/ListItem"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:gravity="center|left" android:id="@id/label_sum" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/edge_padding" android:text="@string/label_account_balance" android:layout_weight="1.0" style="@style/ListItemText" />
+    <TextView android:gravity="center|right" android:id="@id/transactions_sum" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/edge_padding" style="@style/ListItemText" />
+</LinearLayout>

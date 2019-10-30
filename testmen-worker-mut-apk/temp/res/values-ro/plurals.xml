@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="uv_articles">
+        <item quantity="other">articole</item>
+        <item quantity="one">articol</item>
+    </plurals>
+    <plurals name="uv_comments">
+        <item quantity="other">comentarii</item>
+        <item quantity="one">comentariu</item>
+    </plurals>
+    <plurals name="uv_ideas">
+        <item quantity="other">idei</item>
+        <item quantity="one">idee</item>
+    </plurals>
+    <plurals name="uv_number_of_subscribers_format">
+        <item quantity="other">%1$s doresc această idee</item>
+        <item quantity="one">%1$s dorește această idee</item>
+    </plurals>
+    <plurals name="uv_people">
+        <item quantity="other">persoane</item>
+        <item quantity="one">persoană</item>
+    </plurals>
+    <plurals name="uv_subscribers">
+        <item quantity="other">abonați</item>
+        <item quantity="one">abonat</item>
+    </plurals>
+</resources>

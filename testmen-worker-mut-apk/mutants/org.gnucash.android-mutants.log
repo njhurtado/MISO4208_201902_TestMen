@@ -1,0 +1,7 @@
+ThreadPool: 8
+Mutant 1: /home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/mutants//org.gnucash.android-mutant1/src//smali/org/gnucash/android/ui/passcode/PasscodeLockActivity.smali; InvalidKeyIntentPutExtra in line { 218 }
+	For mutant 1 extra key value at line 218 has been set to 0ddbd6b217624a909ff329aa3c5af5e8
+Mutant 2: mutants//org.gnucash.android-mutant2/src//AndroidManifest.xml; InvalidActivityPATH in line { 12 }
+	For mutant 2 activity name at line 12 has been change from "org.gnucash.android.ui.account.AccountsActivity" to "org.gnucish.androad.ui.account.AccountsActivity"
+Mutant 3: /home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/mutants//org.gnucash.android-mutant3/src//smali/org/gnucash/android/ui/passcode/PasscodeLockActivity.smali; DifferentActivityIntentDefinition in line { 194 }
+	For mutant 3 component name at line 194 has been change from "Lorg/gnucash/android/ui/passcode/PasscodeLockScreenActivity;" to "Lorg/gnucash/android/ui/budget/BudgetsActivity;"

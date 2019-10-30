@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" style="@style/WizardPageContainer"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView style="@style/WizardPageTitle" />
+    <FrameLayout android:id="@id/frameLayoutImageContainer" style="@style/WizardPageImageContainer">
+        <ImageView android:id="@id/imageView" style="@style/WizardPageImage" />
+    </FrameLayout>
+</LinearLayout>

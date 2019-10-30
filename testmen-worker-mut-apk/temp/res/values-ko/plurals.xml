@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="uv_articles">
+        <item quantity="other">문서</item>
+        <item quantity="one">문서</item>
+    </plurals>
+    <plurals name="uv_comments">
+        <item quantity="other">댓글</item>
+        <item quantity="one">댓글</item>
+    </plurals>
+    <plurals name="uv_ideas">
+        <item quantity="other">아이디어</item>
+        <item quantity="one">아이디어</item>
+    </plurals>
+    <plurals name="uv_number_of_subscribers_format">
+        <item quantity="other">%1$s가 이 아이디어를 원함</item>
+        <item quantity="one">%1$s가 이 아이디어를 원함</item>
+    </plurals>
+    <plurals name="uv_people">
+        <item quantity="other">명의 사용자</item>
+        <item quantity="one">명의 사용자</item>
+    </plurals>
+    <plurals name="uv_subscribers">
+        <item quantity="other">명의 구독자</item>
+        <item quantity="one">명의 구독자</item>
+    </plurals>
+</resources>

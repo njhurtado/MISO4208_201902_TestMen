@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="uv_articles">
+        <item quantity="other">straipsniai</item>
+        <item quantity="one">straipsnis</item>
+    </plurals>
+    <plurals name="uv_comments">
+        <item quantity="other">komentarai</item>
+        <item quantity="one">komentaras</item>
+    </plurals>
+    <plurals name="uv_ideas">
+        <item quantity="other">idėjos</item>
+        <item quantity="one">idėja</item>
+    </plurals>
+    <plurals name="uv_number_of_subscribers_format">
+        <item quantity="other">%1$s nori šios idėjos</item>
+        <item quantity="one">%1$s nori šios idėjos</item>
+    </plurals>
+    <plurals name="uv_people">
+        <item quantity="other">žmonės</item>
+        <item quantity="one">žmogus</item>
+    </plurals>
+    <plurals name="uv_subscribers">
+        <item quantity="other">prenumeratoriai</item>
+        <item quantity="one">prenumeratorius</item>
+    </plurals>
+</resources>

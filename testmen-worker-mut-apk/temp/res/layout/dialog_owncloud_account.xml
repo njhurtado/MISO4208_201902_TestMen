@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditText android:id="@id/owncloud_hostname" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0dip" android:layout_marginTop="16.0dip" android:layout_marginRight="4.0dip" android:layout_marginBottom="4.0dip" android:hint="@string/owncloud_server" android:inputType="textUri" />
+    <TextView android:textColor="@color/debit_red" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/owncloud_hostname_invalid" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <EditText android:id="@id/owncloud_username" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0dip" android:layout_marginTop="16.0dip" android:layout_marginRight="4.0dip" android:layout_marginBottom="4.0dip" android:hint="@string/username" android:inputType="text" />
+    <TextView android:textColor="@color/debit_red" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/owncloud_username_invalid" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <EditText android:id="@id/owncloud_password" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0dip" android:layout_marginTop="4.0dip" android:layout_marginRight="4.0dip" android:layout_marginBottom="16.0dip" android:hint="@string/password" android:inputType="textWebPassword" android:fontFamily="sans-serif" />
+    <EditText android:id="@id/owncloud_dir" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0dip" android:layout_marginTop="16.0dip" android:layout_marginRight="4.0dip" android:layout_marginBottom="4.0dip" android:inputType="textUri" />
+    <TextView android:textColor="@color/debit_red" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/owncloud_dir_invalid" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <include android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/default_buttons" />
+</LinearLayout>

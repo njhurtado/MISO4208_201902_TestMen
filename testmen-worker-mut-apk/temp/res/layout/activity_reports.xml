@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout android:id="@id/drawer_layout" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <ScrollView android:id="@id/fragment_view" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <RelativeLayout android:gravity="center_vertical" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <include android:id="@id/toolbar_layout" layout="@layout/toolbar_with_spinner" />
+                <FrameLayout android:orientation="vertical" android:id="@id/fragment_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/toolbar_layout" />
+            </RelativeLayout>
+        </ScrollView>
+        <View android:id="@id/date_range_divider" android:background="@android:color/darker_gray" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_marginTop="5.0dip" android:layout_below="@id/fragment_view" />
+        <LinearLayout android:id="@id/time_range_layout" android:padding="@dimen/dialog_padding" android:layout_width="fill_parent" android:layout_height="120.0dip" android:weightSum="4.0" android:layout_below="@id/date_range_divider" android:layout_alignParentBottom="true">
+            <TextView android:textSize="14.0sp" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/label_report_period" android:layout_weight="0.8" />
+            <org.gnucash.android.ui.util.widget.ReselectSpinner android:id="@id/time_range_spinner" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.8" />
+            <Spinner android:layout_gravity="right" android:id="@id/report_account_type_spinner" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="5.0dip" android:layout_weight="1.4" android:layout_marginStart="5.0dip" />
+        </LinearLayout>
+    </RelativeLayout>
+    <android.support.design.widget.NavigationView android:layout_gravity="start" android:id="@id/nav_view" android:layout_width="wrap_content" android:layout_height="fill_parent" app:headerLayout="@layout/nav_drawer_header" app:menu="@menu/nav_drawer_menu" />
+</android.support.v4.widget.DrawerLayout>

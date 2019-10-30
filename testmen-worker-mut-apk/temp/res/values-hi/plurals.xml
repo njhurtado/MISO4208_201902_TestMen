@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="uv_articles">
+        <item quantity="other">आलेख</item>
+        <item quantity="one">आलेख</item>
+    </plurals>
+    <plurals name="uv_comments">
+        <item quantity="other">टिप्पणियाँ</item>
+        <item quantity="one">टिप्पणी</item>
+    </plurals>
+    <plurals name="uv_ideas">
+        <item quantity="other">सुझाव</item>
+        <item quantity="one">सुझाव</item>
+    </plurals>
+    <plurals name="uv_number_of_subscribers_format">
+        <item quantity="other">%1$s यह सुझाव चाहते हैं</item>
+        <item quantity="one">%1$s यह सुझाव चाहते हैं</item>
+    </plurals>
+    <plurals name="uv_people">
+        <item quantity="other">लोग</item>
+        <item quantity="one">व्यक्ति</item>
+    </plurals>
+    <plurals name="uv_subscribers">
+        <item quantity="other">सदस्य</item>
+        <item quantity="one">सदस्य</item>
+    </plurals>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="account_type_entry_values">
+        <item>DINHEIRO</item>
+        <item>BANCO</item>
+        <item>CARTÃO CRÉDITO</item>
+        <item>ATIVO</item>
+        <item>PASSIVO</item>
+        <item>RENDIMENTO</item>
+        <item>DESPESA</item>
+        <item>CONTAS A PAGAR</item>
+        <item>CONTAS A RECEBER</item>
+        <item>SITUAÇÃO LÍQUIDA</item>
+        <item>MOEDA</item>
+        <item>AÇÕES</item>
+        <item>FUNDO MÚTUO</item>
+        <item>NEGOCIAÇÃO</item>
+    </string-array>
+    <string-array name="export_destinations">
+        <item>Salvar como…</item>
+        <item>Dropbox</item>
+        <item>ownCloud</item>
+        <item>Enviar para…</item>
+    </string-array>
+    <string-array name="export_formats">
+        <item>QIF</item>
+        <item>OFX</item>
+        <item>XML</item>
+    </string-array>
+    <string-array name="report_account_types">
+        <item>DESPESA</item>
+        <item>RENDIMENTO</item>
+    </string-array>
+    <string-array name="report_time_range">
+        <item>Mês atual</item>
+        <item>Últimos 3 meses</item>
+        <item>Últimos 6 meses</item>
+        <item>Últimos 12 meses</item>
+        <item>Desde o início</item>
+        <item>Intervalo personalizado…</item>
+    </string-array>
+    <string-array name="transaction_types">
+        <item>CRÉDITO</item>
+        <item>DÉBITO</item>
+    </string-array>
+</resources>

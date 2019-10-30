@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="account_type_entry_values">
+        <item>KONTANT</item>
+        <item>BANK</item>
+        <item>KREDITKORT</item>
+        <item>TILLGÅNG</item>
+        <item>ANSVAR</item>
+        <item>INKOMST</item>
+        <item>UTGIFT</item>
+        <item>BETALBAR</item>
+        <item>FORDRAN</item>
+        <item>EGET KAPITAL</item>
+        <item>VALUTA</item>
+        <item>AKTIE</item>
+        <item>ÖMSESIDIG FOND</item>
+        <item>HANDEL</item>
+    </string-array>
+    <string-array name="export_destinations">
+        <item>Spara som…</item>
+        <item>Dropbox</item>
+        <item>ownCloud</item>
+        <item>Skicka till…</item>
+    </string-array>
+    <string-array name="export_formats">
+        <item>QIF</item>
+        <item>OFX</item>
+        <item>XML</item>
+    </string-array>
+    <string-array name="report_account_types">
+        <item>UTGIFT</item>
+        <item>INKOMST</item>
+    </string-array>
+    <string-array name="report_time_range">
+        <item>Aktuell månad</item>
+        <item>Senaste 3 månader</item>
+        <item>Senaste 6 månader</item>
+        <item>Senaste 12 månader</item>
+        <item>All tid</item>
+        <item>Eget intervall…</item>
+    </string-array>
+    <string-array name="transaction_types">
+        <item>KREDIT</item>
+        <item>DEBIT</item>
+    </string-array>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="uv_articles">
+        <item quantity="other">bài viết</item>
+        <item quantity="one">bài viết</item>
+    </plurals>
+    <plurals name="uv_comments">
+        <item quantity="other">nhận xét</item>
+        <item quantity="one">nhận xét</item>
+    </plurals>
+    <plurals name="uv_ideas">
+        <item quantity="other">ý tưởng</item>
+        <item quantity="one">ý tưởng</item>
+    </plurals>
+    <plurals name="uv_number_of_subscribers_format">
+        <item quantity="other">%1$s muốn ý tưởng này</item>
+        <item quantity="one">%1$s muốn ý tưởng này</item>
+    </plurals>
+    <plurals name="uv_people">
+        <item quantity="other">mọi người</item>
+        <item quantity="one">người</item>
+    </plurals>
+    <plurals name="uv_subscribers">
+        <item quantity="other">người đăng ký</item>
+        <item quantity="one">người đăng ký</item>
+    </plurals>
+</resources>
