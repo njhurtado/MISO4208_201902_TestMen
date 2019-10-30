@@ -7,7 +7,7 @@ const express = require("express");
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
 const srvS3=require('./s3manager');
-
+const readline = require("readline");
 
 Execution = require('./models/execution.model.js');
 Test = require('./models/test.model.js');
@@ -17,14 +17,97 @@ Result = require('./models/result.model.js');
 const STATE_REGISTER='REGISTER';
 const STATE_EXECUTED='EXECUTED';
 const STATE_PENDING='PENDING';
+const NOMBRE_ARCHIVO = "./tercer.csv";
+const NOMBRE_ARCHIVO_ORIGEN = "./plantillaThirdParty.feature";
+const NOMBRE_ARCHIVO_MODIFICADO = "./createThirdParty.feature";
+
+var nombre, email, direccion, alias, zip, pueblo, telefono, contenidoArchivo = "";
 
 app = express();
+
+
+exec('curl "https://api.mockaroo.com/api/95e33690?count=1&key=1483a6f0" > "./tercerl.csv"', (err, stdout, stderr) => {
+  if (err) {
+    // node couldn't execute the command
+    console.log("Fails data generation");
+    return;
+  }
+  console.log("Download data");
+});
+   
+ 
+      
+  let lector = readline.createInterface({
+    input: fs.createReadStream(NOMBRE_ARCHIVO)
+    });
+     
+  lector.on("line", lin => {
+      console.log("Tenemos una línea:", lin);
+      var arreglo = lin.split(",");
+      console.log("Tamaño del arrego:"  + arreglo.length);
+      nombre = arreglo[0];
+      email = arreglo[1];
+      direccion = arreglo[2];
+      telefono = arreglo[3];
+      alias = arreglo[4];
+      zip = arreglo[5];
+      pueblo = arreglo[6];   
+  });
+  
+  let lector2 = readline.createInterface({
+    input: fs.createReadStream(NOMBRE_ARCHIVO_ORIGEN)
+    });
+    
+  lector2.on("line", linea => {
+      console.log("Tenemos una línea para modificar:", linea);
+      
+      var modificada;
+      if(linea.indexOf("{nombre}") >= 0) {
+          modificada = linea.replace("{nombre}", nombre);
+      }
+  
+      if(linea.indexOf("{email}") >= 0) {
+          modificada = linea.replace("{email}", email);
+      }
+  
+      if(linea.indexOf("{direccion}") >= 0) {
+          modificada = linea.replace("{direccion}", direccion);
+      } 
+  
+      if(linea.indexOf("{alias}") >= 0) {
+          modificada = linea.replace("{alias}", alias);
+      } 
+  
+      if(linea.indexOf("{zip}") >= 0) {
+          modificada = linea.replace("{zip}", zip);
+      } 
+  
+      if(linea.indexOf("{pueblo}") >= 0) {
+          modificada = linea.replace("{pueblo}", pueblo);
+      } 
+  
+      if(linea.indexOf("{telefono}") >= 0) {
+          modificada = linea.replace("{telefono}", telefono);
+      }  
+  
+      if(!modificada) {
+          modificada = linea;
+      }
+  
+      console.log("Línea modificada:"  + modificada);
+      contenidoArchivo += modificada +"\n";
+      fs.writeFile(NOMBRE_ARCHIVO_MODIFICADO, contenidoArchivo, function(err) {
+          // If an error occurred, show it and return
+          if(err) return console.error(err);
+          // Successfully wrote to the file!
+        }); 
+  });
 
 /*var task = cron.schedule('* * * * *', () => {
 	console.log('Printing this line every minute in the terminal');
 });*/
 // To backup a database
-var task=cron.schedule("*/3 * * * * *", function() {
+var task=cron.schedule("*/2 * * * * *", function() {
 
   console.log(' worker bdt');
   Execution.findOneAndUpdate(    
@@ -72,7 +155,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
           console.log("Running Cucumber");
           if(exec2) {
             pathSript="./features/step-definitions/index.js"
-            contentFileBody=unescape(exec2st.value).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+            contentFileBody=unescape(exec2.value).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
             contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
             contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
             
@@ -96,6 +179,14 @@ var task=cron.schedule("*/3 * * * * *", function() {
               return;
             }
 
+            //Se comprime el archivo allure report
+            pathTest="zip -r " + exec1.test_id + "_reporte.zip . -i /allure-reports/allure/*";
+          exec(pathTest, (err, stdout, stderr) => {
+            if (err) {
+              // node couldn't execute the command
+              console.log("Fails to zip report files");
+              return;
+            }
             //se genera reporte en s3
             //srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
     
@@ -130,6 +221,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
                 console.log("Error registrando Archivo :" +err);   
                 else
                 console.log("File id:" +file._id+" saved.");              
+            });
             });
             });
 

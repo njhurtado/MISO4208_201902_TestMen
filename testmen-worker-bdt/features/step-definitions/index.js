@@ -179,5 +179,3 @@ defineSupportCode(({Given, When, Then}) => {
    });
 
 });
-
-
