@@ -22,6 +22,12 @@ var ExecutionSchema = mongoose.Schema({
     test_mode: {
         type: String
     },
+    mutation: {
+        type: String
+    },
+    mutation_value: {
+        type: String
+    },
     schedule: {
         type: Date,
         default: Date.now

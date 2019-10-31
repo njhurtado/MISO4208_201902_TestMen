@@ -1,346 +1,5 @@
 {
 	"1":{
-		"mutationTypeID":"4",
-		"mutationTypeName":"InvalidKeyIntentPutExtra",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/ui/passcode/PasscodeLockActivity.smali",
-		"line":"229",
-		"startLine":"229",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"2":{
-		"mutationTypeID":"4",
-		"mutationTypeName":"InvalidKeyIntentPutExtra",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/export/ExportAsyncTask.smali",
-		"line":"2036",
-		"startLine":"2036",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"3":{
-		"mutationTypeID":"4",
-		"mutationTypeName":"InvalidKeyIntentPutExtra",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/export/ExportAsyncTask.smali",
-		"line":"2095",
-		"startLine":"2095",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"4":{
-		"mutationTypeID":"4",
-		"mutationTypeName":"InvalidKeyIntentPutExtra",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/export/ExportAsyncTask.smali",
-		"line":"1991",
-		"startLine":"1991",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"5":{
-		"mutationTypeID":"4",
-		"mutationTypeName":"InvalidKeyIntentPutExtra",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/model/Transaction.smali",
-		"line":"441",
-		"startLine":"441",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"6":{
-		"mutationTypeID":"4",
-		"mutationTypeName":"InvalidKeyIntentPutExtra",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/model/Transaction.smali",
-		"line":"432",
-		"startLine":"432",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"7":{
-		"mutationTypeID":"4",
-		"mutationTypeName":"InvalidKeyIntentPutExtra",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/model/Transaction.smali",
-		"line":"423",
-		"startLine":"423",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"8":{
-		"mutationTypeID":"4",
-		"mutationTypeName":"InvalidKeyIntentPutExtra",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/model/Transaction.smali",
-		"line":"496",
-		"startLine":"496",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"9":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"12",
-		"startLine":"12",
-		"endLine":"12",
-		"startColumn":"65",
-		"endColumn":"112",
-		"length":"-1"
-	},
-	"10":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"36",
-		"startLine":"36",
-		"endLine":"36",
-		"startColumn":"32",
-		"endColumn":"90",
-		"length":"-1"
-	},
-	"11":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"37",
-		"startLine":"37",
-		"endLine":"37",
-		"startColumn":"32",
-		"endColumn":"91",
-		"length":"-1"
-	},
-	"12":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"38",
-		"startLine":"38",
-		"endLine":"38",
-		"startColumn":"32",
-		"endColumn":"90",
-		"length":"-1"
-	},
-	"13":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"39",
-		"startLine":"39",
-		"endLine":"39",
-		"startColumn":"32",
-		"endColumn":"87",
-		"length":"-1"
-	},
-	"14":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"40",
-		"startLine":"40",
-		"endLine":"40",
-		"startColumn":"117",
-		"endColumn":"178",
-		"length":"-1"
-	},
-	"15":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"45",
-		"startLine":"45",
-		"endLine":"45",
-		"startColumn":"79",
-		"endColumn":"121",
-		"length":"-1"
-	},
-	"16":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"46",
-		"startLine":"46",
-		"endLine":"46",
-		"startColumn":"79",
-		"endColumn":"139",
-		"length":"-1"
-	},
-	"17":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"47",
-		"startLine":"47",
-		"endLine":"47",
-		"startColumn":"63",
-		"endColumn":"108",
-		"length":"-1"
-	},
-	"18":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"48",
-		"startLine":"48",
-		"endLine":"48",
-		"startColumn":"63",
-		"endColumn":"108",
-		"length":"-1"
-	},
-	"19":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"49",
-		"startLine":"49",
-		"endLine":"49",
-		"startColumn":"32",
-		"endColumn":"84",
-		"length":"-1"
-	},
-	"20":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"50",
-		"startLine":"50",
-		"endLine":"50",
-		"startColumn":"32",
-		"endColumn":"82",
-		"length":"-1"
-	},
-	"21":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"51",
-		"startLine":"51",
-		"endLine":"51",
-		"startColumn":"109",
-		"endColumn":"146",
-		"length":"-1"
-	},
-	"22":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"95",
-		"startLine":"95",
-		"endLine":"95",
-		"startColumn":"57",
-		"endColumn":"108",
-		"length":"-1"
-	},
-	"23":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"97",
-		"startLine":"97",
-		"endLine":"97",
-		"startColumn":"32",
-		"endColumn":"82",
-		"length":"-1"
-	},
-	"24":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"98",
-		"startLine":"98",
-		"endLine":"98",
-		"startColumn":"32",
-		"endColumn":"81",
-		"length":"-1"
-	},
-	"25":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"99",
-		"startLine":"99",
-		"endLine":"99",
-		"startColumn":"32",
-		"endColumn":"83",
-		"length":"-1"
-	},
-	"26":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"100",
-		"startLine":"100",
-		"endLine":"100",
-		"startColumn":"32",
-		"endColumn":"81",
-		"length":"-1"
-	},
-	"27":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"101",
-		"startLine":"101",
-		"endLine":"101",
-		"startColumn":"94",
-		"endColumn":"145",
-		"length":"-1"
-	},
-	"28":{
-		"mutationTypeID":"3",
-		"mutationTypeName":"InvalidActivityPATH",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"102",
-		"startLine":"102",
-		"endLine":"102",
-		"startColumn":"94",
-		"endColumn":"146",
-		"length":"-1"
-	},
-	"29":{
-		"mutationTypeID":"2",
-		"mutationTypeName":"DifferentActivityIntentDefinition",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/ui/passcode/PasscodeLockActivity.smali",
-		"line":"196",
-		"startLine":"196",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"30":{
-		"mutationTypeID":"2",
-		"mutationTypeName":"DifferentActivityIntentDefinition",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/app/GnuCashApplication.smali",
-		"line":"845",
-		"startLine":"845",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"31":{
-		"mutationTypeID":"2",
-		"mutationTypeName":"DifferentActivityIntentDefinition",
-		"filePath":"/home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/temp/smali/org/gnucash/android/service/ScheduledActionService.smali",
-		"line":"33",
-		"startLine":"33",
-		"endLine":"-1",
-		"startColumn":"-1",
-		"endColumn":"-1",
-		"length":"-1"
-	},
-	"32":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -351,7 +10,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"33":{
+	"2":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -362,7 +21,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"34":{
+	"3":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -373,7 +32,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"35":{
+	"4":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -384,7 +43,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"36":{
+	"5":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -395,7 +54,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"37":{
+	"6":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -406,7 +65,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"38":{
+	"7":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -417,7 +76,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"39":{
+	"8":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -428,7 +87,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"40":{
+	"9":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -439,7 +98,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"41":{
+	"10":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -450,7 +109,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"42":{
+	"11":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -461,7 +120,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"43":{
+	"12":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -472,7 +131,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"44":{
+	"13":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -483,7 +142,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"45":{
+	"14":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -494,7 +153,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"46":{
+	"15":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -505,7 +164,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"47":{
+	"16":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -516,7 +175,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"48":{
+	"17":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -527,7 +186,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"49":{
+	"18":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -538,7 +197,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"50":{
+	"19":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -549,7 +208,7 @@
 		"endColumn":"-1",
 		"length":"-1"
 	},
-	"51":{
+	"20":{
 		"mutationTypeID":"1",
 		"mutationTypeName":"ActivityNotDefined",
 		"filePath":"temp/AndroidManifest.xml",
@@ -558,28 +217,6 @@
 		"endLine":"102",
 		"startColumn":"-1",
 		"endColumn":"-1",
-		"length":"-1"
-	},
-	"52":{
-		"mutationTypeID":"5",
-		"mutationTypeName":"InvalidLabel",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"12",
-		"startLine":"12",
-		"endLine":"12",
-		"startColumn":"33",
-		"endColumn":"49",
-		"length":"-1"
-	},
-	"53":{
-		"mutationTypeID":"5",
-		"mutationTypeName":"InvalidLabel",
-		"filePath":"temp/AndroidManifest.xml",
-		"line":"40",
-		"startLine":"40",
-		"endLine":"40",
-		"startColumn":"67",
-		"endColumn":"101",
 		"length":"-1"
 	}
 }

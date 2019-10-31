@@ -12,11 +12,12 @@ var isExecution=false;
 const rm = require('rimraf')
 var _pathAPK="/org.gnucash.android_2018-06-27.apk";
 var _pkgAPK="org.gnucash.android";
-var _numMut=5;
+var _numMut=1;
 var _sdkAndroidHome='/home/eanunezt/Android/Sdk';
 var _EmulatorAvd='@Nexus_5X_PLAY_64';
-var _pathMutApk='./mutants/'+_pkgAPK+'-mutant3';
+var _pathMutApk='./mutants/'+_pkgAPK+'-mutant1';
 var _dir=__dirname;
+var _pathSript="features";
 
 
 
@@ -25,75 +26,120 @@ Test = require('./models/test.model.js');
 
 app = express();
 var _execution;
+var _test;
 async function  getExecution() {
-  let execution= await Execution.findOneAndUpdate({ state:'EXECUTED' },{ $set: { state: 'EXECUTED' } }, {returnNewDocument: true});
+  let execution= await Execution.findOneAndUpdate({ state:'REGISTER', test_type:'BDT',mutation:'S',app_type: 'MOVIL' },{ $set: { state: 'PENDING' } }, {returnNewDocument: true});
     return (execution);
 }
 
 
-var task=cron.schedule("*/6 * * * * *", function() {
+var task=cron.schedule("*/6 * * * * *", async function() {
   console.log("---------WORKER mut apk------------");
   if(!isExecution){
-  
- getExecution()
-  .then(async execution=>{
-     // console.log("1. Execution on state Register"+JSON.stringify(execution)); 
-     _execution=execution;
-    await process.chdir(_dir);
-    await rmMutFiles();
-    isExecution=true;
-    
-    }  
-    )
-  .then(async func=>{
-   
-    var pathAPK='java -jar MutAPK-0.0.1.jar '+ _pathAPK+' '+_pkgAPK+' mutants/ extra/ . true '+ _numMut;
-     //java -jar MutAPK-0.0.1.jar org.gnucash.android_2018-06-27.apk org.gnucash.android ./mutants/ ./extra ./ true 5?
-     console.log("create mutations"+pathAPK); 
-   return  createMutAPK(pathAPK);
-   
-   })
-   .then(async func=>{
-    
-    //if(!isExecution)
-    ///home/eanunezt/Android/Sdk/tools/emulator -avd Nexus_5X_PLAY_64 -port 5556
-    return openEmulator(_sdkAndroidHome+'/tools/emulator '+_EmulatorAvd+' -port 5556 -no-boot-anim');
-   })
-   .then(async func=>{
-   
-    return checkEmulatorRun();
-   })
-   .then( async func=>{
-    
-    return copyFolder('./features/', _pathMutApk+'/features/');;
-   })
-   .then(async func=>{
-    await process.chdir(_pathMutApk);   
-    return execShellCommand('calabash-android resign *-aligned-debugSigned.apk '); 
-   })
-   .then(async func=>{
-    
-   // await process.chdir('cd ..');
-  //  await process.chdir('cd ..');
-    return execShellCommand('calabash-android run *-aligned-debugSigned.apk '); 
-   })
-   .then(async func=>{
-    
-    return execShellCommand(_sdkAndroidHome+'/platform-tools/adb -s emulator-5556 emu kill');
+  await   getExecution().then(async execution=>{
+      _execution= new Promise(resolve=>{
+        resolve(execution)
+    });
       
+      if(execution){
 
-   })
-   .then(async func=>{
-    await sleep(3000)
-    isExecution=false;
-    console.log("okkkkk"); 
-   })
+       await Test.findById(execution.test_id, function (err, test) {
+          if(err) {
+            return console.log(err);
+        }
+        _test=test;
+        isExecution=true;
+        
+       
+      });
 
-   .catch(err => {
-   
-    console.log('Could not close process. Exiting now...', err);
-    process.exit();
-});
+        
+      } else {
+        _execution=null;
+      }
+    }
+
+    );
+  if(_execution){
+    _execution.then(async exec1=>{
+      console.log("------------>>"+exec1);
+      await process.chdir(_dir);
+      await rmMutFiles();
+      isExecution=true;
+
+
+      _pathSript="/features/"+_test._id+".feature";
+
+      //console.log("-------------------------------------------------------------------------");
+      var contentFileBody=unescape(_test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+      contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
+      contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
+      
+      //contentFileBody=contentFileBody+' '+unescape(addScrenErro);
+     // console.log(contentFileBody);
+     await fs.writeFile(_pathSript,contentFileBody, function(err) {
+         if(err) {
+            return console.log(err);
+          }
+        console.log(contentFileBody);
+      }); 
+      
+      }  
+      )
+    .then(async func=>{
+     
+      var pathAPK='java -jar MutAPK-0.0.1.jar '+ _pathAPK+' '+_pkgAPK+' mutants/ extra/ . true '+ _numMut;
+       //java -jar MutAPK-0.0.1.jar org.gnucash.android_2018-06-27.apk org.gnucash.android ./mutants/ ./extra ./ true 5?
+       console.log("create mutations"+pathAPK); 
+     return  createMutAPK(pathAPK);
+     
+     })
+     .then(async func=>{
+      
+      //if(!isExecution)
+      ///home/eanunezt/Android/Sdk/tools/emulator -avd Nexus_5X_PLAY_64 -port 5556
+      return openEmulator(_sdkAndroidHome+'/tools/emulator '+_EmulatorAvd+' -port 5556 -no-boot-anim');
+     })
+     .then(async func=>{
+     
+      return checkEmulatorRun();
+     })
+     .then( async func=>{
+      
+      return copyFolder('./features/', _pathMutApk+'/features/');;
+     })
+     .then(async func=>{
+      await process.chdir(_pathMutApk);   
+      return execShellCommand('calabash-android resign *-aligned-debugSigned.apk '); 
+     })
+     .then(async func=>{
+      
+     // await process.chdir('cd ..');
+    //  await process.chdir('cd ..');
+      return execShellCommand('calabash-android run *-aligned-debugSigned.apk '); 
+     })
+     .then(async func=>{
+      
+      return execShellCommand(_sdkAndroidHome+'/platform-tools/adb -s emulator-5556 emu kill');
+        
+  
+     })
+     .then(async func=>{
+      await sleep(3000)
+      isExecution=false;
+      _execution=null;
+      console.log("okkkkk"); 
+     })
+  
+     .catch(err => {
+     
+      console.log('Could not close process. Exiting now...', err);
+      process.exit();
+  });
+  }else {
+    console.log('not process to run now...');
+  }
+
  
   }
 });
@@ -130,6 +176,7 @@ async function  rmMutFiles(){
 
   await removeFiles('mutants/*');
   await removeFiles('temp/*');
+  await removeFiles('features/*.feature');
   await removeFiles('*.png');
  
  }
@@ -198,7 +245,7 @@ function copyFolder(source, target) {
     fsExtra.copy(source, target, (err) => {
       if (err) 
       throw err;
-      console.log('features was copied to mutant5');
+      console.log('features was copied to mutant'+_numMut);
       resolve('OK REMOVE FOLDERS');
     });
    });

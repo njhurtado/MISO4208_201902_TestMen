@@ -1,0 +1,4 @@
+2	=	SDKVersion
+3	=	BluetoothAdapterAlwaysEnabled
+4	=	InvalidDate
+5	=	InvalidURI

@@ -85,7 +85,11 @@ exports.update = (req, res) => {
                 description:req.body.description,
                 version_id:req.body.version_id,
                 tool_id:req.body.tool_id,
-                aplication_id:ver.aplication_id
+                aplication_id:ver.aplication_id,
+                //state:req.body.state,
+                mutation:req.body.mutation,
+                mutation_value:req.body.mutation_value
+
             }, {new: true})
             .then(test => {
                 if(!test) {
