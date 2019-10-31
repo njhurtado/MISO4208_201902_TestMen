@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
 
-const ParamSchema = mongoose.Schema({
-    param: {
+const ToolSchema = mongoose.Schema({
+    name: {
         type: String,
         required: true
     },
-    value: {
-        type: String,
-        required: true
+    version: String,
+	test_id: {
+        type: String
     },
-    test_id: String,
 },
 //Mongoose uses this option to automatically add two new fields - createdAt and updatedAt to the schema.
 {
 	timestamps: true
 });
 
-module.exports = mongoose.model('Param', ParamSchema);
+module.exports = mongoose.model('Tool', ToolSchema);

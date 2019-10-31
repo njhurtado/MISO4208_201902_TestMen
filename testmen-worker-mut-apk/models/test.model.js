@@ -19,6 +19,10 @@ var testSchema = mongoose.Schema({
         type: String,
         rquired:true
     },
+    aplication_id: {
+        type: String,
+        required: true
+    },
     version_id: {
         type: String,
         required: true
@@ -27,6 +31,14 @@ var testSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    mutation: {
+        type: String,
+        default: 'N' 
+    },
+    mutation_value: {
+        type: String
+    },
+
 	params: [{
         param: String,
     }],

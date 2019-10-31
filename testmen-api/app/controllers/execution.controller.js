@@ -45,6 +45,8 @@ exports.new = function (req, res) {
         res.json(err);
             execution.test_type=test.type;
             execution.test_mode=test.mode;
+            execution.mutation=test.mutation;
+            execution.mutation_value=test.mutation_value;
             console.log(test.aplication_id);
 
             Application.findById(test.aplication_id, function (err, app) {

@@ -13,6 +13,15 @@ var ExecutionSchema = mongoose.Schema({
         required: true,
         enum: ['REGISTER', 'EXECUTED','PENDING']
     },
+    app_type: {
+        type: String
+    },
+    test_type: {
+        type: String
+    },
+    test_mode: {
+        type: String
+    },
     schedule: {
         type: Date,
         default: Date.now

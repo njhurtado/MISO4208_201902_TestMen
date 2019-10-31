@@ -31,6 +31,14 @@ var testSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    mutation: {
+        type: String,
+        default: 'N' 
+    },
+    mutation_value: {
+        type: String
+    },
+
 	params: [{
         param: String,
     }],
