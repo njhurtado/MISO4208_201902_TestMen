@@ -12,10 +12,10 @@ var isExecution=false;
 const rm = require('rimraf')
 var _pathAPK="/org.gnucash.android_2018-06-27.apk";
 var _pkgAPK="org.gnucash.android";
-var _numMut=1;
+var _numMut=5;
 var _sdkAndroidHome='/home/eanunezt/Android/Sdk';
 var _EmulatorAvd='@Nexus_5X_PLAY_64';
-var _pathMutApk='./mutants/'+_pkgAPK+'-mutant1';
+var _pathMutApk='./mutants/'+_pkgAPK+'-mutant5';
 var _dir=__dirname;
 var _pathSript="features";
 
@@ -36,14 +36,14 @@ async function  getExecution() {
 var task=cron.schedule("*/6 * * * * *", async function() {
   console.log("---------WORKER mut apk------------");
   if(!isExecution){
-  await   getExecution().then(async execution=>{
+  await   getExecution().then( execution=>{
       _execution= new Promise(resolve=>{
         resolve(execution)
     });
       
       if(execution){
 
-       await Test.findById(execution.test_id, function (err, test) {
+        Test.findById(execution.test_id, function (err, test) {
           if(err) {
             return console.log(err);
         }
@@ -66,6 +66,7 @@ var task=cron.schedule("*/6 * * * * *", async function() {
       await process.chdir(_dir);
       await rmMutFiles();
       isExecution=true;
+      return;
       }  
       )
     .then( func=>{
@@ -74,12 +75,13 @@ var task=cron.schedule("*/6 * * * * *", async function() {
        //java -jar MutAPK-0.0.1.jar org.gnucash.android_2018-06-27.apk org.gnucash.android ./mutants/ ./extra ./ true 5?
        console.log("create mutations"+pathAPK); 
      return  createMutAPK(pathAPK);
-     
+     //return;
      })
      .then( func=>{
       
       //if(!isExecution)
       ///home/eanunezt/Android/Sdk/tools/emulator -avd Nexus_5X_PLAY_64 -port 5556
+       
       return openEmulator(_sdkAndroidHome+'/tools/emulator '+_EmulatorAvd+' -port 5556 -no-boot-anim');
      })
      .then( func=>{
@@ -88,18 +90,23 @@ var task=cron.schedule("*/6 * * * * *", async function() {
      })
      .then(  func=>{
 
-      return copyFolder('./features/', _pathMutApk+'/features/');;
+     return copyFolder('./features/', _pathMutApk+'/features/');;
+    // return;
      })
-     .then(async func=>{
-      await process.chdir(_pathMutApk);   
+     .then( async func=>{
+     await  process.chdir(_pathMutApk);   
+      console.log("execShellCommand--->"+_pathMutApk);
+      return execShellCommand('calabash-android resign *-aligned-debugSigned.apk'); 
+     })
+     .then( async func=>{
+      await sleep(9000)
+      console.log("execShellCommand 2--->"+func);
+      //return ;
       return execShellCommand('calabash-android run *-aligned-debugSigned.apk'); 
      })
      .then( async func=>{
-      
-      return execShellCommand('calabash-android resign *-aligned-debugSigned.apk'); 
-     })
-     .then( func=>{
-      
+      console.log("execShellCommand 3--->"+func);
+      await sleep(5000)
       return execShellCommand(_sdkAndroidHome+'/platform-tools/adb -s emulator-5556 emu kill');
         
   

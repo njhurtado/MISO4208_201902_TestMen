@@ -1,3 +1,4 @@
+1	=	ActivityNotDefined
 2	=	SDKVersion
 3	=	BluetoothAdapterAlwaysEnabled
 4	=	InvalidDate
