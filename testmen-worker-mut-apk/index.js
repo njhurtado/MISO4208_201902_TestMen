@@ -66,27 +66,9 @@ var task=cron.schedule("*/6 * * * * *", async function() {
       await process.chdir(_dir);
       await rmMutFiles();
       isExecution=true;
-
-
-      _pathSript="/features/"+_test._id+".feature";
-
-      //console.log("-------------------------------------------------------------------------");
-      var contentFileBody=unescape(_test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
-      contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
-      contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
-      
-      //contentFileBody=contentFileBody+' '+unescape(addScrenErro);
-     // console.log(contentFileBody);
-     await fs.writeFile(_pathSript,contentFileBody, function(err) {
-         if(err) {
-            return console.log(err);
-          }
-        console.log(contentFileBody);
-      }); 
-      
       }  
       )
-    .then(async func=>{
+    .then( func=>{
      
       var pathAPK='java -jar MutAPK-0.0.1.jar '+ _pathAPK+' '+_pkgAPK+' mutants/ extra/ . true '+ _numMut;
        //java -jar MutAPK-0.0.1.jar org.gnucash.android_2018-06-27.apk org.gnucash.android ./mutants/ ./extra ./ true 5?
@@ -94,31 +76,29 @@ var task=cron.schedule("*/6 * * * * *", async function() {
      return  createMutAPK(pathAPK);
      
      })
-     .then(async func=>{
+     .then( func=>{
       
       //if(!isExecution)
       ///home/eanunezt/Android/Sdk/tools/emulator -avd Nexus_5X_PLAY_64 -port 5556
       return openEmulator(_sdkAndroidHome+'/tools/emulator '+_EmulatorAvd+' -port 5556 -no-boot-anim');
      })
-     .then(async func=>{
+     .then( func=>{
      
       return checkEmulatorRun();
      })
-     .then( async func=>{
-      
+     .then(  func=>{
+
       return copyFolder('./features/', _pathMutApk+'/features/');;
      })
      .then(async func=>{
       await process.chdir(_pathMutApk);   
-      return execShellCommand('calabash-android resign *-aligned-debugSigned.apk '); 
+      return execShellCommand('calabash-android run *-aligned-debugSigned.apk'); 
      })
-     .then(async func=>{
+     .then( async func=>{
       
-     // await process.chdir('cd ..');
-    //  await process.chdir('cd ..');
-      return execShellCommand('calabash-android run *-aligned-debugSigned.apk '); 
+      return execShellCommand('calabash-android resign *-aligned-debugSigned.apk'); 
      })
-     .then(async func=>{
+     .then( func=>{
       
       return execShellCommand(_sdkAndroidHome+'/platform-tools/adb -s emulator-5556 emu kill');
         
@@ -241,7 +221,22 @@ function execShellCommand(cmd) {
 //copyFolder('./features/', _pathMutApk+'/features/');
 function copyFolder(source, target) {  
 
+  
   return new Promise((resolve, reject) => {
+
+    _pathSript="./features/"+_test._id+".feature";
+
+  var contentFileBody=unescape(_test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+  contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
+  contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
+  fs.writeFile(_pathSript,contentFileBody, function(err) {
+     if(err) {
+        return console.log(err);
+      }
+    console.log('writed:'+_pathSript);
+  }); 
+
+
     fsExtra.copy(source, target, (err) => {
       if (err) 
       throw err;
