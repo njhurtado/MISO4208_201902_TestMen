@@ -37,7 +37,6 @@ export const TestEdit = props => (
                                             />
             <LongTextInput source="script" />            
             <LongTextInput source="description" />
-            <TextInput source="version_id" />
 			<ReferenceInput source="version_id" reference="versions">
                 <SelectInput optionText="version" />
             </ReferenceInput>
@@ -72,7 +71,6 @@ export const TestCreate = props => (
                                             />
             <LongTextInput source="script" />            
             <LongTextInput source="description" />
-            <TextInput source="version_id" />
 			<ReferenceInput source="version_id" reference="versions">
                 <SelectInput optionText="version" />
             </ReferenceInput>

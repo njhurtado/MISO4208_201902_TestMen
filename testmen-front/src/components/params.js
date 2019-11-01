@@ -2,7 +2,7 @@ import React from 'react';
 
 import { List, Create, Edit, Datagrid, TextField, 
     EditButton,SimpleForm,DisabledInput,TextInput,
-    SelectInput, ReferenceInput} from 'react-admin';
+    SelectInput, ReferenceInput, LongTextInput} from 'react-admin';
 
 export const ParamList = props => (
     <List {...props}>
@@ -21,8 +21,7 @@ export const ParamEdit = props => (
         <SimpleForm>
            <DisabledInput source="id" />
            <TextInput source="param" />
-           <TextInput source="value" />
-           <TextField source="test_id" />
+           <LongTextInput source="value" />
            <ReferenceInput source="test_id" reference="tests">
                 <SelectInput optionText="description" />
             </ReferenceInput>
@@ -35,8 +34,8 @@ export const ParamCreate = props => (
     <Create {...props}>
         <SimpleForm>
         <TextInput source="param" />
-           <TextInput source="value" />
-           <TextField source="test_id" />
+           <LongTextInput source="value" />
+           <TextInput source="test_id" />
         </SimpleForm>
     </Create>
 );
