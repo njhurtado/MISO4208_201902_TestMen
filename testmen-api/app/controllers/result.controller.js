@@ -1,36 +1,61 @@
 // Import model
 const Result = require('../models/result.model.js');
 // Handle index actions
-exports.index = (req, res) => {
-    if(req.query && req.query.execution_id){
-        Result.find({execution_id:req.query.execution_id}, function (err, results) {
-            if (err){
-                res.json({
-                    status: "error",
-                    message: err,
-                });
+exports.index = async (req, res) => {
+    console.log("findAll");
+    
+    var sort={};
+    if(req.query._sort){
+        var arr=[JSON.parse(JSON.stringify(req.query._sort))];
+        arr=arr.map(function(m) {
+            if('id'===m){
+                return '_id';
             }
-            res.json({
-                status: "success",
-                message: "Collections of execution results",
-                data: results
-            });
-        });
-    }else{
-        Result.get(function (err, results) {
-            if (err) {
-                res.json({
-                    status: "error",
-                    message: err,
-                });
-            }
-            res.json({
-                status: "success",
-                message: "Collection of results",
-                data: results
-            });
-        });
+            return m;})
+        sort=[arr];
+        console.log(sort);
     }
+    var skip={};
+    if(req.query._start && req.query._end){
+        skip={skip:parseInt(req.query._start), limit: parseInt(req.query._end)}
+        console.log(skip);
+    }
+    var query={};
+    if(req.query.filter){
+        console.log("---->"+req.query.filter);
+       let  result=[JSON.parse(req.query.filter)];
+        for(let i of result){
+            var value=Object.keys(i).map(key => i[key]);
+            if(value)
+            query[Object.keys(i)]=new RegExp(value);
+        }
+       // console.log(query);
+    }
+    var count=0;
+    
+   await  Result.countDocuments(query,function(err, c) {
+                if (err) {
+                    console.log('Error');
+                }else{
+                count=c;
+              
+                }
+           });
+
+   await Result.find(query,null,skip).sort(sort)
+    .then(results => {
+        console.log('Count is ' + count);
+        res.set('x-total-count',count)
+        var data=results.map(function(m) {
+            //console.log(m.toObject()); 
+            //console.log(m.toJSON()); 
+            return m.toJSON();});
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving results."
+        });
+    });
 };
 // Handle create result actions
 exports.new = function (req, res) {
@@ -41,7 +66,7 @@ exports.new = function (req, res) {
              res.json(err);
         res.json({
             message: 'New result was created!',
-            data: result
+            data: result.toJSON()
         });
     });
 };
@@ -52,7 +77,7 @@ exports.view = function (req, res) {
             res.send(err);
         res.json({
             message: 'Details of result..',
-            data: result
+            data: result.toJSON()
         });
     });
 };
@@ -71,7 +96,7 @@ exports.update = function (req, res) {
                 res.json(err);
             res.json({
                 message: 'Result updated',
-                data: result
+                data: result.toJSON()
             });
         });
     });

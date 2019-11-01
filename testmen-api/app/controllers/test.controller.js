@@ -2,18 +2,59 @@
 Test = require('../models/test.model.js');
 const Version = require('../models/version.model.js');
 // Handle index actions
-exports.index = function (req, res) {
-    Test.get(function (err, tests) {
-        if (err) {
-            res.json({
-                status: "error",
-                message: err,
-            });
+exports.index = async (req, res) => {
+    console.log("findAll");
+    
+    var sort={};
+    if(req.query._sort){
+        var arr=[JSON.parse(JSON.stringify(req.query._sort))];
+        arr=arr.map(function(m) {
+            if('id'===m){
+                return '_id';
+            }
+            return m;})
+        sort=[arr];
+        console.log(sort);
+    }
+    var skip={};
+    if(req.query._start && req.query._end){
+        skip={skip:parseInt(req.query._start), limit: parseInt(req.query._end)}
+        console.log(skip);
+    }
+    var query={};
+    if(req.query.filter){
+        console.log("---->"+req.query.filter);
+       let  result=[JSON.parse(req.query.filter)];
+        for(let i of result){
+            var value=Object.keys(i).map(key => i[key]);
+            if(value)
+            query[Object.keys(i)]=new RegExp(value);
         }
-        res.json({
-            status: "success",
-            message: "Tests collection",
-            data: tests
+       // console.log(query);
+    }
+    var count=0;
+    
+   await  Test.countDocuments(query,function(err, c) {
+                if (err) {
+                    console.log('Error');
+                }else{
+                count=c;
+              
+                }
+           });
+
+   await Test.find(query,null,skip).sort(sort)
+    .then(tests => {
+        console.log('Count is ' + count);
+        res.set('x-total-count',count)
+        var data=tests.map(function(m) {
+            //console.log(m.toObject()); 
+            //console.log(m.toJSON()); 
+            return m.toJSON();});
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving tests."
         });
     });
 };
@@ -46,7 +87,7 @@ exports.new = function (req, res) {
                     }
                     res.json({
                         message: 'New tests registered!',
-                        data: tests
+                        data: tests.toJSON()
                     });
                 });
     });
@@ -99,7 +140,7 @@ exports.update = (req, res) => {
                 }
                 res.json({
                     message: 'Test updated!',
-                    data: test
+                    data: test.toJSON()
                 });
                 //res.send(test);
             }).catch(err => {
@@ -124,7 +165,7 @@ exports.view = function (req, res) {
             res.send(err);
         res.json({
             message: 'Test information',
-            data: test
+            data: test.toJSON()
         });
     });
 };

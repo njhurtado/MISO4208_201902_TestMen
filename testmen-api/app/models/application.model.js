@@ -19,5 +19,9 @@ const ApplicationSchema = mongoose.Schema({
     {
         timestamps: true
     });
-
+    ApplicationSchema.virtual('id').get(function () {
+        return this._id;
+      });
+   ApplicationSchema.set('toJSON', { getters: true, virtuals: true });
+   ApplicationSchema.set('toObject', { getters: true });
 module.exports = mongoose.model('Application', ApplicationSchema);

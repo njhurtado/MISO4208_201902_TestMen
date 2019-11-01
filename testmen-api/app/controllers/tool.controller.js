@@ -33,12 +33,17 @@ exports.create = (req, res) => {
 };
 
 // Retrieve and return all Tools from the database.
-exports.findAll = (req, res) => {
+exports.findAll = async (req, res) => {
     console.log("findAll");
     
     var sort={};
     if(req.query._sort){
         var arr=[JSON.parse(JSON.stringify(req.query._sort))];
+        arr=arr.map(function(m) {
+            if('id'===m){
+                return '_id';
+            }
+            return m;})
         sort=[arr];
         console.log(sort);
     }
@@ -49,16 +54,18 @@ exports.findAll = (req, res) => {
     }
     var query={};
     if(req.query.filter){
+        console.log("---->"+req.query.filter);
        let  result=[JSON.parse(req.query.filter)];
         for(let i of result){
             var value=Object.keys(i).map(key => i[key]);
+            if(value)
             query[Object.keys(i)]=new RegExp(value);
         }
-        console.log(query);
+       // console.log(query);
     }
     var count=0;
-
-    Tool.countDocuments(query,function(err, c) {
+    
+   await  Tool.countDocuments(query,function(err, c) {
                 if (err) {
                     console.log('Error');
                 }else{
@@ -66,14 +73,19 @@ exports.findAll = (req, res) => {
               
                 }
            });
-    Tool.find(query,null,skip).sort(sort)
-    .then(aplications => {
+
+   await Tool.find(query,null,skip).sort(sort)
+    .then(tools => {
         console.log('Count is ' + count);
         res.set('x-total-count',count)
-        res.send(aplications);
+        var data=tools.map(function(m) {
+            //console.log(m.toObject()); 
+            //console.log(m.toJSON()); 
+            return m.toJSON();});
+        res.send(data);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving aplications."
+            message: err.message || "Some error occurred while retrieving tools."
         });
     });
 };
