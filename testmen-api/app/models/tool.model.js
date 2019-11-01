@@ -15,4 +15,10 @@ const ToolSchema = mongoose.Schema({
 	timestamps: true
 });
 
+ToolSchema.virtual('id').get(function () {
+    return this._id;
+  });
+  ToolSchema.set('toJSON', { getters: true, virtuals: true });
+  ToolSchema.set('toObject', { getters: true });
+
 module.exports = mongoose.model('Tool', ToolSchema);

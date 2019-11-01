@@ -47,7 +47,11 @@ var testSchema = mongoose.Schema({
 	timestamps: true
 }
 );
-
+testSchema.virtual('id').get(function () {
+    return this._id;
+  });
+  testSchema.set('toJSON', { getters: true, virtuals: true });
+  testSchema.set('toObject', { getters: true });
 var Test = module.exports = mongoose.model('test', testSchema);
 
 module.exports.get = function (callback, limit) {

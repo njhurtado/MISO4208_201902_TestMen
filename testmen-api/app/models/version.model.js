@@ -16,5 +16,9 @@ const VersionSchema = mongoose.Schema({
     {
         timestamps: true
     });
-
+    VersionSchema.virtual('id').get(function () {
+        return this._id;
+      });
+      VersionSchema.set('toJSON', { getters: true, virtuals: true });
+      VersionSchema.set('toObject', { getters: true })
 module.exports = mongoose.model('Version', VersionSchema);

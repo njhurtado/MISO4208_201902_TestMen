@@ -115,7 +115,7 @@ exports.findOne = (req, res) => {
 // Update a Param identified by the ParamId in the request
 exports.update = (req, res) => {
     // Validate Request
-    if(!req.body.name) {
+    if(!req.body.param) {
         return res.status(400).send({
             message: "Param name can not be empty"
         });
@@ -124,6 +124,7 @@ exports.update = (req, res) => {
     // Find param and update it with the request body
     Param.findByIdAndUpdate(req.params.paramId, {
         param : req.body.param || "Untitled Param",
+        test_id :req.body.value,
 		test_id :req.body.test_id
     }, {new: true})
     .then(param => {
