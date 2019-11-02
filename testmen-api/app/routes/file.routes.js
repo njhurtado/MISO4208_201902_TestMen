@@ -11,7 +11,7 @@ module.exports = (app) => {
     app.delete('/files/:fileId', Files.delete);
 
     // Retrieve a single File with FileId
-    app.get('/files/:FileId', Files.findOne);
+    app.get('/files/:fileId', Files.findOne);
     
 	// Retrieve all Files
     app.get('/files', Files.findAll);

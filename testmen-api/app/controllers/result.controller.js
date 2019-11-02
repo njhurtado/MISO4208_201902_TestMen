@@ -72,14 +72,26 @@ exports.new = function (req, res) {
 };
 // Handle view result info
 exports.view = function (req, res) {
-    Result.findById(req.params.execution_id, function (err, result) {
-        if (err)
-            res.send(err);
-        res.json({
-            message: 'Details of result..',
-            data: result.toJSON()
+    console.log("findOne");
+    Result.findById(req.params.result_id)
+    .then(result => {
+        if(!result) {
+            return res.status(404).send({
+                message: "Result not found with id " + req.params.result_id
+            });            
+        }
+        res.send(result.toJSON());
+    }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Result not found with id " + req.params.result_id
+            });                
+        }
+        return res.status(500).send({
+            message: "Error retrieving Result with id " + req.params.result_id
         });
     });
+
 };
 // Handle update result info
 exports.update = function (req, res) {

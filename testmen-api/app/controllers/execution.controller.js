@@ -94,12 +94,23 @@ exports.new = function (req, res) {
 };
 // Handle view execution info
 exports.view = function (req, res) {
-    Execution.findById(req.params.execution_id, function (err, execution) {
-        if (err)
-            res.send(err);
-        res.json({
-            message: 'Execution details..',
-            data: execution.toJSON()
+    console.log("findOne");
+    Execution.findById(req.params.execution_id)
+    .then(execution => {
+        if(!execution) {
+            return res.status(404).send({
+                message: "Execution not found with id " + req.params.execution_id
+            });            
+        }
+        res.send(execution.toJSON());
+    }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Execution not found with id " + req.params.execution_id
+            });                
+        }
+        return res.status(500).send({
+            message: "Error retrieving Execution with id " + req.params.execution_id
         });
     });
 };

@@ -113,12 +113,11 @@ export const TestMatrixCreate = props => (
                                 {id: 'HEADFULL', name: 'HEADFULL'}
                             ]}
                             />
-            <SelectInput source="aplication_id" choices={[
-                                {id: 'Dollibar', name: 'Dollibar'},
-                                {id: 'Car Report', name: 'Car Report'},
-                                {id: 'GNU Cash', name: 'GNU Cash'}
-                            ]}
-                            />
+
+<ReferenceInput source="aplication_id" reference="applications">
+            <SelectInput optionText="name" />
+            </ReferenceInput>
+
             <SelectInput source="app_type"
                 choices={[
                     {id: 'WEB', name: 'WEB'},
