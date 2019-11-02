@@ -5,6 +5,7 @@ import { Admin, Resource, ListGuesser, EditGuesser } from 'react-admin';
 import { AplicationList,AplicationEdit, AplicationCreate } from './components/aplications';
 import { ParamList,ParamEdit, ParamCreate } from './components/params';
 import { TestList,TestEdit, TestCreate } from './components/tests';
+import { TestMatrixList,TestMatrixEdit, TestMatrixCreate } from './components/testmatrix';
 import jsonServerProvider from 'ra-data-json-server';
 //import jsonServerProvider from './dataProvider';
 
@@ -15,6 +16,7 @@ const App = () => (
          <Resource name="applications" list={AplicationList} edit={AplicationEdit} create={AplicationCreate}/>
          <Resource name="tests" list={TestList} edit={TestEdit} create={TestCreate}/>
          <Resource name="params" list={ParamList} edit={ParamEdit} create={ParamCreate}/>
+         <Resource name="testmatrix" list={TestMatrixList} edit={TestMatrixEdit} create={TestMatrixCreate}/>
       </Admin>
   );
 

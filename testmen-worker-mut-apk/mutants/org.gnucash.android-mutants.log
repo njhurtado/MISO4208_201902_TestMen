@@ -1,0 +1,3 @@
+ThreadPool: 8
+Mutant 1: mutants//org.gnucash.android-mutant1/src//AndroidManifest.xml; ActivityNotDefined in line { 12 }
+	For mutant 1 the lines between 13 and 36 have been deleted.
