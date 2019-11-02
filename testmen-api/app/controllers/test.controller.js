@@ -169,6 +169,32 @@ exports.view = function (req, res) {
         });
     });
 };
+
+
+
+
+exports.findOne = (req, res) => {
+    console.log("findOne");
+    Test.findById(req.params.test_id)
+    .then(test => {
+        if(!test) {
+            return res.status(404).send({
+                message: "Test not found with id " + req.params.test_id
+            });            
+        }
+        res.send(test.toJSON());
+    }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Test not found with id " + req.params.test_id
+            });                
+        }
+        return res.status(500).send({
+            message: "Error retrieving Test with id " + req.params.test_id
+        });
+    });
+};
+
 // Handle delete test
 exports.delete = function (req, res) {
     Test.remove({

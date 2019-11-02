@@ -7,7 +7,7 @@ module.exports = (app) => {
 	    // Update a Application with AplicationId
     app.put('/tests/:test_id', testController.update);
 	//Retrieve a single test
-	app.get('/tests/:test_id', testController.view)
+	app.get('/tests/:test_id', testController.findOne)
 	//Delete a single test
 	app.delete('/tests/:test_id', testController.delete)
 }

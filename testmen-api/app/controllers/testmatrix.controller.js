@@ -92,14 +92,25 @@ exports.new = function (req, res) {
 };
 // Handle view TestMatrix info
 exports.view = function (req, res) {
-    TestMatrix.findById(req.params.TestMatrix_id, function (err, TestMatrix) {
-        if (err)
-            res.send(err);
-        res.json({
-            message: 'TestMatrix details..',
-            data: TestMatrix.toJSON()
+    console.log("findOne");
+        TestMatrix.findById(req.params.testmatrix_id)
+        .then(testMatrix => {
+            if(!testMatrix) {
+                return res.status(404).send({
+                    message: "testMatrix not found with id " + req.params.testmatrix_id
+                });            
+            }
+            res.send(testMatrix.toJSON());
+        }).catch(err => {
+            if(err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "TestMatrix not found with id " + req.params.testmatrix_id
+                });                
+            }
+            return res.status(500).send({
+                message: "Error retrieving TestMatrix with id " + req.params.testmatrix_id
+            });
         });
-    });
 };
 // Handle update TestMatrix info
 exports.update = function (req, res) {
