@@ -1,3 +1,11 @@
 ThreadPool: 8
-Mutant 1: mutants//org.gnucash.android-mutant1/src//AndroidManifest.xml; ActivityNotDefined in line { 12 }
-	For mutant 1 the lines between 13 and 36 have been deleted.
+Mutant 1: /home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/mutants//org.gnucash.android-mutant1/src//smali/org/gnucash/android/ui/passcode/PasscodeLockActivity.smali; InvalidKeyIntentPutExtra in line { 218 }
+	For mutant 1 extra key value at line 218 has been set to 3c8baa0fe72e4336ba6c5d2a5f78ca3b
+Mutant 2: mutants//org.gnucash.android-mutant2/src//AndroidManifest.xml; InvalidActivityPATH in line { 12 }
+	For mutant 2 activity name at line 12 has been change from "org.gnucash.android.ui.account.AccountsActivity" to "org.gnucash.android.ui.acount.AccountsActivity"
+Mutant 3: /home/eanunezt/Documents/miso4208-201920/proyecto/MISO4208_201902_TestMen/testmen-worker-mut-apk/mutants//org.gnucash.android-mutant3/src//smali/org/gnucash/android/ui/passcode/PasscodeLockActivity.smali; DifferentActivityIntentDefinition in line { 194 }
+	For mutant 3 component name at line 194 has been change from "Lorg/gnucash/android/ui/passcode/PasscodeLockScreenActivity;" to "Lorg/gnucash/android/com/dropbox/core/android/AuthActivity;"
+Mutant 4: mutants//org.gnucash.android-mutant4/src//AndroidManifest.xml; ActivityNotDefined in line { 12 }
+	For mutant 4 the lines between 13 and 36 have been deleted.
+Mutant 5: mutants//org.gnucash.android-mutant5/src//AndroidManifest.xml; InvalidLabel in line { 12 }
+	For mutant 5 activity label at line 12 has been change from "@string/app_name" to "fb2004ac2306492492e170d4f5b84b6a"

@@ -1,0 +1,40 @@
+{
+  "name": "tesmen-worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "delete:reports": "rm results/* || true",
+    "prereport": "npm run delete:reports",
+    "report": "cypress run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-multiparty": "^2.1.0",
+    "express": "^3.4.1",
+    "fs": "0.0.1-security",
+    "ls": "^0.2.1",
+    "mongoose": "^5.6.11",
+    "node-cron": "^1.2.1",
+    "node-mailer": "^0.1.1",
+    "nodemailer": "^4.6.5",
+    "rimraf": "^3.0.0",
+    "shelljs": "^0.8.2",
+    "yargs": "^14.2.0",
+    "aws-sdk": "^2.547.0"
+  },
+  "devDependencies": {
+    "cypress": "^3.4.1",
+    "mocha": "^5.2.0",
+    "mocha-junit-reporter": "^1.23.1",
+    "mocha-multi-reporters": "^1.1.7",
+    "mochawesome": "^4.1.0",
+    "mochawesome-merge": "^2.0.1",
+    "mochawesome-report-generator": "^4.0.1"
+  }
+}

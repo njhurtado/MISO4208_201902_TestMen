@@ -6,7 +6,7 @@ var {expect} = require('chai');
 
 defineSupportCode(({Given, When, Then}) => {
   Given('I go to dollibar home screen', () => {
-    browser.url('/dolibarr/');
+    browser.url('/');
   });
 
   When(/^I fill with (.*) and (.*)$/ , (email, password) => {

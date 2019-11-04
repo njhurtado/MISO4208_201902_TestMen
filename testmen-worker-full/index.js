@@ -39,7 +39,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
     Execution.findOneAndUpdate(    
         { state:STATE_REGISTER, 
           test_type: "E2E",
-          test_mode: "HEADLESS",
+          test_mode: "HEADFULL",
           app_type: "WEB"}, //Register     Executed
         { $set: { state: STATE_PENDING } },      
         {
@@ -77,7 +77,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
 
           console.log("Running Cypress");
 
-          var pathTest='node cypress_runner.js --h true --n '+exec1.test_id+".spec.js" ;
+          var pathTest='node cypress_runner.js --h false --n '+exec1.test_id+".spec.js" ;
 
           exec(pathTest, async (err, stdout, stderr) => {
             if (err) {
@@ -153,7 +153,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
 
 });
 task.start();
-app.listen("3128");
+app.listen("3126");
 
 mongoose.Promise = global.Promise;
 // Connecting to the database

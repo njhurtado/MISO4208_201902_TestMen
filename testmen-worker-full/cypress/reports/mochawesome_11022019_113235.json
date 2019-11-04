@@ -1,0 +1,109 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2019-11-02T16:32:23.358Z",
+    "end": "2019-11-02T16:32:35.865Z",
+    "duration": 12507,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "8f91d9f4-7e8a-49e4-9ade-d5c307ef9d76",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "87efa102-4796-4c4a-a9d6-d0a9a76c8cde",
+          "title": "Dollibar under test monkeys",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Visits Dolibarr and survives monkeys",
+              "fullTitle": "Dollibar under test monkeys Visits Dolibarr and survives monkeys",
+              "timedOut": null,
+              "duration": 10741,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "\"assets/5dacccb658d5864b1bd8651f.spec.js/Dollibar under test monkeys -- Visits Dolibarr and survives monkeys (failed).png\"",
+              "code": "cy.visit('http://localhost/');\ncy.wait(1000);\ncy.get('.login_table').find('input[name=\"username\"]').click().type(\"admin\");\ncy.get('.login_table').find('input[name=\"password\"]').click().type(\"Temporal01\");\ncy.get('.login_table').find('input[type=\"submit\"]').click();\ncy.wait(1000);\nvar genArr = Array.from({\n  length: 10\n}, function (v, k) {\n  return k;\n});\ncy.wrap(genArr).each(function (index) {\n  //var evtPos=getRandomInt(0,eventos.length);\n  randomEventFunction(20);\n});",
+              "err": {
+                "message": "CypressError: Timed out retrying: Expected to find element: 'select', but never found it.",
+                "estack": "CypressError: Timed out retrying: Expected to find element: 'select', but never found it.\n    at Object.cypressErr (http://localhost/__cypress/runner/cypress_runner.js:85348:11)\n    at Object.throwErr (http://localhost/__cypress/runner/cypress_runner.js:85303:18)\n    at Object.throwErrByPath (http://localhost/__cypress/runner/cypress_runner.js:85335:17)\n    at retry (http://localhost/__cypress/runner/cypress_runner.js:77321:16)\n    at onFailFn (http://localhost/__cypress/runner/cypress_runner.js:68422:16)\n    at tryCatcher (http://localhost/__cypress/runner/cypress_runner.js:118962:23)\n    at Promise._settlePromiseFromHandler (http://localhost/__cypress/runner/cypress_runner.js:116898:31)\n    at Promise._settlePromise (http://localhost/__cypress/runner/cypress_runner.js:116955:18)\n    at Promise._settlePromise0 (http://localhost/__cypress/runner/cypress_runner.js:117000:10)\n    at Promise._settlePromises (http://localhost/__cypress/runner/cypress_runner.js:117075:18)\n    at Async../node_modules/bluebird/js/release/async.js.Async._drainQueue (http://localhost/__cypress/runner/cypress_runner.js:113687:16)\n    at Async../node_modules/bluebird/js/release/async.js.Async._drainQueues (http://localhost/__cypress/runner/cypress_runner.js:113697:10)\n    at Async.drainQueues (http://localhost/__cypress/runner/cypress_runner.js:113571:14)\n    at <anonymous>",
+                "diff": null
+              },
+              "uuid": "74dfc9b4-7478-457b-a187-bb5b81e891d8",
+              "parentUUID": "87efa102-4796-4c4a-a9d6-d0a9a76c8cde",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "74dfc9b4-7478-457b-a187-bb5b81e891d8"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 10741,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "5.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false
+      },
+      "version": "4.1.0"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "4.0.1"
+    }
+  }
+}
