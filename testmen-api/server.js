@@ -34,6 +34,7 @@ require('./app/routes/param.routes.js')(app);
 require('./app/routes/result.routes.js')(app);
 require('./app/routes/tool.routes.js')(app);
 require('./app/routes/version.routes.js')(app);
+require('./app/routes/testmatrix.routes.js')(app);
 
 // define a simple route
 app.get('/', (req, res) => {

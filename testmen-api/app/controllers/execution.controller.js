@@ -14,6 +14,9 @@ exports.index = async (req, res) => {
                 return '_id';
             }
             return m;})
+            var order=req.query._order?req.query._order:null;
+            if(order)
+            arr.push(order)
         sort=[arr];
         console.log(sort);
     }
@@ -23,9 +26,9 @@ exports.index = async (req, res) => {
         console.log(skip);
     }
     var query={};
-    if(req.query.filter){
-        console.log("---->"+req.query.filter);
-       let  result=[JSON.parse(req.query.filter)];
+    if(req.query._filter){
+        console.log("---->"+"[{"+req.query._filter.toString()+"}]");
+       let  result=JSON.parse("[{"+req.query._filter.toString()+"}]");
         for(let i of result){
             var value=Object.keys(i).map(key => i[key]);
             if(value)
@@ -84,10 +87,10 @@ exports.new = function (req, res) {
                     execution.save(function (err) {
                         if (err)
                             res.json(err);
-                        res.json({
+                        res.json(/*{
                             message: 'New execution created!',
                             data: execution.toJSON()
-                        });
+                        }*/ execution.toJSON());
                     });
                 });
         });
@@ -127,10 +130,10 @@ exports.update = function (req, res) {
         execution.save(function (err) {
             if (err)
                 res.json(err);
-            res.json({
+            res.json(/*{
                 message: 'Execution updated',
                 data: execution.toJSON()
-            });
+            }*/execution.toJSON());
         });
     });
 };

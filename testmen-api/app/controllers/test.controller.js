@@ -13,6 +13,9 @@ exports.index = async (req, res) => {
                 return '_id';
             }
             return m;})
+            var order=req.query._order?req.query._order:null;
+            if(order)
+            arr.push(order)
         sort=[arr];
         console.log(sort);
     }
@@ -22,9 +25,9 @@ exports.index = async (req, res) => {
         console.log(skip);
     }
     var query={};
-    if(req.query.filter){
-        console.log("---->"+req.query.filter);
-       let  result=[JSON.parse(req.query.filter)];
+    if(req.query._filter){
+        console.log("---->"+"[{"+req.query._filter.toString()+"}]");
+       let  result=JSON.parse("[{"+req.query._filter.toString()+"}]");
         for(let i of result){
             var value=Object.keys(i).map(key => i[key]);
             if(value)
@@ -85,10 +88,7 @@ exports.new = function (req, res) {
                             message: err
                         });
                     }
-                    res.json({
-                        message: 'New tests registered!',
-                        data: tests.toJSON()
-                    });
+                    res.json(tests.toJSON());
                 });
     });
 
@@ -138,10 +138,7 @@ exports.update = (req, res) => {
                         message: "Test not found with id " + req.params.test_id
                     });
                 }
-                res.json({
-                    message: 'Test updated!',
-                    data: test.toJSON()
-                });
+                res.json(test.toJSON());
                 //res.send(test);
             }).catch(err => {
                 if(err.kind === 'ObjectId') {

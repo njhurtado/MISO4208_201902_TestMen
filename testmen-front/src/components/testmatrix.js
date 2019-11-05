@@ -2,7 +2,33 @@ import React from 'react';
 
 import { List, Create, Edit, Datagrid, TextField, 
     EditButton,SimpleForm,DisabledInput,TextInput,
-    SelectInput, ReferenceInput, LongTextInput} from 'react-admin';
+    SelectInput, ReferenceInput, LongTextInput,
+    ReferenceArrayInput, SelectArrayInput ,FormDataConsumer} from 'react-admin';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Divider from '@material-ui/core/Divider';
+
+
+const form={
+    isShowApplication:false
+
+}
+
+
+export const styles = {
+    block: { display: 'block' },
+    inline_block: { display: 'inline-block' },
+    inline_block_marlf: { display: 'inline-block', marginLeft: 32 },
+    divider: { width: '100%',marginTop: 2, height:0},
+    address: { maxWidth: 544 },
+    zipcode: { display: 'inline-block' },
+    city: { display: 'inline-block', marginLeft: 32 },
+    comment: {
+        maxWidth: '20em',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+    },
+};
 
 export const TestMatrixList = props => (
     <List {...props}>
@@ -22,7 +48,7 @@ export const TestMatrixList = props => (
     </List>
 );
 
-export const TestMatrixEdit = props => (
+export const TestMatrixEdit =withStyles(styles)( ({ classes, ...props }) => (
     <Edit {...props}>
         <SimpleForm>
            <DisabledInput source="id" />
@@ -30,43 +56,32 @@ export const TestMatrixEdit = props => (
                                         {id: 'RANDOM', name: 'RANDOM'},
                                         {id: 'E2E', name: 'E2E'},
                                         {id: 'BDT', name: 'BDT'},
-                                        {id: 'VRT', name: 'VRT'}
-                                    ]}/>
+                                        {id: 'VRT', name: 'VRT'} 
+                                    ]} 
+                                    formClassName={classes.inline_block }/>
 
             <SelectInput source="test_mode" choices={[
                                                 {id: 'HEADLESS', name: 'HEADLESS'},
                                                 {id: 'HEADFULL', name: 'HEADFULL'}
                                             ]}
+                                            formClassName={classes.inline_block }
                                             />
-            <SelectInput source="aplication_id" choices={[
-                                                {id: 'Dollibar', name: 'Dollibar'},
-                                                {id: 'Car Report', name: 'Car Report'},
-                                                {id: 'GNU Cash', name: 'GNU Cash'}
-                                            ]}
-                                            />
-            <SelectInput source="app_type"
+             <SelectInput source="app_type"
                                  choices={[
                                      {id: 'WEB', name: 'WEB'},
                                      {id: 'MOVIL', name: 'MOVIL'},
                                  ]}
-                                 />
-            {/*<SelectInput source="version_id" choices={[
-                                                {id: '10.1', name: '10.1'},
-                                                {id: '3.25', name: '3.25'},
-                                                {id: '2.6.21', name: '2.6.21'}
-                                            ]}
-                                            />*/}
-            <ReferenceInput source="version_id" reference="versions">
-                <SelectInput optionText="version" />
-            </ReferenceInput>
+                                 formClassName={classes.inline_block }/>
+            
 
-            {/*<SelectInput source="tool_id" choices={[
-                                                {id: 'Nexus 5 API 26', name: 'Nexus 5 API 26'},
-                                                {id: 'Pixel 5.0 API 29', name: 'Pixel 5.0 API 29'},
-                                                {id: 'Firefox', name: 'Firefox'},
-                                                {id: 'Google Chrome', name: 'Google Chrome'}
-                                            ]}
-                                            />*/}
+<ReferenceInput source="aplication_id" reference="applications">
+            <SelectInput optionText="name" />
+            </ReferenceInput>
+           
+                <ReferenceInput source="version_id" reference="versions">
+                    <SelectInput optionText="version" />
+                </ReferenceInput>
+           
             <ReferenceInput source="tool_id" reference="tools">
                 <SelectInput optionText="name" />
             </ReferenceInput>
@@ -95,52 +110,58 @@ export const TestMatrixEdit = props => (
             
         </SimpleForm>
     </Edit>
-);
+));
 
 
-export const TestMatrixCreate = props => (
-    <Create {...props}>
-        <SimpleForm>
+export const TestMatrixCreate = withStyles(styles)(({ classes, ...props }) => (
+
+    
+    <Create {...props} >
+      
+        <SimpleForm >
             <SelectInput source="test_type" choices={[
                         {id: 'RANDOM', name: 'RANDOM'},
                         {id: 'E2E', name: 'E2E'},
                         {id: 'BDT', name: 'BDT'},
                         {id: 'VRT', name: 'VRT'}
-                    ]}/>
+                    ]}
+                    formClassName={classes.inline_block }
+                    />
 
             <SelectInput source="test_mode" choices={[
                                 {id: 'HEADLESS', name: 'HEADLESS'},
                                 {id: 'HEADFULL', name: 'HEADFULL'}
                             ]}
+                            formClassName={classes.inline_block_marlf } 
                             />
-
-<ReferenceInput source="aplication_id" reference="applications">
-            <SelectInput optionText="name" />
-            </ReferenceInput>
-
+  
+  <Divider className={classes.divider}></Divider>
             <SelectInput source="app_type"
-                choices={[
-                    {id: 'WEB', name: 'WEB'},
-                    {id: 'MOVIL', name: 'MOVIL'},
-                ]}
-                />
-            {/*<SelectInput source="version_id" choices={[
-                                {id: '10.1', name: '10.1'},
-                                {id: '3.25', name: '3.25'},
-                                {id: '2.6.21', name: '2.6.21'}
+                            choices={[
+                                {id: 'WEB', name: 'WEB'},
+                                {id: 'MOVIL', name: 'MOVIL'},
                             ]}
-                            />*/}
-            <ReferenceInput source="version_id" reference="versions">
-            <SelectInput optionText="version" />
-            </ReferenceInput>
+                            formClassName={classes.inline_block }       />
 
-            {/*<SelectInput source="tool_id" choices={[
-                                {id: 'Nexus 5 API 26', name: 'Nexus 5 API 26'},
-                                {id: 'Pixel 5.0 API 29', name: 'Pixel 5.0 API 29'},
-                                {id: 'Firefox', name: 'Firefox'},
-                                {id: 'Google Chrome', name: 'Google Chrome'}
-                            ]}
-                            />*/}
+           <FormDataConsumer formClassName={classes.inline_block_marlf }>
+               {({ formData, ...rest }) =>formData.app_type &&
+                    <ReferenceInput source="aplication_id" reference="applications"  filter={{_filter:'"type":"' +formData.app_type +'"'}} {...rest}> 
+                    <SelectInput optionText="name" />
+                    </ReferenceInput>
+                
+               }
+          </FormDataConsumer>
+
+          <FormDataConsumer formClassName={classes.inline_block_marlf }>
+               {({ formData, ...rest }) =>formData.aplication_id &&
+                             <ReferenceInput source="version_id" reference="versions"  filter={{_filter:'"aplication_id":"' +formData.aplication_id +'"'}} {...rest}>
+                             <SelectInput optionText="version" />
+                             </ReferenceInput>
+               }
+          </FormDataConsumer>
+       
+  
+        
             <ReferenceInput source="tool_id" reference="tools">
             <SelectInput optionText="name" />
             </ReferenceInput>
@@ -168,5 +189,8 @@ export const TestMatrixCreate = props => (
                 />            			
 
         </SimpleForm>
+        
     </Create>
-);
+ 
+));
+

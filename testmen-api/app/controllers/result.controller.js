@@ -12,6 +12,10 @@ exports.index = async (req, res) => {
                 return '_id';
             }
             return m;})
+            var order=req.query._order?req.query._order:null;
+            if(order)
+            arr.push(order)
+
         sort=[arr];
         console.log(sort);
     }
@@ -21,9 +25,9 @@ exports.index = async (req, res) => {
         console.log(skip);
     }
     var query={};
-    if(req.query.filter){
-        console.log("---->"+req.query.filter);
-       let  result=[JSON.parse(req.query.filter)];
+    if(req.query._filter){
+        console.log("---->"+"[{"+req.query._filter.toString()+"}]");
+       let  result=JSON.parse("[{"+req.query._filter.toString()+"}]");
         for(let i of result){
             var value=Object.keys(i).map(key => i[key]);
             if(value)
@@ -41,6 +45,7 @@ exports.index = async (req, res) => {
               
                 }
            });
+      
 
    await Result.find(query,null,skip).sort(sort)
     .then(results => {
@@ -64,10 +69,7 @@ exports.new = function (req, res) {
     result.save(function (err) {
         if (err)
              res.json(err);
-        res.json({
-            message: 'New result was created!',
-            data: result.toJSON()
-        });
+        res.json(result.toJSON());
     });
 };
 // Handle view result info
@@ -106,10 +108,7 @@ exports.update = function (req, res) {
         result.save(function (err) {
             if (err)
                 res.json(err);
-            res.json({
-                message: 'Result updated',
-                data: result.toJSON()
-            });
+            res.json(result.toJSON());
         });
     });
 };

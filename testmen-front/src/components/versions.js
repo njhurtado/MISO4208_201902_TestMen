@@ -33,11 +33,12 @@ export const VersionEdit = props => (
 export const VersionCreate = props => (
     <Create {...props}>
         <SimpleForm>
-             <TextInput source="name" />
-             <TextInput source="version" />
+           <TextInput source="version" />
            <ReferenceInput source="aplication_id" reference="applications">
                 <SelectInput optionText="name" />
             </ReferenceInput>
+            <TextInput source="url_repo" />
+            <TextInput source="url_app" />
         </SimpleForm>
     </Create>
 );

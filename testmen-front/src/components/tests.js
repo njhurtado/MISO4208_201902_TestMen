@@ -3,6 +3,7 @@ import React from 'react';
 import { List, Create, Edit, Datagrid, TextField, 
     EditButton,SimpleForm,DisabledInput,TextInput,
     SelectInput, ReferenceInput, LongTextInput} from 'react-admin';
+    
 
 export const TestList = props => (
     <List {...props}>
@@ -35,7 +36,9 @@ export const TestEdit = props => (
                                                 {id: 'HEADFULL', name: 'HEADFULL'}
                                             ]}
                                             />
-            <LongTextInput source="script" />            
+            <LongTextInput source="script" rowsMax={50} /> 
+
+
             <LongTextInput source="description" />
 			<ReferenceInput source="version_id" reference="versions">
                 <SelectInput optionText="version" />
@@ -69,8 +72,8 @@ export const TestCreate = props => (
                                                 {id: 'HEADFULL', name: 'HEADFULL'}
                                             ]}
                                             />
-            <LongTextInput source="script" />            
-            <LongTextInput source="description" />
+            <LongTextInput source="script" rowsMax={5}/>            
+            <LongTextInput source="description" rowsMax={5}/>
 			<ReferenceInput source="version_id" reference="versions">
                 <SelectInput optionText="version" />
             </ReferenceInput>
