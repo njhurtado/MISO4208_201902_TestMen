@@ -4,7 +4,7 @@
 Feature: Login into dollibar
     As an user I want to authenticate myself within dollibar website in order to admin resourcer
    
-Scenario: Create a third-party succesfull
+Scenario Outline: Create a third-party succesfull
 
   Given I go to dollibar home screen
     And I fill with  admin and Temporal01

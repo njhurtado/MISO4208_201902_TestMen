@@ -118,7 +118,7 @@ var task=cron.schedule("*/2 * * * * *", function() {
       config = consultarConfguracion();
       if(config.nuevo = true) {
           console.log("multiple ->" + config.multiple);
-          if(config.multiple == true) {
+          if(config.multiple == 'true') {
             console.log("por multiple ");
               descargarDatos("./datos.csv", config.cantidad).then(function (resp) { 
                   console.log("resultado descargarDatos ->"+resp);

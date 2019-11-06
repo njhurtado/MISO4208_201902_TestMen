@@ -4,7 +4,7 @@
 Feature: Login into dollibar
     As an user I want to authenticate myself within dollibar website in order to admin resourcer
    
-Scenario: Create a third-party succesfull
+Scenario Outline: Create a third-party succesfull
 
   Given I go to dollibar home screen
     And I fill with  admin and Temporal01
@@ -35,3 +35,5 @@ Scenario: Create a third-party succesfull
 | Kara-lynn Dubble |kdubble7@indiegogo.com |4502 Meadow Valley Lane |393-405-5360 |Kara-lynn |56250-000 |Trindade |
 | Elsy Troubridge |etroubridge8@earthlink.net |70 Amoth Hill |828-793-2020 |Elsy |4600-730 |Várzea |
 | Jo-anne Liversedge |jliversedge9@wix.com |4063 Esker Trail |292-975-5119 |Jo-anne |1101 |Kipit |
+
+
