@@ -8,6 +8,10 @@ const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
 const srvS3=require('./s3manager');
 const readline = require("readline");
+const fct = require('./lectorpromesa.js');
+//https://www.npmjs.com/package/convert-csv-to-json
+let csvToJson = require('convert-csv-to-json');
+
 
 Execution = require('./models/execution.model.js');
 Test = require('./models/test.model.js');
@@ -17,91 +21,78 @@ Result = require('./models/result.model.js');
 const STATE_REGISTER='REGISTER';
 const STATE_EXECUTED='EXECUTED';
 const STATE_PENDING='PENDING';
-const NOMBRE_ARCHIVO = "./tercer.csv";
-const NOMBRE_ARCHIVO_ORIGEN = "./plantillaThirdParty.feature";
-const NOMBRE_ARCHIVO_MODIFICADO = "./createThirdParty.feature";
 
-var nombre, email, direccion, alias, zip, pueblo, telefono, contenidoArchivo = "";
+var config;
 
 app = express();
 
 
-exec('curl "https://api.mockaroo.com/api/95e33690?count=1&key=1483a6f0" > "./tercerl.csv"', (err, stdout, stderr) => {
-  if (err) {
-    // node couldn't execute the command
-    console.log("Fails data generation");
-    return;
+function descargarDatos(filename, cantidad) {
+  let promise = fct.generardatos(filename, cantidad);
+  return promise.then(result => {
+      console.log(result);
+      return result
+  });
+}
+
+function reemplazarDatos(filename, valores) {
+  let promise = fct.reemplazarValores(filename, valores);
+  return promise.then(result => {
+      console.log(result);
+      return result
+  });
+}
+
+function completarDatos(filename, valores, cantidad) {
+  let promise = fct.completarValores(filename, valores, cantidad);
+  return promise.then(result => {
+      console.log(result);
+      return result
+  });
+}
+
+function consultarConfguracion(){
+  let jsonconf = csvToJson.fieldDelimiter(',').getJsonFromCsv("./config.csv");
+  var congig;
+  for(let i=0; i<jsonconf.length;i++){
+      config = jsonconf[i];
   }
-  console.log("Download data");
-});
-   
- 
-      
-  let lector = readline.createInterface({
-    input: fs.createReadStream(NOMBRE_ARCHIVO)
-    });
-     
-  lector.on("line", lin => {
-      console.log("Tenemos una línea:", lin);
-      var arreglo = lin.split(",");
-      console.log("Tamaño del arrego:"  + arreglo.length);
-      nombre = arreglo[0];
-      email = arreglo[1];
-      direccion = arreglo[2];
-      telefono = arreglo[3];
-      alias = arreglo[4];
-      zip = arreglo[5];
-      pueblo = arreglo[6];   
-  });
-  
-  let lector2 = readline.createInterface({
-    input: fs.createReadStream(NOMBRE_ARCHIVO_ORIGEN)
-    });
-    
-  lector2.on("line", linea => {
-      console.log("Tenemos una línea para modificar:", linea);
-      
-      var modificada;
-      if(linea.indexOf("{nombre}") >= 0) {
-          modificada = linea.replace("{nombre}", nombre);
-      }
-  
-      if(linea.indexOf("{email}") >= 0) {
-          modificada = linea.replace("{email}", email);
-      }
-  
-      if(linea.indexOf("{direccion}") >= 0) {
-          modificada = linea.replace("{direccion}", direccion);
-      } 
-  
-      if(linea.indexOf("{alias}") >= 0) {
-          modificada = linea.replace("{alias}", alias);
-      } 
-  
-      if(linea.indexOf("{zip}") >= 0) {
-          modificada = linea.replace("{zip}", zip);
-      } 
-  
-      if(linea.indexOf("{pueblo}") >= 0) {
-          modificada = linea.replace("{pueblo}", pueblo);
-      } 
-  
-      if(linea.indexOf("{telefono}") >= 0) {
-          modificada = linea.replace("{telefono}", telefono);
-      }  
-  
-      if(!modificada) {
-          modificada = linea;
-      }
-  
-      console.log("Línea modificada:"  + modificada);
-      contenidoArchivo += modificada +"\n";
-      fs.writeFile(NOMBRE_ARCHIVO_MODIFICADO, contenidoArchivo, function(err) {
-          // If an error occurred, show it and return
-          if(err) return console.error(err);
-          // Successfully wrote to the file!
-        }); 
-  });
+  return config;
+}
+
+function inicializarDatos(){
+  config = consultarConfguracion();
+  if(config.nuevo = true) {
+      console.log("multiple ->" + config.multiple);
+      if(config.multiple) {
+          descargarDatos("./datos.csv", config.cantidad).then(function (resp) { 
+              console.log("resultado descargarDatos ->"+resp);
+              completarDatos("./plantillaThirdPartyTuplas.feature", resp, config.cantidad).then(function (textoFinal){
+                  fs.writeFile("./features/thirdParty.feature", textoFinal, function(err) {
+                      // If an error occurred, show it and return
+                      if(err) return console.error(err);
+                      // Successfully wrote to the file!
+                  }); 
+              });
+              }
+          ).catch( error => console.error(error));  
+      } else {
+          descargarDatos("./otro.csv", 1).then(function (resp) { 
+              console.log("resultado descargarDatos ->"+resp);
+              reemplazarDatos("./plantillaThirdParty.feature", resp).then(function (textoFinal){
+                  fs.writeFile("./features/thirdParty.feature", textoFinal, function(err) {
+                      // If an error occurred, show it and return
+                      if(err) return console.error(err);
+                      // Successfully wrote to the file!
+                  }); 
+              });
+              }
+          ).catch( error => console.error(error));   
+      }     
+  } else {
+
+  }
+}
 
 /*var task = cron.schedule('* * * * *', () => {
 	console.log('Printing this line every minute in the terminal');
@@ -123,6 +114,41 @@ var task=cron.schedule("*/2 * * * * *", function() {
     var pathSript;
     if(exec1){
       console.log("-execs-"+exec1);
+      
+      config = consultarConfguracion();
+      if(config.nuevo = true) {
+          console.log("multiple ->" + config.multiple);
+          if(config.multiple == true) {
+            console.log("por multiple ");
+              descargarDatos("./datos.csv", config.cantidad).then(function (resp) { 
+                  console.log("resultado descargarDatos ->"+resp);
+                  completarDatos("./plantillaThirdPartyTuplas.feature", resp, config.cantidad).then(function (textoFinal){
+                      fs.writeFile("./features/thirdParty.feature", textoFinal, function(err) {
+                          // If an error occurred, show it and return
+                          if(err) return console.error(err);
+                          // Successfully wrote to the file!
+                      }); 
+                  });
+                  }
+              ).catch( error => console.error(error));  
+          } else {
+            console.log("individual");
+              descargarDatos("./otro.csv", 1).then(function (resp) { 
+                  console.log("resultado descargarDatos ->"+resp);
+                  reemplazarDatos("./plantillaThirdParty.feature", resp).then(function (textoFinal){
+                      fs.writeFile("./features/thirdParty.feature", textoFinal, function(err) {
+                          // If an error occurred, show it and return
+                          if(err) return console.error(err);
+                          // Successfully wrote to the file!
+                      }); 
+                  });
+                  }
+              ).catch( error => console.error(error));   
+          }     
+      } else {
+
+      }
+
       //consulta el test para obtener el script
       Test.findById(exec1.test_id, function (err, test) {
           if(err) {
@@ -137,12 +163,15 @@ var task=cron.schedule("*/2 * * * * *", function() {
         
         //var contentFile=unescape(addScrenErro);
         //console.log(contentFile);
-        fs.writeFile(pathSript,contentFileBody, function(err) {
-           if(err) {
-              return console.log(err);
-            }
-        //  console.log(contentFileBody);
-        }); 
+        if(!config) {
+          //Si no existe configuración sobreescribe el archivo local con el que se encuentr en base de datos
+          fs.writeFile(pathSript,contentFileBody, function(err) {
+            if(err) {
+                return console.log(err);
+              }
+          //  console.log(contentFileBody);
+          }); 
+        }
 
       console.log("The file createThirdParty.feature was saved!");
       Param.findOneAndUpdate(
