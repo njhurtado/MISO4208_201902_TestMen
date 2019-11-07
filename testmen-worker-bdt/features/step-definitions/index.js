@@ -32,6 +32,10 @@ defineSupportCode(({Given, When, Then}) => {
     expect(alertText).to.include(error);
   });
 
+  Then('I log out', () => {
+    browser.url('/dolibarr/user/logout.php');
+  });
+
   Then('I click modulo {string}', link => {
     browser.waitForVisible('.side-nav-vert', 5000);
     var input = browser.element('a[title="'+link+'"]');

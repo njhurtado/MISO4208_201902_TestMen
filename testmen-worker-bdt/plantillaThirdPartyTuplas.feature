@@ -22,6 +22,7 @@ Scenario Outline: Create a third-party succesfull
     When I fill phone with <phone>
     When I try to create a customer
     Then I expect to have a new customer <name>
+    Then I log out
 
     Examples: 
     | name            | email | address  | phone  | alias  | zip  | town  | 
