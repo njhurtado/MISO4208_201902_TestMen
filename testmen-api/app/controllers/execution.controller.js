@@ -2,6 +2,12 @@
 const Execution = require('../models/execution.model.js');
 const Application = require('../models/application.model.js');
 const Test = require('../models/test.model.js');
+var aws      = require('aws-sdk');
+var queueUrl = "https://sqs.us-east-1.amazonaws.com/610795545904/executionQueue";
+aws.config.update({
+    region: 'us-east-1'
+});
+var sqs = new aws.SQS();
 // Handle index actions
 exports.index = async (req, res) => {
     console.log("findAll");
@@ -92,6 +98,25 @@ exports.new = function (req, res) {
                             data: execution.toJSON()
                         }*/ execution.toJSON());
                     });
+					
+					console.log(execution.toJSON());
+					//Send to queue execution.toJSON()
+					var params = {
+						MessageBody: JSON.stringify(execution.toJSON()),
+						QueueUrl: queueUrl,
+						DelaySeconds: 0
+					};
+					
+					sqs.sendMessage(params, function(err, data) {
+					if(err) {
+						//res.send(err);
+						console.log(err);
+					} 
+					else {
+						//res.send(data);
+						console.log(data);
+					} 
+					});
                 });
         });
 };
