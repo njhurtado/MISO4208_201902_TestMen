@@ -5,3 +5,4 @@
 **/temp/
 **/test_servers/
 **/mutants/**/*.apk
+**/allure-reports/
