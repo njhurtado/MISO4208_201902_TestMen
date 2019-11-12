@@ -22,16 +22,16 @@ function getRandomInt(min, max) {
     };
 
 function randomClick(monkeysLeft, randomEvent) {
-
+	var aleatorio = getRandomInt(0, 3);
     var elementos = ['a','input', 'a'];
 
     var monkeysLeft = monkeysLeft;
     if(monkeysLeft > 0 ) {
-      if(cy.contains(elementos[randomEvent])){
-          cy.get(elementos[randomEvent]).then($links => {
+      if(cy.contains(elementos[aleatorio])){
+          cy.get(elementos[aleatorio]).then($links => {
               if($links.length > 0) {
                 var randomLink = $links.get(getRandomInt(0, $links.length));
-                if(randomEvent == 1 && !Cypress.dom.isHidden(randomLink)) {
+                if(aleatorio == 1 && !Cypress.dom.isHidden(randomLink)) {
                     cy.wrap(randomLink).click({force: true}).type("Texto aleatorio");
                     monkeysLeft = monkeysLeft - 1;
                 } else if(!Cypress.dom.isHidden(randomLink)) {

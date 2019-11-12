@@ -1,0 +1,72 @@
+{
+    "sessionId": "410edaf23edea2475339a83def3e9297",
+    "status": 0,
+    "value": [
+        {
+            "level": "INFO",
+            "message": "https://rawgit.com/marmelab/gremlins.js/master/gremlins.min.js 1:3114 \"mogwai \" \"fps       \" 60.031216232441224",
+            "source": "console-api",
+            "timestamp": 1573519072859
+        },
+        {
+            "level": "INFO",
+            "message": "https://rawgit.com/marmelab/gremlins.js/master/gremlins.min.js 1:6691 \"gremlin\" \"formFiller\" \"input\" \"K\" \"in\" input#fax.maxwidth100onsmartphone.quatrevingtpercent",
+            "source": "console-api",
+            "timestamp": 1573519072859
+        },
+        {
+            "level": "INFO",
+            "message": "https://rawgit.com/marmelab/gremlins.js/master/gremlins.min.js 1:6691 \"gremlin\" \"formFiller\" \"input\" \"y\" \"in\" input#idprof4.maxwidth100onsmartphone.quatrevingtpercent",
+            "source": "console-api",
+            "timestamp": 1573519072859
+        },
+        {
+            "level": "INFO",
+            "message": "https://rawgit.com/marmelab/gremlins.js/master/gremlins.min.js 1:6691 \"gremlin\" \"formFiller\" \"input\" \"7\" \"in\" input#idprof5.maxwidth100onsmartphone.quatrevingtpercent",
+            "source": "console-api",
+            "timestamp": 1573519072961
+        },
+        {
+            "level": "INFO",
+            "message": "https://rawgit.com/marmelab/gremlins.js/master/gremlins.min.js 1:6691 \"gremlin\" \"formFiller\" \"input\" \"H\" \"in\" input#idprof3.maxwidth100onsmartphone.quatrevingtpercent",
+            "source": "console-api",
+            "timestamp": 1573519073064
+        },
+        {
+            "level": "INFO",
+            "message": "https://rawgit.com/marmelab/gremlins.js/master/gremlins.min.js 1:6691 \"gremlin\" \"formFiller\" \"input\" \"8\" \"in\" input#capital",
+            "source": "console-api",
+            "timestamp": 1573519073167
+        },
+        {
+            "level": "INFO",
+            "message": "https://rawgit.com/marmelab/gremlins.js/master/gremlins.min.js 1:5473 \"gremlin\" \"clicker   \" \"click\" \"at\" 807 42",
+            "source": "console-api",
+            "timestamp": 1573519073172
+        },
+        {
+            "level": "INFO",
+            "message": "https://rawgit.com/marmelab/gremlins.js/master/gremlins.min.js 1:6691 \"gremlin\" \"formFiller\" \"input\" \"Z\" \"in\" input#customer_code.maxwidthonsmartphone",
+            "source": "console-api",
+            "timestamp": 1573519073287
+        },
+        {
+            "level": "INFO",
+            "message": "https://rawgit.com/marmelab/gremlins.js/master/gremlins.min.js 1:5473 \"gremlin\" \"clicker   \" \"click\" \"at\" 38 236",
+            "source": "console-api",
+            "timestamp": 1573519073287
+        },
+        {
+            "level": "INFO",
+            "message": "https://rawgit.com/marmelab/gremlins.js/master/gremlins.min.js 1:3114 \"mogwai \" \"fps       \" 60.03482019571296",
+            "source": "console-api",
+            "timestamp": 1573519073300
+        },
+        {
+            "level": "INFO",
+            "message": "http://localhost/dolibarr/societe/list.php?leftmenu=thirdparties 214:13 \"initCheckForSelect mode=0 atleastoneselected=0\"",
+            "source": "console-api",
+            "timestamp": 1573519073533
+        }
+    ]
+}

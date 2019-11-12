@@ -1,0 +1,4 @@
+{
+    "script": "return (function loadScript(callback) {\n  var s = document.createElement('script');\n  s.src = 'https://rawgithub.com/marmelab/gremlins.js/master/gremlins.min.js';\n  if (s.addEventListener) {\n    s.addEventListener('load', callback, false);\n  } else if (s.readyState) {\n    s.onreadystatechange = callback;\n  }\n  document.body.appendChild(s);\n}).apply(null, arguments)",
+    "args": []
+}
