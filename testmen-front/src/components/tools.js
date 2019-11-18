@@ -9,7 +9,8 @@ export const ToolList = props => (
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <TextField source="name" />
-            <TextField source="version" />
+            <TextField source="version" />  
+            <TextField source="app_type" />
             <EditButton />
         </Datagrid>
     </List>
@@ -21,6 +22,12 @@ export const ToolEdit = props => (
            <DisabledInput source="id" />
            <TextInput source="name" />
            <TextInput source="version" />
+           <SelectInput source="app_type"
+                                 choices={[
+                                     {id: 'WEB', name: 'WEB'},
+                                     {id: 'MOVIL', name: 'MOVIL'},
+                                 ]}
+                                 />
         </SimpleForm>
     </Edit>
 );
@@ -31,6 +38,12 @@ export const ToolCreate = props => (
         <SimpleForm>
              <TextInput source="name" />
              <TextInput source="version" />
+             <SelectInput source="app_type"
+                                 choices={[
+                                     {id: 'WEB', name: 'WEB'},
+                                     {id: 'MOVIL', name: 'MOVIL'},
+                                 ]}
+                                 />
         </SimpleForm>
     </Create>
 );
