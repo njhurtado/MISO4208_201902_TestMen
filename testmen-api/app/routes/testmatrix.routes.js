@@ -7,6 +7,7 @@ module.exports = (app) => {
 	app.post('/testmatrix', TestMatrix.new);
 	//View one testmatrix
 	app.get('/testmatrix/:testmatrix_id', TestMatrix.view);
+	app.get('/matrixdataform', TestMatrix.getDataForm);
     //Update one testmatrix
 	app.patch('/testmatrix/:testmatrix_id', TestMatrix.update)
 	//Update one testmatrix

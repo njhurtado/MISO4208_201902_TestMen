@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     const tool = new Tool({
     name : req.body.name || "Untitled Tool",
     version:req.body.version,
-    test_id: req.body.test_id
+    app_type: req.body.app_type
     });
 
     // Save Tool in the database
@@ -128,7 +128,7 @@ exports.update = (req, res) => {
     Tool.findByIdAndUpdate(req.params.toolId, {
         name : req.body.name || "Untitled Tool",
 		version:req.body.version,
-		test_id: req.body.test_id
+		app_type: req.body.app_type
     }, {new: true})
     .then(tool => {
         if(!tool) {

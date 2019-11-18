@@ -1,10 +1,13 @@
 // Import model
-const TestMatrix = require('../models/testmatrix.model.js');
+const TestMatrix= require('../models/testmatrix.model.js');
+const mapEntityMatrixModel= require('../models/testmatrix.model.js');
 const Application = require('../models/application.model.js');
 const Test = require('../models/test.model.js');
+const Version = require('../models/version.model.js');
+const Tool = require('../models/tool.model.js');
 // Handle index actions
 exports.index = async (req, res) => {
-    console.log("findAll");
+    console.log("findAll-matrix");
     
     var sort={};
     if(req.query._sort){
@@ -64,10 +67,14 @@ exports.index = async (req, res) => {
     });
 };
 // Handle create exceution actions
-exports.new = function (req, res) {
-    var TestMatrix = new TestMatrix(req.body);
+exports.new = function (req, res) { 
+
+    var testArray=req.body.tests_list;
    
-    Test.findById(TestMatrix.test_id, function (err, test) {
+   var testMatrix = new TestMatrix(mapEntityMatrixModel(req.body));
+   console.log(testMatrix);
+   res.json(testMatrix);
+   /* Test.findById(TestMatrix.test_id, function (err, test) {
         if (err)
         res.json(err);
             TestMatrix.test_type=test.type;
@@ -89,7 +96,7 @@ exports.new = function (req, res) {
                         res.json(TestMatrix.toJSON());
                     });
                 });
-        });
+        });*/
 };
 // Handle view TestMatrix info
 exports.view = function (req, res) {
@@ -150,4 +157,85 @@ exports.delete = function (req, res) {
             message: 'TestMatrix deleted'
         });
     });
+};
+
+
+exports.getDataForm = async function (req, res) {
+    console.log("getDataForm");
+    var dataSet={
+        app_type_choices:[{ id: 'WEB', name: 'WEB' },
+        { id: 'MOVIL', name: 'MOVIL' }],
+        applications:[],
+        versions:[] ,
+        tools:[], 
+        tests:[] 
+    }
+
+  await   Application.find()
+  .then(async apps => {
+    console.log("Application");
+    var data=apps.map(function(m) {
+        return m.toJSON();});
+    dataSet.applications=data;
+   
+        }).catch(err => {
+    console.log("Error::"+err);
+  })
+  .then(async res1=>{
+    console.log("Version");
+   await Version.find()
+    .then(vers => {
+      var data=vers.map(function(m) {
+          return m.toJSON();});
+      dataSet.versions=data;
+      //console.log(dataSet);
+     return;
+          }).catch(err => {
+      console.log("Error::"+err);
+    })
+  })
+  .then(async res2=>{
+    console.log("Tools");
+   await Tool.find()
+    .then(vers => {
+      var data=vers.map(function(m) {
+          return m.toJSON();});
+      dataSet.tools=data;
+      //console.log(dataSet);
+     return;
+          }).catch(err => {
+      console.log("Error::"+err);
+    })
+  })
+  .then(async res3=>{
+    console.log("Tests");
+   await Test.find({}, { id:1,version_id:1,mode:1,type:1,description: 1})
+    .then(data => {
+      var _data=data.map(function(row) {
+          return row.toJSON();});
+      dataSet.tests=_data;
+      //console.log(dataSet);
+     return;
+          }).catch(err => {
+      console.log("Error::"+err);
+    })
+  })
+  
+  .then(async resN=>{
+    //console.log(dataSet);
+    res.send(
+        /* {app_type_choices:[{ id: 'WEB', name: 'WEB2' },
+     { id: 'MOVIL', name: 'MOVIL2' }]}*/
+     dataSet
+     
+     
+     
+     )
+ 
+ 
+     } );
+
+
+   
+
 };

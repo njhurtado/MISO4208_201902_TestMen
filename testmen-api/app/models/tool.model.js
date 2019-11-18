@@ -6,6 +6,7 @@ const ToolSchema = mongoose.Schema({
         required: true
     },
     version: String,
+    app_type: String,
 	test_id: {
         type: String
     },

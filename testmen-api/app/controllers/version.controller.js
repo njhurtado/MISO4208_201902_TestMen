@@ -1,4 +1,6 @@
 const Version = require('../models/version.model.js');
+const Application = require('../models/application.model.js');
+
 
 // Create and Save a new Version
 exports.create = (req, res) => {
@@ -77,16 +79,16 @@ exports.findAll = async (req, res) => {
               
                 }
            });
-
+           var data={};
    await Version.find(query,null,skip).sort(sort)
-    .then(versions => {
+    .then( versions => {
         console.log('Count is ' + count);
         res.set('x-total-count',count)
-        var data=versions.map(function(m) {
-            //console.log(m.toObject()); 
-            //console.log(m.toJSON()); 
-            return m.toJSON();});
-        res.send(data);
+        data=versions.map( function(m) {              
+                //console.log(m.toJSON());
+            return m.toJSON();
+        });
+            res.send(data);
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving versions."
