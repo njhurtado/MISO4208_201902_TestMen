@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const srvS3=require('./s3manager');
 const readline = require("readline");
 const fct = require('./lectorpromesa.js');
+const vrt = require('./manejador-vrt.js');
 //https://www.npmjs.com/package/convert-csv-to-json
 let csvToJson = require('convert-csv-to-json');
 
@@ -23,6 +24,12 @@ const STATE_EXECUTED='EXECUTED';
 const STATE_PENDING='PENDING';
 
 var config;
+
+var configVrt = [
+  { "before": "before1.png", "after": "after1.png", "result": "result1.png" },
+  { "before": "before2.png", "after": "after2.png", "result": "result2.png" },
+  { "before": "before3.png", "after": "after3.png", "result": "result3.png" }
+]
 
 app = express();
 
@@ -60,39 +67,6 @@ function consultarConfguracion(){
   return config;
 }
 
-function inicializarDatos(){
-  config = consultarConfguracion();
-  if(config.nuevo = true) {
-      console.log("multiple ->" + config.multiple);
-      if(config.multiple) {
-          descargarDatos("./datos.csv", config.cantidad).then(function (resp) { 
-              console.log("resultado descargarDatos ->"+resp);
-              completarDatos("./plantillaThirdPartyTuplas.feature", resp, config.cantidad).then(function (textoFinal){
-                  fs.writeFile("./features/thirdParty.feature", textoFinal, function(err) {
-                      // If an error occurred, show it and return
-                      if(err) return console.error(err);
-                      // Successfully wrote to the file!
-                  }); 
-              });
-              }
-          ).catch( error => console.error(error));  
-      } else {
-          descargarDatos("./otro.csv", 1).then(function (resp) { 
-              console.log("resultado descargarDatos ->"+resp);
-              reemplazarDatos("./plantillaThirdParty.feature", resp).then(function (textoFinal){
-                  fs.writeFile("./features/thirdParty.feature", textoFinal, function(err) {
-                      // If an error occurred, show it and return
-                      if(err) return console.error(err);
-                      // Successfully wrote to the file!
-                  }); 
-              });
-              }
-          ).catch( error => console.error(error));   
-      }     
-  } else {
-
-  }
-}
 
 /*var task = cron.schedule('* * * * *', () => {
 	console.log('Printing this line every minute in the terminal');
@@ -116,7 +90,8 @@ var task=cron.schedule("*/2 * * * * *", function() {
       console.log("-execs-"+exec1);
       
       config = consultarConfguracion();
-      if(config.nuevo = true) {
+      console.log("nuevo ->" + config.nuevo);
+      if(config.nuevo == 'true') {
           console.log("multiple ->" + config.multiple);
           if(config.multiple == 'true') {
             console.log("por multiple ");
@@ -133,7 +108,7 @@ var task=cron.schedule("*/2 * * * * *", function() {
               ).catch( error => console.error(error));  
           } else {
             console.log("individual");
-              descargarDatos("./otro.csv", 1).then(function (resp) { 
+              descargarDatos("./datos.csv", 1).then(function (resp) { 
                   console.log("resultado descargarDatos ->"+resp);
                   reemplazarDatos("./plantillaThirdParty.feature", resp).then(function (textoFinal){
                       fs.writeFile("./features/thirdParty.feature", textoFinal, function(err) {
@@ -190,12 +165,12 @@ var task=cron.schedule("*/2 * * * * *", function() {
             
             //var contentFile=unescape(addScrenErro);
             //console.log(contentFile);
-            fs.writeFile(pathSript,contentFileBody, function(err) {
-              if(err) {
-                  return console.log(err);
-                }
+            //fs.writeFile(pathSript,contentFileBody, function(err) {
+            //  if(err) {
+            //      return console.log(err);
+            //    }
             //  console.log(contentFileBody);
-            }); 
+            //}); 
             console.log("The file index.js was saved!");
           var pathTest='npm test';
           exec(pathTest, (err, stdout, stderr) => {
@@ -207,7 +182,10 @@ var task=cron.schedule("*/2 * * * * *", function() {
               });
               return;
             }
-
+            //genera el reporte de VRT
+            let rutaReportes = "./reports/vrt/";
+            vrt.generarReporteVrt(configVrt, './screenshots/', rutaReportes, stderr);
+            console.log("Genera reporte VRT:" );
             //Se comprime el archivo allure report
             pathTest="zip -r " + exec1.test_id + "_reporte.zip . -i /allure-reports/allure/*";
           exec(pathTest, (err, stdout, stderr) => {

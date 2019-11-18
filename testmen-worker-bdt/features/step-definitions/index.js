@@ -6,7 +6,7 @@ var {expect} = require('chai');
 
 defineSupportCode(({Given, When, Then}) => {
   Given('I go to dollibar home screen', () => {
-    browser.url('/');
+    browser.url('/dolibarr/');
   });
 
   When(/^I fill with (.*) and (.*)$/ , (email, password) => {
@@ -29,6 +29,7 @@ defineSupportCode(({Given, When, Then}) => {
   Then('I expect to see {string}', error => {
     browser.waitForVisible('.side-nav-vert', 5000);
     var alertText = browser.element('.dropdown-toggle.login-dropdown-a').getText();
+    browser.saveScreenshot('./screenshots/after1.png');
     expect(alertText).to.include(error);
   });
 
@@ -44,12 +45,14 @@ defineSupportCode(({Given, When, Then}) => {
 
  Then('I click menu {string}', link => {
     browser.waitForVisible('.side-nav', 5000);
+    browser.saveScreenshot('./screenshots/after2.png');
     var input = browser.element('a='+link);
     input.click();
   });
 
   When(/^I fill name with (.*)$/ , (name) => {
     browser.waitForVisible(".tabBar.tabBarWithBottom", 5000);
+    browser.saveScreenshot('./screenshots/after3.png');
     var cajaSignUp = browser.element('.tabBar.tabBarWithBottom');
     var input = cajaSignUp.element('input[name="name"]');
     input.click();
