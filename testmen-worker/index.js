@@ -7,8 +7,9 @@ const express = require("express");
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
 const srvS3=require('./s3manager');
-const rm = require('rimraf')
-const ls = require('ls')
+const rm = require('rimraf');
+const ls = require('ls');
+const vrt = require('./manejador-vrt.js');
 
 
 Execution = require('./models/execution.model.js');
@@ -19,6 +20,13 @@ const STATE_REGISTER='REGISTER';
 const STATE_EXECUTED='EXECUTED';
 const STATE_PENDING='PENDING';
 var isExecution=false;
+
+var configVrt = [
+  { "before": "before1.png", "after": "after1.png", "result": "result1.png" },
+  { "before": "before2.png", "after": "after2.png", "result": "result2.png" },
+  { "before": "before3.png", "after": "after3.png", "result": "result3.png" }
+]
+
 
 app = express();
 
@@ -98,8 +106,11 @@ var task=cron.schedule("*/3 * * * * *", function() {
      
           }
            
-           
-          
+            //genera el reporte de VRT
+            let rutaReportes = "./reports/vrt/";
+            vrt.generarReporteVrt(configVrt, './screenshots/', rutaReportes, stderr);
+            console.log("Genera reporte VRT:" );
+          //Pendiente subir el reporte a S3
          
             shell.echo("Cypress complete");  
             isExecution=false;          

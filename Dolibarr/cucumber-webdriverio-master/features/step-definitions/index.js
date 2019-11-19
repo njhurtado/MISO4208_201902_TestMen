@@ -28,7 +28,7 @@ defineSupportCode(({Given, When, Then}) => {
 
   Then('I expect to see {string}', error => {
     browser.waitForVisible('.side-nav-vert', 5000);
-    browser.saveScreenshot('./screenshots/after1.png');
+    browser.saveScreenshot('./reports/vrt/after1.png');
     var alertText = browser.element('.dropdown-toggle.login-dropdown-a').getText();
     expect(alertText).to.include(error);
   });
@@ -45,7 +45,7 @@ defineSupportCode(({Given, When, Then}) => {
 
  Then('I click menu {string}', link => {
     browser.waitForVisible('.side-nav', 5000);
-    browser.saveScreenshot('./screenshots/after2.png');
+    browser.saveScreenshot('./reports/vrt/after2.png');
     var input = browser.element('a='+link);
     input.click();
   });
@@ -69,7 +69,7 @@ defineSupportCode(({Given, When, Then}) => {
   When('I select customer' , () => {
     browser.waitForVisible(".tabBar.tabBarWithBottom", 5000);
     var cajaSignUp = browser.element('.tabBar.tabBarWithBottom');
-    browser.saveScreenshot('./screenshots/after3.png');
+    browser.saveScreenshot('./reports/vrt/after3.png');
     var input = cajaSignUp.element('select[name="client"]');
     input.selectByValue('1');
    });
