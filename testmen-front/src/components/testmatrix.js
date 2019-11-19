@@ -173,15 +173,7 @@ class DataFormCreate extends Component {
         console.log(this.state.app_version_selected);
 
         console.log(test_choices);*/
-
-
-
     }
-
-
-
-
-
     render() {
         const { classes } = this.props;
         const optionRendererVersion = choice => `${choice.version}`;
@@ -195,8 +187,7 @@ class DataFormCreate extends Component {
             <SelectInput source="test_type" choices={[
                 { id: 'RANDOM', name: 'RANDOM' },
                 { id: 'E2E', name: 'E2E' },
-                { id: 'BDT', name: 'BDT' },
-                { id: 'VRT', name: 'VRT' }
+                { id: 'BDT', name: 'BDT' }
             ]}
                 formClassName={classes.inline_block}
                 onChange={this.handleOnchangeTestType}
@@ -204,7 +195,8 @@ class DataFormCreate extends Component {
 
             <SelectInput source="test_mode" choices={[
                 { id: 'HEADLESS', name: 'HEADLESS' },
-                { id: 'HEADFULL', name: 'HEADFULL' }
+                { id: 'HEADFULL', name: 'HEADFULL' },
+                { id: 'VRT', name: 'VRT' }
             ]}
                 formClassName={classes.inline_block_marlf}
                 onChange={this.handleOnchangeMode}

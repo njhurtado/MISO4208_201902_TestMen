@@ -7,7 +7,7 @@ import { List, Create, Edit, Datagrid, TextField, EmailField,
 export const ToolList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
-            <TextField source="id" />
+          
             <TextField source="name" />
             <TextField source="version" />  
             <TextField source="app_type" />

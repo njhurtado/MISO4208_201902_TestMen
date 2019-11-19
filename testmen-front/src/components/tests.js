@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { List, Create, Edit, Datagrid, TextField, 
-    EditButton,SimpleForm,DisabledInput,TextInput,
+    EditButton,SimpleForm,DisabledInput,ReferenceField,
     SelectInput, ReferenceInput, LongTextInput} from 'react-admin';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -29,17 +29,17 @@ export function handleOnchangeVersion(event) {
 
         console.log(value);
     }
-
+    const FullNameApp = ({ record = {} }) => <span>{record.app.name} {record.version}</span>;
 export const TestList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
-            <TextField source="id" />
+            {/*<TextField source="id" />*/}
             <TextField source="type" />
             <TextField source="mode" />
             <TextField source="description" />
-            <TextField source="aplication_id" />
-            <TextField source="tool_id" />
-            <TextField source="mutation" />
+            <ReferenceField label="App Version" source="version_id" reference="versions">
+             <FullNameApp source="app.name" />
+            </ReferenceField>
             <EditButton />
         </Datagrid>
     </List>
@@ -49,34 +49,29 @@ export const TestEdit = withStyles(styles)(({ classes, ...props })=> (
     <Edit {...props}>
         <SimpleForm>
            <DisabledInput source="id" />
-            <SelectInput source="type" choices={[
+           <SelectInput source="type" choices={[
                                         {id: 'RANDOM', name: 'RANDOM'},
                                         {id: 'E2E', name: 'E2E'},
-                                        {id: 'BDT', name: 'BDT'},
-                                        {id: 'VRT', name: 'VRT'}
-                                    ]}/>
+                                        {id: 'BDT', name: 'BDT'}
+                                    ]}
+                                    formClassName={classes.inline_block}/>
 
             <SelectInput source="mode" choices={[
                                                 {id: 'HEADLESS', name: 'HEADLESS'},
-                                                {id: 'HEADFULL', name: 'HEADFULL'}
+                                                {id: 'HEADFULL', name: 'HEADFULL'},
+                                                {id: 'VRT', name: 'VRT'}
                                             ]}
+                                            formClassName={classes.inline_block_marlf}
                                             />
-            <LongTextInput source="script" rowsMax={50} /> 
-
-
-            <LongTextInput source="description" />
-			<ReferenceInput source="version_id" reference="versions">
-                <SelectInput optionText="version" />
+          
+           
+			<ReferenceInput source="version_id" reference="versions" formClassName={classes.inline_block_marlf}
+            onChange={event=>handleOnchangeVersion(event)} 
+            >
+                <SelectInput optionText={choice => `${choice.app.name} ${choice.version}`} />
             </ReferenceInput>
-			<ReferenceInput source="tool_id" reference="tools">
-                <SelectInput optionText={optionRendererTools} />
-            </ReferenceInput>
-             <SelectInput source="mutation"
-                                 choices={[
-                                     {id: 'N', name: 'NO'},
-                                     {id: 'S', name: 'SI'},
-                                 ]}
-                                 />
+            <LongTextInput source="description" rowsMax={5}/>
+            <LongTextInput source="script" rowsMax={5}/>    
         </SimpleForm>
     </Edit>
 ));
@@ -88,14 +83,14 @@ export const TestCreate = withStyles(styles)(({ classes, ...props }) => (
         <SelectInput source="type" choices={[
                                         {id: 'RANDOM', name: 'RANDOM'},
                                         {id: 'E2E', name: 'E2E'},
-                                        {id: 'BDT', name: 'BDT'},
-                                        {id: 'VRT', name: 'VRT'}
+                                        {id: 'BDT', name: 'BDT'}
                                     ]}
                                     formClassName={classes.inline_block}/>
 
             <SelectInput source="mode" choices={[
                                                 {id: 'HEADLESS', name: 'HEADLESS'},
-                                                {id: 'HEADFULL', name: 'HEADFULL'}
+                                                {id: 'HEADFULL', name: 'HEADFULL'},
+                                                {id: 'VRT', name: 'VRT'}
                                             ]}
                                             formClassName={classes.inline_block_marlf}
                                             />
@@ -104,19 +99,8 @@ export const TestCreate = withStyles(styles)(({ classes, ...props }) => (
 			<ReferenceInput source="version_id" reference="versions" formClassName={classes.inline_block_marlf}
             onChange={event=>handleOnchangeVersion(event)} 
             >
-                <SelectInput optionText={choice => `${choice.version}`} />
+                <SelectInput optionText={choice => `${choice.app.name} ${choice.version}`} />
             </ReferenceInput>
-			<ReferenceInput source="tool_id" reference="tools" formClassName={classes.inline_block_marlf}> 
-                <SelectInput optionText={optionRendererTools} />
-            </ReferenceInput>
-             <SelectInput source="mutation"
-                                 choices={[
-                                     {id: 'N', name: 'NO'},
-                                     {id: 'S', name: 'SI'},
-                                 ]}
-                                 formClassName={classes.inline_block}/>
-
-
             <LongTextInput source="description" rowsMax={5}/>
             <LongTextInput source="script" rowsMax={5}/>            
         </SimpleForm>

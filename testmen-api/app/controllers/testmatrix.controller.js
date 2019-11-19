@@ -5,6 +5,8 @@ const Application = require('../models/application.model.js');
 const Test = require('../models/test.model.js');
 const Version = require('../models/version.model.js');
 const Tool = require('../models/tool.model.js');
+
+const Executions = require('../controllers/execution.controller.js');
 // Handle index actions
 exports.index = async (req, res) => {
     console.log("findAll-matrix");
@@ -68,12 +70,32 @@ exports.index = async (req, res) => {
 };
 // Handle create exceution actions
 exports.new = function (req, res) { 
+try{
+    console.log(req);
+    console.log(res);
+    var testMatrix = new TestMatrix(mapEntityMatrixModel(req.body));
+  
+   testMatrix.save()
+   .then(data => {
+    var testArray=req.body.tests_list;   
+        for(let testId of testArray){
+            //var reqExec=req;
+          //  reqExec.body={test_id:testId,state:'REGISTER'};
+            var exec= Executions.new({test_id:testId,state:'REGISTER'},{});
+            console.log(exec);
+        }
+       res.send(data);
+   }).catch(err => {
+       res.status(500).send({
+           message: err.message || "Some error occurred while creating the TestMatrix."
+       });
+   });
 
-    var testArray=req.body.tests_list;
-   
-   var testMatrix = new TestMatrix(mapEntityMatrixModel(req.body));
-   console.log(testMatrix);
-   res.json(testMatrix);
+} catch(e) {
+    console.log(e);
+    res.send(e);
+    // [Error: Uh oh!]
+}
    /* Test.findById(TestMatrix.test_id, function (err, test) {
         if (err)
         res.json(err);

@@ -80,11 +80,11 @@ exports.findAll = async (req, res) => {
                 }
            });
            var data={};
-   await Version.find(query,null,skip).sort(sort)
+   await Version.find(query,null,skip).sort(sort).populate({ path: 'app', select: 'name type' })
     .then( versions => {
         console.log('Count is ' + count);
         res.set('x-total-count',count)
-        data=versions.map( function(m) {              
+        data=versions.map(function(m) {              
                 //console.log(m.toJSON());
             return m.toJSON();
         });

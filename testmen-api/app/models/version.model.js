@@ -19,18 +19,12 @@ const VersionSchema = mongoose.Schema({
     VersionSchema.virtual('id').get(function () {
         return this._id;
       });
-  /*  VersionSchema.virtual('app').get( async function () {
-          var retorno={};
-      var query=  Application.findById(this.aplication_id);
-
-     await query.then(function (app) {
-        retorno=app;
-        console.log(retorno);
-      })
-        return retorno;
-       
-        //console.log(retorno);
-      });*/
+    VersionSchema.virtual('app', {
+            ref: 'Application', // The model to use
+            localField: 'aplication_id', // Find people where `localField`
+            foreignField: '_id', // is equal to `foreignField`
+            justOne: true // And only get the number of docs
+      });
       VersionSchema.set('toJSON', { getters: true, virtuals: true });
       VersionSchema.set('toObject', { getters: true })
 module.exports = mongoose.model('Version', VersionSchema);

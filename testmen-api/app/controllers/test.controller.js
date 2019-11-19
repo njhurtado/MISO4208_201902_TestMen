@@ -46,7 +46,7 @@ exports.index = async (req, res) => {
                 }
            });
 
-   await Test.find(query,null,skip).sort(sort)
+   await Test.find(query,null,skip).sort(sort).populate({ path: 'app', select: 'name type' })
     .then(tests => {
         console.log('Count is ' + count);
         res.set('x-total-count',count)
