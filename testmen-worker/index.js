@@ -108,7 +108,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
            
             //genera el reporte de VRT
             let rutaReportes = "./reports/vrt/";
-            vrt.generarReporteVrt(configVrt, './screenshots/', rutaReportes, stderr);
+            vrt.generarReporteVrt(configVrt, rutaReportes, rutaReportes, stderr);
             console.log("Genera reporte VRT:" );
           //Pendiente subir el reporte a S3
          
