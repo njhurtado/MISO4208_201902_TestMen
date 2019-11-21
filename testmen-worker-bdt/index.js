@@ -184,7 +184,7 @@ var task=cron.schedule("*/2 * * * * *", function() {
             }
             //genera el reporte de VRT
             let rutaReportes = "./reports/vrt/";
-            vrt.generarReporteVrt(configVrt, './screenshots/', rutaReportes, stderr);
+            vrt.generarReporteVrt(configVrt, rutaReportes, rutaReportes, stderr);
             console.log("Genera reporte VRT:" );
             //Se comprime el archivo allure report
             pathTest="zip -r " + exec1.test_id + "_reporte.zip . -i /allure-reports/allure/*";
