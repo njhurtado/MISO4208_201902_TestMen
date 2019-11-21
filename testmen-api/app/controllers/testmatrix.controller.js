@@ -2,6 +2,7 @@
 const TestMatrix= require('../models/testmatrix.model.js');
 const mapEntityMatrixModel= require('../models/testmatrix.model.js');
 const Application = require('../models/application.model.js');
+const Execution = require('../models/execution.model');
 const Test = require('../models/test.model.js');
 const Version = require('../models/version.model.js');
 const Tool = require('../models/tool.model.js');
@@ -70,19 +71,34 @@ exports.index = async (req, res) => {
 };
 // Handle create exceution actions
 exports.new = function (req, res) { 
-try{
-    console.log(req);
-    console.log(res);
+    console.log(req.body);
+    //console.log(res);
     var testMatrix = new TestMatrix(mapEntityMatrixModel(req.body));
   
    testMatrix.save()
-   .then(data => {
-    var testArray=req.body.tests_list;   
+   .then( data => {
+   var testArray=req.body.tests_list;   
         for(let testId of testArray){
-            //var reqExec=req;
-          //  reqExec.body={test_id:testId,state:'REGISTER'};
-            var exec= Executions.new({test_id:testId,state:'REGISTER'},{});
-            console.log(exec);
+            var execution=new Execution({test_id:testId,
+                state:'REGISTER',
+            test_type:req.body.test_type,
+            test_mode:req.body.test_mode,
+            mutation:req.body.mutation,
+            mutation_value:req.body.mutation_value,
+            app_type:req.body.app_type
+        });
+
+        console.log(execution);
+
+            execution.save(function (err) {
+                if (err)
+                return;
+                else{
+                    console.log("execok");
+                }
+                
+            });
+            //console.log(exec);
         }
        res.send(data);
    }).catch(err => {
@@ -91,11 +107,6 @@ try{
        });
    });
 
-} catch(e) {
-    console.log(e);
-    res.send(e);
-    // [Error: Uh oh!]
-}
    /* Test.findById(TestMatrix.test_id, function (err, test) {
         if (err)
         res.json(err);

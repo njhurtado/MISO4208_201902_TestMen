@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
+import {CardActions,ShowButton} from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
 
 import {
     Query,
@@ -11,7 +13,7 @@ import {
 import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import operators from './dataMutationType';
-
+import MatrixApproveButton from './MatrixApproveButton';
 export function objToString(obj) {
     var str = '';
     for (var p in obj) {
@@ -23,6 +25,38 @@ export function objToString(obj) {
 }
 
 var dat = {};
+const cardActionStyle = {
+    zIndex: 2,
+    display: 'inline-block',
+    float: 'right',
+};
+
+export const onsave=(context) =>  {
+    //const { push, record, showNotification } = this.props;
+   console.log(context);
+};
+
+/*export handleClick () => {
+    const { push, record, showNotification } = this.props;
+    const updatedRecord = { ...record};
+    console.log(this.props);
+    fetch(`/testmatrix`, { method: 'POST', body: updatedRecord })
+        .then(() => {
+
+
+            showNotification('testmatrix approved');
+            push('/testmatrix');
+        })
+        .catch((e) => {
+            showNotification('Error: comment not approved', 'warning')
+        });
+}
+*/
+const MatrixCreateActions = ({ basePath, data, resource }) => (
+    <CardActions style={cardActionStyle}>
+        <MatrixApproveButton record={data} />
+    </CardActions>
+);
 
 class DataFormCreate extends Component {
 
@@ -157,7 +191,7 @@ class DataFormCreate extends Component {
         }
         if(showTest){            
         dat.tests.map(function (row) {
-            console.log(row);
+            //console.log(row);
             if (row.type ===test_type_selected
                 && row.mode===mode_selected
                 && row.version_id===app_version_selected)
@@ -179,11 +213,11 @@ class DataFormCreate extends Component {
         const optionRendererVersion = choice => `${choice.version}`;
         const optionRendererTools = choice => `${choice.name} ${choice.version}`;
         const optionRendererAppVersion = choice => `${choice.description}`;
-        console.log(classes);
+        //console.log(classes);
         //withStyles(listStyles)(({ classes, ...props }) =>
         return (
             <span className={classes.contentform}>
- <SimpleForm {...this.props}>
+ <SimpleForm save={onsave(this.props)} {...this.props}  >
             <SelectInput source="test_type" choices={[
                 { id: 'RANDOM', name: 'RANDOM' },
                 { id: 'E2E', name: 'E2E' },
