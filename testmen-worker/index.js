@@ -78,25 +78,26 @@ var task=cron.schedule("*/3 * * * * *", function() {
                 //Si no es la versión local se deje en el mismo estado en que estaba la ejecución
                 Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).exec();
                 console.log('Version de Dolibarr no compatible');
-                isExecution = false;                
-              } else {
-                pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
+                isExecution = false; 
+                return;               
+              } 
+              pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
 
-                //console.log("-------------------------------------------------------------------------");
-                var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
-                contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
-                contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
-                
-                contentFileBody=contentFileBody+' '+unescape(addScrenErro);
-                //console.log(contentFile);
-                //fs.writeFile(pathSript,contentFileBody, function(err) {
-                //  if(err) {
-                //      return console.log(err);
-                //    }
-                //  console.log(contentFileBody);
-                //}); 
+              //console.log("-------------------------------------------------------------------------");
+              var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+              contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
+              contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
+              
+              contentFileBody=contentFileBody+' '+unescape(addScrenErro);
+              //console.log(contentFile);
+              fs.writeFile(pathSript,contentFileBody, function(err) {
+                if(err) {
+                    return console.log(err);
+                  }
+                console.log(contentFileBody);
+              }); 
 
-                ls("./cypress/integration/*.spec.js", { recurse: true }, file => console.log(`script created ${file.full}`));
+              ls("./cypress/integration/*.spec.js", { recurse: true }, file => console.log(`script created ${file.full}`));
 
               console.log("The file "+exec1.test_id+".spec.js was saved!");
 
@@ -130,13 +131,24 @@ var task=cron.schedule("*/3 * * * * *", function() {
               shell.echo("S3 complete"); 
         
               }
+
+              
               
               if(modo_vrt) {
                 //genera el reporte de VRT
                 let rutaReportes = "./reports/vrt/";
-                vrt.generarReporteVrt(configVrt, rutaReportes, rutaReportes, stderr);
-                console.log("Genera reporte VRT:" );
+                let rutaImagenes = "./cypress/reports/assets/"+exec1.test_id+'.spec.js/';
+                var pathCp='mv ' + rutaImagenes + 'after1.png ' + rutaImagenes + 'after2.png ' + rutaImagenes + 'after3.png ./reports/vrt/' ;
+                console.log("pathCp ->" + pathCp);
+                exec(pathCp, async (err, stdout, stderr) => {
+                  if (err) {
+                    // node couldn't execute the command
+                    console.log("Fallo copia");
+                  }
+                  vrt.generarReporteVrt(configVrt, rutaReportes, rutaReportes, stderr);
+                  console.log("Genera reporte VRT:" );
                   //Pendiente subir el reporte a S3
+                })
               }
             
                 shell.echo("Cypress complete");  
@@ -174,7 +186,6 @@ var task=cron.schedule("*/3 * * * * *", function() {
 
 
             });
-          }
         });
           });
       }else{

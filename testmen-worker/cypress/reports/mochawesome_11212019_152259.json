@@ -1,0 +1,143 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2019-11-21T20:22:28.103Z",
+    "end": "2019-11-21T20:22:59.949Z",
+    "duration": 31846,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "c64acbe3-62a7-45c2-985c-304af65c65c2",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "de8d16e4-c324-4611-bd4d-9c95b929e6ea",
+          "title": "Dollibar login",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Visits Dollinnar and succesfull login",
+              "fullTitle": "Dollibar login Visits Dollinnar and succesfull login",
+              "timedOut": null,
+              "duration": 5563,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('http://127.0.0.1/dolibarr');\ncy.get('.login_table').find('input[name=\"username\"]').click().type(\"admin\");\ncy.get('.login_table').find('input[name=\"password\"]').click().type(\"Temporal01\");\ncy.get('.login_table').find('input[type=\"submit\"]').click();\ncy.wait(1000);\ncy.screenshot('./after1');\ncy.url().should('include', '/index.php?mainmenu=home');\ncy.get('.dropdown-toggle.login-dropdown-a').contains('admin');",
+              "err": {},
+              "uuid": "ddce7737-5b9a-4937-90a4-41a3817b6e0f",
+              "parentUUID": "de8d16e4-c324-4611-bd4d-9c95b929e6ea",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Create a Third-party succesfull",
+              "fullTitle": "Dollibar login Create a Third-party succesfull",
+              "timedOut": null,
+              "duration": 11118,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('http://localhost/dolibarr');\ncy.get('.login_table').find('input[name=\"username\"]').click().type(\"admin\");\ncy.get('.login_table').find('input[name=\"password\"]').click().type(\"Temporal01\");\ncy.get('.login_table').find('input[type=\"submit\"]').click();\ncy.wait(1000);\ncy.contains('Terceros').click();\ncy.contains('Nuevo tercero').click();\ncy.wait(1000);\ncy.screenshot('./after2');\ncy.get('.tabBar.tabBarWithBottom').find('input[name=\"name\"]').click().type(\"Nelson Hurtado\");\ncy.get('.tabBar.tabBarWithBottom').find('input[name=\"name_alias\"]').click().type(\"Comerciante\");\ncy.get('.tabBar.tabBarWithBottom').find('select[name=\"client\"]').select('Cliente');\ncy.get('.tabBar.tabBarWithBottom').find('textarea[name=\"address\"]').click().type(\"Calle 7 No. 6c-54\");\ncy.get('.tabBar.tabBarWithBottom').find('input[name=\"zipcode\"]').click().type(\"057\");\ncy.get('.tabBar.tabBarWithBottom').find('input[name=\"town\"]').click().type(\"Bogota\");\ncy.get('.tabBar.tabBarWithBottom').find('input[name=\"email\"]').click().type(\"nhurtado@gmail.com\");\ncy.get('.tabBar.tabBarWithBottom').find('input[name=\"phone\"]').click().type(\"3115712263\");\ncy.get('div.center').find('input[type=\"submit\"]').click();\ncy.get('.inline-block.floatleft.valignmiddle.refid.refidpadding').contains('Nelson Hurtado');",
+              "err": {},
+              "uuid": "c47443a9-7ec0-4fe0-9a1b-41fddfb0b15d",
+              "parentUUID": "de8d16e4-c324-4611-bd4d-9c95b929e6ea",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Fill a ticket succesfull",
+              "fullTitle": "Dollibar login Fill a ticket succesfull",
+              "timedOut": null,
+              "duration": 10656,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('http://127.0.0.1/dolibarr');\ncy.get('.login_table').find('input[name=\"username\"]').click().type(\"admin\");\ncy.get('.login_table').find('input[name=\"password\"]').click().type(\"Temporal01\");\ncy.get('.login_table').find('input[type=\"submit\"]').click();\ncy.contains('Financiera').click();\ncy.contains('Nueva factura').click();\ncy.get('.tabBar.tabBarWithBottom').find('.select2-selection__arrow').click().type('Nels').click();\ncy.screenshot('./after3');\ncy.get('.select2-search.select2-search--dropdown').find('input[type=\"search\"]').type('{downarrow}{downarrow}{enter}', {\n  force: true\n});\ncy.get('.tabBar.tabBarWithBottom').find('button[name=\"_useless\"]').click();\ncy.get('.tabBar.tabBarWithBottom').find('select[name=\"mode_reglement_id\"]').select('Efectivo');\ncy.get('.tabBar.tabBarWithBottom').find('textarea[name=\"note_public\"]').click().type(\"Pago de productos comprados\");\ncy.get('div.center').find('input[type=\"submit\"]').click(); //cy.get('.arearef.heightref.valignmiddle.centpercent').contains('Nelson Hurtado')\ncy.get('.tabBar').find('select[name=\"type\"]').select('Producto');\ncy.get('.tabBar').find('textarea[name=\"dp_desc\"]').click().type(\"Resma de papel\");\ncy.get('.tabBar').find('input[name=\"price_ht\"]').click().type(\"12000\");\ncy.get('.tabBar').find('input[name=\"qty\"]').click().type(\"10\");\ncy.get('.tabBar').find('input[name=\"addline\"]').click();\ncy.get('.tabBar').contains('1.320.000,00');",
+              "err": {},
+              "uuid": "6cdf57ff-322f-4198-aa9f-0d2fc173bbf8",
+              "parentUUID": "de8d16e4-c324-4611-bd4d-9c95b929e6ea",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "ddce7737-5b9a-4937-90a4-41a3817b6e0f",
+            "c47443a9-7ec0-4fe0-9a1b-41fddfb0b15d",
+            "6cdf57ff-322f-4198-aa9f-0d2fc173bbf8"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 27337,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "5.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false
+      },
+      "version": "4.1.0"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "4.0.1"
+    }
+  }
+}

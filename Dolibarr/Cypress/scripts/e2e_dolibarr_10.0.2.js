@@ -6,7 +6,7 @@ describe('Dollibar login', function() {
         cy.get('.login_table').find('input[name="password"]').click().type("Temporal01")
         cy.get('.login_table').find('input[type="submit"]').click()
         cy.wait(1000);   
-	cy.screenshot('./reports/vrt/after1');
+	cy.screenshot('./after1');
         cy.url().should('include', '/index.php?mainmenu=home') 
         cy.get('.dropdown-toggle.login-dropdown-a').contains('admin')
     })
@@ -21,7 +21,7 @@ describe('Dollibar login', function() {
         cy.contains('Terceros').click()
         cy.contains('Nuevo tercero').click()
         cy.wait(1000); 
-	cy.screenshot('./reports/vrt/after2');
+	cy.screenshot('./after2');
         cy.get('.tabBar.tabBarWithBottom').find('input[name="name"]').click().type("Nelson Hurtado")
         cy.get('.tabBar.tabBarWithBottom').find('input[name="name_alias"]').click().type("Comerciante")
         cy.get('.tabBar.tabBarWithBottom').find('select[name="client"]').select('Cliente')
@@ -44,7 +44,7 @@ describe('Dollibar login', function() {
         cy.contains('Nueva factura').click()
  	cy.get('.tabBar.tabBarWithBottom').find('.select2-selection__arrow').click().type('Nels').click()
 
-	cy.screenshot('./reports/vrt/after3');
+	cy.screenshot('./after3');
         cy.get('.select2-search.select2-search--dropdown').find('input[type="search"]').type('{downarrow}{downarrow}{enter}', {force:true})
         cy.get('.tabBar.tabBarWithBottom').find('button[name="_useless"]').click()
         cy.get('.tabBar.tabBarWithBottom').find('select[name="mode_reglement_id"]').select('Efectivo')
