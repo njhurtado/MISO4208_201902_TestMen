@@ -1,7 +1,7 @@
 
 describe('Dollibar login', function() {
     it('Visits Dollinnar and succesfull login', function() {
-        cy.visit('http://127.0.0.1/')
+        cy.visit('http://127.0.0.1/dolibarr')
         cy.get('.login_table').find('input[name="username"]').click().type("admin")
         cy.get('.login_table').find('input[name="password"]').click().type("Temporal01")
         cy.get('.login_table').find('input[type="submit"]').click()
@@ -12,7 +12,7 @@ describe('Dollibar login', function() {
     })
 
      it('Create a Third-party succesfull', function() {
-        cy.visit('http://localhost/')
+        cy.visit('http://localhost/dolibarr')
         cy.get('.login_table').find('input[name="username"]').click().type("admin")
         cy.get('.login_table').find('input[name="password"]').click().type("Temporal01")
         cy.get('.login_table').find('input[type="submit"]').click()
@@ -43,7 +43,7 @@ describe('Dollibar login', function() {
     })
 
     it('Fill a ticket succesfull', function() {
-        cy.visit('http://127.0.0.1/')
+        cy.visit('http://127.0.0.1/dolibarr')
         cy.get('.login_table').find('input[name="username"]').click().type("admin")
         cy.get('.login_table').find('input[name="password"]').click().type("Temporal01")
         cy.get('.login_table').find('input[type="submit"]').click()
