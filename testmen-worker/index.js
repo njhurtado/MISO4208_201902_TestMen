@@ -94,7 +94,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
                 if(err) {
                     return console.log(err);
                   }
-                console.log(contentFileBody);
+                //console.log(contentFileBody);
               }); 
 
               ls("./cypress/integration/*.spec.js", { recurse: true }, file => console.log(`script created ${file.full}`));
@@ -104,9 +104,12 @@ var task=cron.schedule("*/3 * * * * *", function() {
               console.log("Running Cypress");
               var headless = false;
               var modo_vrt = false;
+              console.log("Modo VRT -> " + exec1);
+              console.log("Modo VRT -> " + exec1.test_mode);
               if(exec1.test_mode == 'HEADLESS'){
                 headless = true;
-              } else if(exec1.test_mode == 'VRT'){
+              } 
+              if(exec1.test_mode == 'VRT'){
                 modo_vrt = true;
                 console.log("Modo VRT");
               } 
