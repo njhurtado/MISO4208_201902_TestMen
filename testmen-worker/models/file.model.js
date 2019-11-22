@@ -17,4 +17,10 @@ const FileSchema = mongoose.Schema({
 }
 );
 
+FileSchema.virtual('id').get(function () {
+    return this._id;
+  });
+  FileSchema.set('toJSON', { getters: true, virtuals: true });
+  FileSchema.set('toObject', { getters: true });
+
 module.exports = mongoose.model('File', FileSchema);

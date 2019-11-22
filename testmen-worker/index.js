@@ -16,6 +16,8 @@ Execution = require('./models/execution.model.js');
 Test = require('./models/test.model.js');
 File = require('./models/file.model.js');
 Result = require('./models/result.model.js');
+Matrix = require('./models/testmatrix.model.js');
+Version = require('./models/version.model.js');
 const STATE_REGISTER='REGISTER';
 const STATE_EXECUTED='EXECUTED';
 const STATE_PENDING='PENDING';
@@ -47,7 +49,7 @@ var task=cron.schedule("*/3 * * * * *", function() {
     Execution.findOneAndUpdate(    
         { state:STATE_REGISTER, 
           test_type: "E2E",
-          test_mode: "HEADLESS",
+          //test_mode: "HEADLESS",
           app_type: "WEB"}, //Register     Executed
         { $set: { state: STATE_PENDING } },      
         {
@@ -58,97 +60,136 @@ var task=cron.schedule("*/3 * * * * *", function() {
         if(exec1){
           console.log("-execs-"+exec1);
           isExecution=true;
+         
           //consulta el test para obtener el script
           Test.findById(exec1.test_id, function (err, test) {
-              if(err) {
+            if(err) {
                 return console.log(err);
             }
-            pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
-
-            //console.log("-------------------------------------------------------------------------");
-            var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
-            contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
-            contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
-            
-            contentFileBody=contentFileBody+' '+unescape(addScrenErro);
-            //console.log(contentFile);
-            fs.writeFile(pathSript,contentFileBody, function(err) {
-               if(err) {
+            Version.findById(test.version_id, function (err, version) {
+              if(err) {
                   return console.log(err);
-                }
-            //  console.log(contentFileBody);
-            }); 
+              }
+              //Se consulta la versión para saber si corresponde con la que se ecuentra localmente instalada
+              var dollibarVersion = process.env.DOLIBARR_VERSION || '9.0';
+              console.log('Dolibarr local version -> ' + dollibarVersion);
+              console.log('Dolibarr test version -> ' + version.version);
+              if(version.version != dollibarVersion){
+                //Si no es la versión local se deje en el mismo estado en que estaba la ejecución
+                Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).exec();
+                console.log('Version de Dolibarr no compatible');
+                isExecution = false; 
+                return;               
+              } 
+              pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
 
-            ls("./cypress/integration/*.spec.js", { recurse: true }, file => console.log(`script created ${file.full}`));
-
-          console.log("The file "+exec1.test_id+".spec.js was saved!");
-
-          console.log("Running Cypress");
-
-          var pathTest='node cypress_runner.js --h true --n '+exec1.test_id+".spec.js" ;
-
-          exec(pathTest, async (err, stdout, stderr) => {
-            if (err) {
-              // node couldn't execute the command
-              Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
-                console.log("Execution id:" +exec1._id+".spec.js Failed.");
-                isExecution=false;   
-              });             
-              return;
-            }
-            console.log("Executing ..." +pathTest);
-            if (fs.existsSync('./cypress/reports/'+exec1.test_id+'.html')) {
-             //se genera reporte en s3
-            srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
-           //var bPathImg='reports/assets/'+exec1.test_id+'.spec.js/Fill a ticket succesfull (failed).png'
-           // srvS3.uploadFile('./cypress/'+bPathImg,bPathImg);
-           shell.echo("S3 complete"); 
-     
-          }
-           
-            //genera el reporte de VRT
-            let rutaReportes = "./reports/vrt/";
-            vrt.generarReporteVrt(configVrt, rutaReportes, rutaReportes, stderr);
-            console.log("Genera reporte VRT:" );
-          //Pendiente subir el reporte a S3
-         
-            shell.echo("Cypress complete");  
-            isExecution=false;          
-            Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
-              console.log("Execution id:" +exec1._id+" Executed.");
+              //console.log("-------------------------------------------------------------------------");
+              var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+              contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
+              contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
               
-              var result = new Result({
-                execution_id:exec1._id 
+              contentFileBody=contentFileBody+' '+unescape(addScrenErro);
+              //console.log(contentFile);
+              fs.writeFile(pathSript,contentFileBody, function(err) {
+                if(err) {
+                    return console.log(err);
+                  }
+                //console.log(contentFileBody);
+              }); 
+
+              ls("./cypress/integration/*.spec.js", { recurse: true }, file => console.log(`script created ${file.full}`));
+
+              console.log("The file "+exec1.test_id+".spec.js was saved!");
+
+              console.log("Running Cypress");
+              var headless = false;
+              var modo_vrt = false;
+              console.log("Modo VRT -> " + exec1);
+              console.log("Modo VRT -> " + exec1.test_mode);
+              if(exec1.test_mode == 'HEADLESS'){
+                headless = true;
+              } 
+              if(exec1.test_mode == 'VRT'){
+                modo_vrt = true;
+                console.log("Modo VRT");
+              } 
+
+              var pathTest='node cypress_runner.js --h ' + headless + ' --n '+exec1.test_id+".spec.js" ;
+
+              exec(pathTest, async (err, stdout, stderr) => {
+                if (err) {
+                  // node couldn't execute the command
+                  Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
+                    console.log("Execution id:" +exec1._id+".spec.js Failed.");
+                    isExecution=false;   
+                  });             
+                  return;
+                }
+                console.log("Executing ..." +pathTest);
+                if (fs.existsSync('./cypress/reports/'+exec1.test_id+'.html')) {
+                //se genera reporte en s3
+                srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
+              //var bPathImg='reports/assets/'+exec1.test_id+'.spec.js/Fill a ticket succesfull (failed).png'
+              // srvS3.uploadFile('./cypress/'+bPathImg,bPathImg);
+              shell.echo("S3 complete"); 
+        
               }
-              );
-              // save the app and check for errors
-              result.save(function (err) {
-                  if (err)
-                  console.log("Error registrando Resultado :" +err);     
-                  else
-                  console.log("Result id:" +result._id+" saved.");          
-              });
-  
-              var file = new File({
-                result_id:result._id,
-                name: exec1.test_id,
-                url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1._id +'.html'
+
+              
+              
+              if(modo_vrt) {
+                //genera el reporte de VRT
+                let rutaReportes = "./reports/vrt/";
+                let rutaImagenes = "./cypress/reports/assets/"+exec1.test_id+'.spec.js/';
+                var pathCp='mv ' + rutaImagenes + 'after1.png ' + rutaImagenes + 'after2.png ' + rutaImagenes + 'after3.png ./reports/vrt/' ;
+                console.log("pathCp ->" + pathCp);
+                exec(pathCp, async (err, stdout, stderr) => {
+                  if (err) {
+                    // node couldn't execute the command
+                    console.log("Fallo copia");
+                  }
+                  vrt.generarReporteVrt(configVrt, rutaReportes, rutaReportes, stderr);
+                  console.log("Genera reporte VRT:" );
+                  //Pendiente subir el reporte a S3
+                })
               }
-              );
-  
-              file.save(function (err) {
-                if (err)
-                console.log("Error registrando Archivo :" +err);   
-                else
-                console.log("File id:" +file._id+" saved.");              
-            });
+            
+                shell.echo("Cypress complete");  
+                isExecution=false;          
+                Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
+                  console.log("Execution id:" +exec1._id+" Executed.");
+                  
+                  var result = new Result({
+                    execution_id:exec1._id 
+                  }
+                  );
+                  // save the app and check for errors
+                  result.save(function (err) {
+                      if (err)
+                      console.log("Error registrando Resultado :" +err);     
+                      else
+                      console.log("Result id:" +result._id+" saved.");          
+                  });
+      
+                  var file = new File({
+                    result_id:result._id,
+                    name: exec1.test_id,
+                    url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1._id +'.html'
+                  }
+                  );
+      
+                  file.save(function (err) {
+                    if (err)
+                    console.log("Error registrando Archivo :" +err);   
+                    else
+                    console.log("File id:" +file._id+" saved.");              
+                });
+
+                });
+
 
             });
-
-
-          });
-       
-
+        });
           });
       }else{
         console.log("-----NO HAY PRUEBAS POR EJECUTAR------");
