@@ -9,6 +9,20 @@ const Tool = require('../models/tool.model.js');
 
 const Executions = require('../controllers/execution.controller.js');
 // Handle index actions
+
+//SQS configuration
+var aws      = require('aws-sdk');
+var queueE2E = "https://sqs.us-east-1.amazonaws.com/610795545904/executionQueue";
+var queueBDT = "https://sqs.us-east-1.amazonaws.com/610795545904/DBT-queue";
+var queueRandom = "https://sqs.us-east-1.amazonaws.com/610795545904/random-queue";
+var queueMT = "https://sqs.us-east-1.amazonaws.com/610795545904/mutant-queue";
+var queueFull = "https://sqs.us-east-1.amazonaws.com/610795545904/HeadfullE2E_queue";
+
+aws.config.update({
+    region: 'us-east-1'
+});
+var sqs = new aws.SQS();
+
 exports.index = async (req, res) => {
     console.log("findAll-matrix");
     
@@ -71,7 +85,7 @@ exports.index = async (req, res) => {
 };
 // Handle create exceution actions
 exports.new = function (req, res) { 
-    console.log(req.body);
+    console.log('req.body: ' + req.body);
     //console.log(res);
     var testMatrix = new TestMatrix(mapEntityMatrixModel(req.body));
   
@@ -86,19 +100,88 @@ exports.new = function (req, res) {
             mutation:req.body.mutation,
             mutation_value:req.body.mutation_value,
             app_type:req.body.app_type
-        });
+			});
 
-        console.log(execution);
+			console.log(execution);
 
-            execution.save(function (err) {
-                if (err)
-                return;
-                else{
-                    console.log("execok");
-                }
-                
-            });
-            //console.log(exec);
+			execution.save(function (err) {
+				if (err)
+				return;
+				else{
+					console.log("execok");
+				}
+				
+			});
+			//console.log(exec);
+			console.log(execution.toJSON());
+			//Send to queue execution.toJSON()
+			var queueUrl = '';
+			if(execution.mutation == 'S')
+			{
+				console.log('envio a cola mutantes');
+				queueUrl = queueMT;
+				var params = {
+					MessageBody: JSON.stringify(execution.toJSON()),
+					QueueUrl: queueUrl,
+					DelaySeconds: 0
+				};
+				
+				console.log('params: ' + params);
+				sqs.sendMessage(params, function(err, data) {
+					if(err) {
+						//res.send(err);
+						console.log(err);
+					} 
+					else {
+						//res.send(data);
+						console.log(data);
+					} 
+				});
+			}
+			
+			switch(execution.test_type)
+			{
+				case 'E2E':
+					switch(execution.test_mode)
+					{
+						case 'HEADLESS':
+							queueUrl = queueE2E;
+							break;
+						case 'HEADFULL':
+							queueUrl = queueFull;
+							break;
+						default:
+							queueUrl = queueE2E;
+					}
+					break;
+				case 'RANDOM':
+					queueUrl = queueRandom;
+					break;
+				case 'BDT':
+					queueUrl = queueBDT;
+					break;
+				default:
+					queueUrl = queueE2E;
+					console.log('no encontro match para la cola');
+			}
+			console.log('queueUrl: ' + queueUrl);
+			var params = {
+				MessageBody: JSON.stringify(execution.toJSON()),
+				QueueUrl: queueUrl,
+				DelaySeconds: 0
+			};
+			
+			sqs.sendMessage(params, function(err, data) {
+				if(err) {
+					//res.send(err);
+					console.log(err);
+				} 
+				else {
+					//res.send(data);
+					console.log(data);
+				} 
+			});
+			
         }
        res.send(data);
    }).catch(err => {

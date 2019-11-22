@@ -3,11 +3,17 @@ const Execution = require('../models/execution.model.js');
 const Application = require('../models/application.model.js');
 const Test = require('../models/test.model.js');
 var aws      = require('aws-sdk');
-var queueUrl = "https://sqs.us-east-1.amazonaws.com/610795545904/executionQueue";
+var queueE2E = "https://sqs.us-east-1.amazonaws.com/610795545904/executionQueue";
+var queueBDT = "https://sqs.us-east-1.amazonaws.com/610795545904/DBT-queue";
+var queueRandom = "https://sqs.us-east-1.amazonaws.com/610795545904/random-queue";
+var queueMT = "https://sqs.us-east-1.amazonaws.com/610795545904/mutant-queue";
+var queueFull = "https://sqs.us-east-1.amazonaws.com/610795545904/HeadfullE2E_queue";
+
 aws.config.update({
     region: 'us-east-1'
 });
 var sqs = new aws.SQS();
+
 // Handle index actions
 exports.index = async (req, res) => {
     console.log("findAll");
@@ -85,7 +91,7 @@ exports.new = function (req, res) {
 
             Application.findById(test.aplication_id, function (err, app) {
                 if (err)
-                res.json(err);
+					res.json(err);
 
                 execution.app_type=app.type; 
 
@@ -101,6 +107,54 @@ exports.new = function (req, res) {
 					
 					console.log(execution.toJSON());
 					//Send to queue execution.toJSON()
+					var queueUrl = '';
+					if(execution.mutation == 'S')
+					{
+						console.log('envio a cola mutantes');
+						queueUrl = queueMT;
+						var params = {
+							MessageBody: JSON.stringify(execution.toJSON()),
+							QueueUrl: queueUrl,
+							DelaySeconds: 0
+						};
+						
+						console.log('params: ' + params);
+						sqs.sendMessage(params, function(err, data) {
+							if(err) {
+								//res.send(err);
+								console.log(err);
+							} 
+							else {
+								//res.send(data);
+								console.log(data);
+							} 
+						});
+					}
+					
+					switch(execution.test_type)
+					{
+						case 'E2E':
+							switch(execution.test_mode)
+							{
+								case 'HEADLESS':
+									queueUrl = queueE2E;
+									break;
+								case 'HEADFULL':
+									queueUrl = queueFull;
+									break;
+							}
+							break;
+						case 'RANDOM':
+							queueUrl = queueRandom;
+							break;
+						case 'BDT':
+							queueUrl = queueBDT;
+							break;
+						default:
+							queueUrl = queueE2E;
+							console.log('no encontro match para la cola');
+					}
+					console.log('queueUrl: ' + queueUrl);
 					var params = {
 						MessageBody: JSON.stringify(execution.toJSON()),
 						QueueUrl: queueUrl,
@@ -108,14 +162,14 @@ exports.new = function (req, res) {
 					};
 					
 					sqs.sendMessage(params, function(err, data) {
-					if(err) {
-						//res.send(err);
-						console.log(err);
-					} 
-					else {
-						//res.send(data);
-						console.log(data);
-					} 
+						if(err) {
+							//res.send(err);
+							console.log(err);
+						} 
+						else {
+							//res.send(data);
+							console.log(data);
+						} 
 					});
                 });
         });
