@@ -78,7 +78,7 @@ var task=cron.schedule("*/2 * * * * *", function() {
   Execution.findOneAndUpdate(    
     { state:STATE_REGISTER, 
       test_type: "BDT",
-      test_mode: "HEADLESS",
+      //test_mode: "HEADLESS",
       app_type: "WEB"}, //Register     Executed
     { $set: { state: STATE_PENDING } },      
     {
@@ -157,7 +157,7 @@ var task=cron.schedule("*/2 * * * * *", function() {
          returnNewDocument: true
         }).then(exec2 => {
           console.log("Running Cucumber");
-          if(exec2) {
+          if(exec2) { 
             pathSript="./features/step-definitions/index.js"
             contentFileBody=unescape(exec2.value).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
             contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
@@ -234,6 +234,8 @@ var task=cron.schedule("*/2 * * * * *", function() {
 
 
           });
+        } else {
+          console.log("Parametro no encontrado!");
         }
       
           });

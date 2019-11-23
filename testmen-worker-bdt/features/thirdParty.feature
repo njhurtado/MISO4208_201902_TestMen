@@ -4,7 +4,7 @@
 Feature: Login into dollibar
     As an user I want to authenticate myself within dollibar website in order to admin resourcer
    
-Scenario: Create a third-party succesfull
+Scenario Outline: Create a third-party succesfull
 
   Given I go to dollibar home screen
     And I fill with  admin and Temporal01
@@ -12,24 +12,35 @@ Scenario: Create a third-party succesfull
     Then I expect to see admin
     Then I click modulo Terceros
     Then I click menu Nuevo tercero
-    When I fill name with Britteny Downer
-    When I fill alias with Britteny
+    When I fill name with <name>
+    When I fill alias with <alias>
     When I select customer
-    When I fill address with 337 Sage Parkway
-    When I fill zipcode with 1234
-    When I fill town with Jiang’an
-    When I fill email with bdowner0@usatoday.com
-    When I fill phone with 906-724-3761
+    When I fill address with <address>
+    When I fill zipcode with <zip>
+    When I fill town with <town>
+    When I fill email with <email>
+    When I fill phone with <phone>
     When I try to create a customer
-    Then I expect to have a new customer Britteny Downer 
+    Then I expect to have a new customer <name>
     Then I log out
-    
-Scenario: Create a ticket succesfull
 
-  Given I go to dollibar home screen
-    And I fill with  admin and Temporal01
-    And I try to login
-    Then I expect to see admin
-    Then I click modulo Financiera
-    Then I click menu Nueva factura
-    When I select a customer
+    Examples: 
+    | name            | email | address  | phone  | alias  | zip  | town  | 
+| Etti Gerdes |egerdes0@amazon.de |9985 Erie Center |296-518-1451 |Etti |353356 |Rostov-na-Donu |
+| Guthry Wong |gwong1@wunderground.com |83 Oriole Place |788-488-5668 |Guthry |833 24 |Strömsund |
+| Marlo Frankel |mfrankel2@globo.com |408 Algoma Place |564-590-0189 |Marlo | |Solina |
+| Kristofer Rentilll |krentilll3@digg.com |6474 Lukken Circle |836-188-1933 |Kristofer | |Yujin |
+| Timoteo Blunkett |tblunkett4@cornell.edu |7 Prentice Plaza |524-202-9939 |Timoteo |456384 |Leninsk |
+| Doreen Brawn |dbrawn5@ning.com |64 Spaight Circle |386-696-1531 |Doreen | |Lujiao |
+| Bruis Chazier |bchazier6@google.cn |0427 Eagle Crest Avenue |110-769-7206 |Bruis | |Hengli |
+| Costanza Wildber |cwildber7@wiley.com |624 Golf Street |761-336-7956 |Costanza | |Sendang |
+| Carl Gatesman |cgatesman8@unesco.org |424 Springs Pass |709-946-8451 |Carl | |Wansheng |
+| Calvin BoHlingolsen |cbohlingolsen9@wix.com |731 Hansons Place |167-912-6263 |Calvin | |Vale |
+| Freida Harwood |fharwooda@storify.com |58543 Northland Hill |301-415-1124 |Freida | |Nakasongola |
+| Matthiew Ismay |mismayb@bloglines.com |7 Trailsway Center |727-344-4442 |Matthiew | |Dawuhan |
+| Jermain Sinton |jsintonc@dailymotion.com |72341 Onsgard Drive |682-426-4455 |Jermain | |Rabah |
+| Warden Dalyiel |wdalyield@pen.io |5052 Monument Lane |402-337-1328 |Warden |623082 |Mikhaylovsk |
+| Darcie Danilin |ddaniline@imageshack.us |41668 Southridge Parkway |149-780-8918 |Darcie | |Huanggang |
+| Suzann Angear |sangearf@ovh.net |91 Summit Court |676-680-6808 |Suzann |341 92 |Kašperské Hory |
+| Sterne Gorghetto |sgorghettog@tmall.com |7 Stoughton Point |828-991-8115 |Sterne | |Perico |
+| Hillier Wren |hwrenh@chron.com |29 Mesta Plaza |626-699-4075 |Hillier | |Athi River |

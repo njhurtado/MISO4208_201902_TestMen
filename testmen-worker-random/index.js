@@ -8,6 +8,7 @@ const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
 const srvS3=require('./s3manager');
 const fct = require('./lectorpromesa.js');
+const consParam = require('./leerParametros.js');
 //https://www.npmjs.com/package/convert-csv-to-json
 
 
@@ -19,8 +20,8 @@ Result = require('./models/result.model.js');
 const STATE_REGISTER='REGISTER';
 const STATE_EXECUTED='EXECUTED';
 const STATE_PENDING='PENDING';
-
-var config;
+const PARAM_SEMILLA='SEMILLA';
+const PARAM_TIEMPO_EJECCION='TIEMPO_EJECCION';
 
 app = express();
 
@@ -43,8 +44,8 @@ var task=cron.schedule("*/2 * * * * *", function() {
   Execution.findOneAndUpdate(    
     { state:STATE_REGISTER, 
       test_type: "RANDOM",
-      test_mode: "HEADLESS",
-      app_type: "WEB"}, //Register     Executed
+      //test_mode: "HEADLESS",
+      app_type: "MOVIL"}, //Register     Executed
     { $set: { state: STATE_PENDING } },      
     {
        returnNewDocument: true
@@ -57,7 +58,17 @@ var task=cron.schedule("*/2 * * * * *", function() {
       var tiempoEjecucion = 60000;
       var semilla = 1234;
       var reemplazar = false;
-      reemplazarDatos("./plantilla-gremlins-test.js", resp).then(function (textoFinal){
+      let sem = consParam.consultarValorParametro(exec1.test_id, PARAM_SEMILLA);
+      let tEjec = consParam.consultarValorParametro(exec1.test_id, PARAM_TIEMPO_EJECCION);
+      console.log("semilla ->"+sem);
+      console.log("semilla ->"+sem);
+      if(sem) {
+        semilla = sem;
+      } 
+      if(tEjec) {
+        tiempoEjecucion = tEjec;
+      }       
+      reemplazarDatos("./plantilla-gremlins-test.js", semilla, tiempoEjecucion).then(function (textoFinal){
         fs.writeFile("./test/gremlins-test.js", textoFinal, function(err) {
             // If an error occurred, show it and return
             if(err) return console.error(err);

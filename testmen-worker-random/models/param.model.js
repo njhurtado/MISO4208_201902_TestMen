@@ -15,5 +15,11 @@ const ParamSchema = mongoose.Schema({
 {
 	timestamps: true
 });
+ParamSchema.virtual('id').get(function () {
+    return this._id;
+  });
+  ParamSchema.set('toJSON', { getters: true, virtuals: true });
+  ParamSchema.set('toObject', { getters: true });
+
 
 module.exports = mongoose.model('Param', ParamSchema);

@@ -18,6 +18,12 @@ var ResultSchema = mongoose.Schema({
 	timestamps: true
 }
 );
+
+ResultSchema.virtual('id').get(function () {
+    return this._id;
+  });
+  ResultSchema.set('toJSON', { getters: true, virtuals: true });
+  ResultSchema.set('toObject', { getters: true });
 var Result = module.exports = mongoose.model('Result', ResultSchema);
 module.exports.get = function (callback, limit) {
     Result.find(callback).limit(limit);
