@@ -7,3 +7,4 @@
 **/mutants/**/*.apk
 **/allure-reports/
 **/screnshots/
+**/cypress/reports
