@@ -41,8 +41,9 @@ exports.index = async (req, res) => {
     }
     var query={};
     if(req.query._filter){
-        console.log("---->"+"[{"+req.query._filter.toString()+"}]");
-       let  result=JSON.parse("[{"+req.query._filter.toString()+"}]");
+        var qf=req.query._filter.toString().replace(/'/g, "\"");
+        console.log("---->"+"[{"+qf+"}]");
+       let  result=JSON.parse("[{"+qf+"}]");
         for(let i of result){
             var value=Object.keys(i).map(key => i[key]);
             if(value)

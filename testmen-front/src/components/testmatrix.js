@@ -314,10 +314,10 @@ export const styles = {
         marginTop: '0em',
     }
 };
-
+const redirect = (basePath, id, data) => `execution?filter={"_filter":"'matrix_id':'${data.id}'"}&order=ASC&page=1&perPage=10&sort=test_id`;
 export const TestMatrixList = props => (
     <List {...props}>
-        <Datagrid rowClick="edit">
+        <Datagrid rowClick={redirect}>
             <TextField source="id" />
             <TextField source="test_type" />
             <TextField source="test_mode" />
@@ -345,7 +345,6 @@ export const TestMatrixEdit = withStyles(styles)(({ classes, ...props }) => (
                 { id: 'BDT', name: 'BDT' }
             ]}
                 formClassName={classes.inline_block}
-                onChange={this.handleOnchangeTestType}
             />
 
             <SelectInput source="test_mode" choices={[
