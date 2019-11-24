@@ -37,7 +37,7 @@ Version = require('./models/version.model.js');
 const STATE_REGISTER='REGISTER';
 const STATE_EXECUTED='EXECUTED';
 const STATE_PENDING='PENDING';
-var isExecution=false;
+var excecuted=false;
 
 var configVrt = [
   { "before": "before1.png", "after": "after1.png", "result": "result1.png" },
@@ -61,6 +61,7 @@ async function main()
 {
 	while(true)
 	{
+		console.log("checking queue for messages...");
 		sqs.receiveMessage(registro, (err, data) => 
 		{
 			if (err) {
@@ -69,11 +70,7 @@ async function main()
 			else if (data.Messages) 
 			{			
 				console.log("---------WORKER E2E 001------------");
-				var deleteParams = {
-					QueueUrl: queueURL,
-					ReceiptHandle: data.Messages[0].ReceiptHandle
-				};
-
+				
 				console.info("data.Messages.length", data.Messages.length, "\n");
 				console.info("data.Messages[0].Body", data.Messages[0].Body, "\n");
 			
@@ -107,7 +104,20 @@ async function main()
 							//Si no es la versión local se deje en el mismo estado en que estaba la ejecución
 							Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).exec();
 							console.log('Version de Dolibarr no compatible');
-							isExecution = false; 
+							var changeParams = {
+								QueueUrl: queueURL, /* required */
+								ReceiptHandle: data.Messages[0].ReceiptHandle, /* required */
+								VisibilityTimeout: '0' /* required */
+							};
+							sqs.changeMessageVisibility(changeParams, function(err, data) {
+								if (err) 
+									console.log(err, err.stack); // an error occurred
+								else
+								{
+									console.log(data);           // successful response
+									console.log("Visibility change to 0");
+								}
+							});
 							return;               
 						} 
 						pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
@@ -179,11 +189,25 @@ async function main()
 								})
 							}
 					
-							shell.echo("Cypress complete");  
-							isExecution=false;          
+							shell.echo("Cypress complete");
 							Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
 								console.log("Execution id:" +exec1._id+" Executed.");
-							  
+								console.log("Delete message from queue")
+								var deleteParams = {
+									QueueUrl: queueURL,
+									ReceiptHandle: data.Messages[0].ReceiptHandle
+								};
+								sqs.deleteMessage(deleteParams, function(err, data) {
+									if (err) 
+									{
+										console.log("Delete Error", err);
+									} 
+									else 
+									{
+										console.log("Message Deleted", data);
+									}
+								});
+								
 								var result = new Result({
 									execution_id:exec1._id 
 								});
@@ -208,16 +232,6 @@ async function main()
 									else
 										console.log("File id:" +file._id+" saved.");              
 								});
-							});
-							sqs.deleteMessage(deleteParams, function(err, data) {
-								if (err) 
-								{
-									console.log("Delete Error", err);
-								} 
-								else 
-								{
-									console.log("Message Deleted", data);
-								}
 							});
 						});
 					});
