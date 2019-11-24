@@ -4,9 +4,10 @@ import { List, Create, Edit, Datagrid, TextField, EmailField,
     EditButton,SimpleForm,DisabledInput,TextInput,
     SelectInput,ReferenceInput} from 'react-admin';
 
+    const redirect = (basePath, id, data) => `/results?filter={"_filter":"'execution_id':'${data.id}'"}&order=ASC&page=1&perPage=10&sort=execution_id`;
 export const ExecutionList = props => (
     <List {...props}>
-        <Datagrid rowClick="edit">
+        <Datagrid rowClick={redirect}>
             <TextField source="id" />
             <TextField source="test_id" />
             <TextField source="result_id" />

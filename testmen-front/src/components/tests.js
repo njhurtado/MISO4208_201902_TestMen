@@ -29,7 +29,7 @@ export function handleOnchangeVersion(event) {
 
         console.log(value);
     }
-    const FullNameApp = ({ record = {} }) => <span>{record.app.name} {record.version}</span>;
+    const FullNameApp = ({ record = {} }) => <span>{record.app?record.app.name:''} {record.version}</span>;
 export const TestList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
@@ -38,7 +38,7 @@ export const TestList = props => (
             <TextField source="mode" />
             <TextField source="description" />
             <ReferenceField label="App Version" source="version_id" reference="versions">
-             <FullNameApp source="app.name" />
+             <FullNameApp />
             </ReferenceField>
             <EditButton />
         </Datagrid>

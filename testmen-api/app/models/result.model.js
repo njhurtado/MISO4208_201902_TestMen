@@ -22,6 +22,13 @@ var ResultSchema = mongoose.Schema({
 ResultSchema.virtual('id').get(function () {
     return this._id;
   });
+
+ResultSchema.virtual('file', {
+    ref: 'File', // The model to use
+    localField: 'file_id', // Find people where `localField`
+    foreignField: '_id', // is equal to `foreignField`
+    justOne: true // And only get the number of docs
+});
   ResultSchema.set('toJSON', { getters: true, virtuals: true });
   ResultSchema.set('toObject', { getters: true });
 var Result = module.exports = mongoose.model('Result', ResultSchema);

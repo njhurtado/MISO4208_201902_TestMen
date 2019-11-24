@@ -2,12 +2,12 @@ import React from 'react';
 
 import { List,  Datagrid, TextField, 
     EditButton} from 'react-admin';
-
+    const UrlFile = ({ record = {} }) => <a>{record.url}</a>;
 export const FileList = props => (
     <List {...props}>
-        <Datagrid rowClick="edit">
+        <Datagrid >
             <TextField source="result_id" />
-            <TextField source="url" />
+            <UrlFile />
         </Datagrid>
     </List>
 );
