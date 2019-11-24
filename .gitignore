@@ -8,3 +8,4 @@
 **/allure-reports/
 **/screnshots/
 **/cypress/reports
+**/**/-logs.txt
