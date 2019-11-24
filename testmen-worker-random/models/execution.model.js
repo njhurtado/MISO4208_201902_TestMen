@@ -31,7 +31,10 @@ var ExecutionSchema = mongoose.Schema({
     schedule: {
         type: Date,
         default: Date.now
-    }
+    },
+    matrix_id: {
+        type: String
+    },
 },
 //Mongoose uses this option to automatically add two new fields - createdAt and updatedAt to the schema.
 {

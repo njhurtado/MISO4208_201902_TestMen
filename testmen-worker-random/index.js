@@ -14,6 +14,7 @@ const consParam = require('./leerParametros.js');
 
 Execution = require('./models/execution.model.js');
 Test = require('./models/test.model.js');
+Matrix = require('./models/testmatrix.model.js');
 Param = require('./models/param.model.js');
 File = require('./models/file.model.js');
 Result = require('./models/result.model.js');
@@ -34,9 +35,9 @@ function reemplazarDatos(filename, valor1, valor2) {
   });
 }
 
-/*var task = cron.schedule('* * * * *', () => {
+var task = cron.schedule('* * * * *', () => {
 	console.log('Printing this line every minute in the terminal');
-});*/
+});
 // To backup a database
 var task=cron.schedule("*/2 * * * * *", function() {
 
@@ -45,7 +46,7 @@ var task=cron.schedule("*/2 * * * * *", function() {
     { state:STATE_REGISTER, 
       test_type: "RANDOM",
       //test_mode: "HEADLESS",
-      app_type: "MOVIL"}, //Register     Executed
+      app_type: "WEB"}, //Register     Executed
     { $set: { state: STATE_PENDING } },      
     {
        returnNewDocument: true
@@ -55,112 +56,116 @@ var task=cron.schedule("*/2 * * * * *", function() {
     if(exec1){
       console.log("-execs-"+exec1);
       //Leer valores para tiempo de ejecución y semilla
-      var tiempoEjecucion = 60000;
-      var semilla = 1234;
-      var reemplazar = false;
-      let sem = consParam.consultarValorParametro(exec1.test_id, PARAM_SEMILLA);
-      let tEjec = consParam.consultarValorParametro(exec1.test_id, PARAM_TIEMPO_EJECCION);
-      console.log("semilla ->"+sem);
-      console.log("semilla ->"+sem);
-      if(sem) {
-        semilla = sem;
-      } 
-      if(tEjec) {
-        tiempoEjecucion = tEjec;
-      }       
-      reemplazarDatos("./plantilla-gremlins-test.js", semilla, tiempoEjecucion).then(function (textoFinal){
-        fs.writeFile("./test/gremlins-test.js", textoFinal, function(err) {
-            // If an error occurred, show it and return
-            if(err) return console.error(err);
-            // Successfully wrote to the file!
-        }); 
-      });
-      
-      
-      //consulta el test para obtener el script
-      Test.findById(exec1.test_id, function (err, test) {
-          if(err) {
-            return console.log(err);
+      Matrix.findById(exec1.matrix_id, function (err, matrix) {
+        if(err) {
+          return console.log(err);
         }
-        //pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
-        pathSript="./test/gremlins-test.js"
-        //console.log("-------------------------------------------------------------------------");
-        var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
-        contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
-        contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
-        
-        //var contentFile=unescape(addScrenErro);
-        //console.log(contentFile);
-        if(reemplazar) {
-          //Si no existe configuración sobreescribe el archivo local con el que se encuentr en base de datos
-          fs.writeFile(pathSript,contentFileBody, function(err) {
-            if(err) {
-                return console.log(err);
-              }
-          //  console.log(contentFileBody);
+        var tiempoEjecucion = 60000;
+        var semilla = 1234;
+        var reemplazar = false;
+        console.log("matrix ->"+matrix);
+        if(matrix) {
+          if(matrix.random_seed) {
+            semilla = random_seed;
+          } 
+          if(matrix.random_events) {
+            tiempoEjecucion = random_events;
+          }       
+        }
+        reemplazarDatos("./plantilla-gremlins-test.js", semilla, tiempoEjecucion).then(function (textoFinal){
+          fs.writeFile("./test/gremlins-test.js", textoFinal, function(err) {
+              // If an error occurred, show it and return
+              if(err) return console.error(err);
+              // Successfully wrote to the file!
           }); 
-        }
-
-        console.log("The file ./test/gremlins-test.js was saved!");
-      
-        var pathTest='npm test';
-        exec(pathTest, (err, stdout, stderr) => {
-          if (err) {
-            // node couldn't execute the command
-            console.log("Fails execution of Random");
-            Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
-              console.log("Execution id:" +exec1._id+".spec.js Failed.");
-            });
-            return;
-          }
-
-          //Se comprime el archivo allure report
-          pathTest="zip -r " + exec1.test_id + "_reporte.zip . -i /allure-reports/allure/*";
-        exec(pathTest, (err, stdout, stderr) => {
-          if (err) {
-            // node couldn't execute the command
-            console.log("Fails to zip report files");
-            return;
-          }
-          //se genera reporte en s3
-          //srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
-  
-          shell.echo("S3 complete"); 
+        });
         
-      
-          shell.echo("Random complete");            
-          Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
-            console.log("Execution id:" +exec1._id+" Executed.");
-            
-            var result = new Result({
-              execution_id:exec1._id 
+        
+        //consulta el test para obtener el script
+        Test.findById(exec1.test_id, function (err, test) {
+            if(err) {
+              return console.log(err);
+          }
+          //pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
+          pathSript="./test/gremlins-test.js"
+          //console.log("-------------------------------------------------------------------------");
+          var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+          contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
+          contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
+          
+          //var contentFile=unescape(addScrenErro);
+          //console.log(contentFile);
+          if(reemplazar) {
+            //Si no existe configuración sobreescribe el archivo local con el que se encuentr en base de datos
+            fs.writeFile(pathSript,contentFileBody, function(err) {
+              if(err) {
+                  return console.log(err);
+                }
+            //  console.log(contentFileBody);
+            }); 
+          }
+
+          console.log("The file ./test/gremlins-test.js was saved!");
+        
+          var pathTest='npm test';
+          exec(pathTest, (err, stdout, stderr) => {
+            if (err) {
+              // node couldn't execute the command
+              console.log("Fails execution of Random");
+              Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
+                console.log("Execution id:" +exec1._id+".spec.js Failed.");
+              });
+              return;
             }
-            );
-            // save the app and check for errors
-            result.save(function (err) {
+
+            //Se comprime el archivo allure report
+            pathTest="zip -r " + exec1.test_id + "_reporte.zip . -i /allure-reports/allure/*";
+          exec(pathTest, (err, stdout, stderr) => {
+            if (err) {
+              // node couldn't execute the command
+              console.log("Fails to zip report files");
+              return;
+            }
+            //se genera reporte en s3
+            //srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
+    
+            shell.echo("S3 complete"); 
+          
+        
+            shell.echo("Random complete");            
+            Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
+              console.log("Execution id:" +exec1._id+" Executed.");
+              
+              var result = new Result({
+                execution_id:exec1._id 
+              }
+              );
+              // save the app and check for errors
+              result.save(function (err) {
+                  if (err)
+                  console.log("Error registrando Resultado :" +err);     
+                  else
+                  console.log("Result id:" +result._id+" saved.");          
+              });
+
+              var file = new File({
+                result_id:result._id,
+                name: exec1.test_id,
+                url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1.test_id+'.html'
+              }
+              );
+
+              file.save(function (err) {
                 if (err)
-                console.log("Error registrando Resultado :" +err);     
+                console.log("Error registrando Archivo :" +err);   
                 else
-                console.log("Result id:" +result._id+" saved.");          
+                console.log("File id:" +file._id+" saved.");              
             });
-
-            var file = new File({
-              result_id:result._id,
-              name: exec1.test_id,
-              url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1.test_id+'.html'
-            }
-            );
-
-            file.save(function (err) {
-              if (err)
-              console.log("Error registrando Archivo :" +err);   
-              else
-              console.log("File id:" +file._id+" saved.");              
-          });
-          });
+            });
           });
         });
       });
+    });
   }else{
     console.log("-----NO HAY PRUEBAS POR EJECUTAR------");
   }
