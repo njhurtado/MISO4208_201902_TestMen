@@ -213,11 +213,12 @@ class DataFormCreate extends Component {
         const optionRendererVersion = choice => `${choice.version}`;
         const optionRendererTools = choice => `${choice.name} ${choice.version}`;
         const optionRendererAppVersion = choice => `${choice.description}`;
+        const redirect = (basePath, id, data) => `/testmatrix`;
         //console.log(classes);
         //withStyles(listStyles)(({ classes, ...props }) =>
         return (
             <span className={classes.contentform}>
- <SimpleForm save={onsave(this.props)} {...this.props}  >
+ <SimpleForm  save={onsave(this.props)} {...this.props} redirect={redirect}>
             <SelectInput source="test_type" choices={[
                 { id: 'RANDOM', name: 'RANDOM' },
                 { id: 'E2E', name: 'E2E' },
@@ -318,15 +319,16 @@ export const TestMatrixList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
-            <TextField source="test_type_selected" />
+            <TextField source="test_type" />
             <TextField source="test_mode" />
             <TextField source="aplication_id" />
             <TextField source="app_type" />
             <TextField source="version_id" />
             <TextField source="tool_id" />
             <TextField source="mutation" />
-            <TextField source="tool_size" />
-            <TextField source="tool_version" />
+            <TextField source="mutation_value" />
+            <TextField source="random_seed" />
+            <TextField source="random_events" />
             
         </Datagrid>
     </List>
@@ -335,10 +337,16 @@ export const TestMatrixList = props => (
 export const TestMatrixEdit = withStyles(styles)(({ classes, ...props }) => (
 
     <Edit {...props}>
-        <SimpleForm>
+        <SimpleForm >
             <DisabledInput source="id" />
-            <SelectInput source="test_type_selected" choices={dat.app_type_choices}
-                formClassName={classes.inline_block} />
+            <SelectInput source="test_type" choices={[
+                { id: 'RANDOM', name: 'RANDOM' },
+                { id: 'E2E', name: 'E2E' },
+                { id: 'BDT', name: 'BDT' }
+            ]}
+                formClassName={classes.inline_block}
+                onChange={this.handleOnchangeTestType}
+            />
 
             <SelectInput source="test_mode" choices={[
                 { id: 'HEADLESS', name: 'HEADLESS' },
@@ -373,7 +381,7 @@ export const TestMatrixEdit = withStyles(styles)(({ classes, ...props }) => (
                     { id: 'S', name: 'SI' }
                 ]}
             />
-            <SelectInput source="tool_size"
+           { /*<SelectInput source="tool_size"
                 choices={[
                     { id: '4.95', name: '4.95' },
                     { id: '6', name: '6' }
@@ -387,7 +395,7 @@ export const TestMatrixEdit = withStyles(styles)(({ classes, ...props }) => (
                     { id: '57.0.4', name: '57.0.4' },
                     { id: '55.0.2883.91', name: '55.0.2883.91' }
                 ]}
-            />
+            />*/}
 
         </SimpleForm>
     </Edit>
