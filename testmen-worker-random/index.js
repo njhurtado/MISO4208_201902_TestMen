@@ -73,7 +73,7 @@ var task=cron.schedule("*/2 * * * * *", function() {
           }       
         }
         reemplazarDatos("./plantilla-gremlins-test.js", semilla, tiempoEjecucion).then(function (textoFinal){
-          fs.writeFile("./test/gremlins-test.js", textoFinal, function(err) {
+          fs.writeFile("./test/specs/gremlins-test.js", textoFinal, function(err) {
               // If an error occurred, show it and return
               if(err) return console.error(err);
               // Successfully wrote to the file!
@@ -87,7 +87,7 @@ var task=cron.schedule("*/2 * * * * *", function() {
               return console.log(err);
           }
           //pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
-          pathSript="./test/gremlins-test.js"
+          pathSript="./test/specs/gremlins-test.js"
           //console.log("-------------------------------------------------------------------------");
           var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
           contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
@@ -105,7 +105,7 @@ var task=cron.schedule("*/2 * * * * *", function() {
             }); 
           }
 
-          console.log("The file ./test/gremlins-test.js was saved!");
+          console.log("The file ./test/specs/gremlins-test.js was saved!");
         
           var pathTest='npm test';
           exec(pathTest, (err, stdout, stderr) => {
@@ -127,12 +127,11 @@ var task=cron.schedule("*/2 * * * * *", function() {
               return;
             }
             //se genera reporte en s3
-            //srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
+            //srvS3.uploadFile('./'+exec1.test_id+'_reporte.zip','reports/'+exec1.test_id+'.html');
     
             shell.echo("S3 complete"); 
-          
-        
-            shell.echo("Random complete");            
+            
+            shell.echo("Random complete");
             Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
               console.log("Execution id:" +exec1._id+" Executed.");
               

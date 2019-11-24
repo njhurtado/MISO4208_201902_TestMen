@@ -58,9 +58,7 @@ function unleashGremlins(ttl, callback) {
    .distribution([0.6,0.4])
   );
   
-  var semilla = 1234;
-
-  horde.seed(semilla);
+  horde.seed(1234);
 
   horde.after(callback);
   window.onbeforeunload = stop;
@@ -78,7 +76,7 @@ describe('Monkey testing with gremlins ', function() {
 
   it('it should not raise any error', function() {
     var tiempoCargaScript = 100000; 
-    var timpoEjecucion = 60000;
+    var timpoEjecucion = 50000;
     browser.url('/dolibarr/');
     browser.waitForVisible('.login_table', 5000);
     var cajaLogIn = browser.element('.login_table');

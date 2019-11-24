@@ -1,9 +1,0 @@
-{
-    "message": "javascript error: Cannot read property 'createHorde' of undefined\nJavaScript stack:\nTypeError: Cannot read property 'createHorde' of undefined\n    at unleashGremlins (eval at executeAsyncScript (:457:5), <anonymous>:33:31)\n    at eval (eval at executeAsyncScript (:457:5), <anonymous>:56:4)\n    at eval (eval at executeAsyncScript (:457:5), <anonymous>:56:29)\n    at executeAsyncScript (<anonymous>:457:26)\n    at <anonymous>:473:29\n    at callFunction (<anonymous>:361:33)\n    at <anonymous>:371:23\n    at <anonymous>:372:3",
-    "type": "RuntimeError",
-    "seleniumStack": {
-        "type": "JavaScriptError",
-        "message": "An error occurred while executing user supplied JavaScript.",
-        "orgStatusMessage": "javascript error: Cannot read property 'createHorde' of undefined\nJavaScript stack:\nTypeError: Cannot read property 'createHorde' of undefined\n    at unleashGremlins (eval at executeAsyncScript (:457:5), <anonymous>:33:31)\n    at eval (eval at executeAsyncScript (:457:5), <anonymous>:56:4)\n    at eval (eval at executeAsyncScript (:457:5), <anonymous>:56:29)\n    at executeAsyncScript (<anonymous>:457:26)\n    at <anonymous>:473:29\n    at callFunction (<anonymous>:361:33)\n    at <anonymous>:371:23\n    at <anonymous>:372:3\n  (Session info: chrome=78.0.3904.70)\n  (Driver info: chromedriver=2.43.600233 (523efee95e3d68b8719b3a1c83051aa63aa6b10d),platform=Linux 5.0.0-32-generic x86_64)"
-    }
-}
