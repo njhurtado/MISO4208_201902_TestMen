@@ -19,7 +19,9 @@ var queueMT = "https://sqs.us-east-1.amazonaws.com/610795545904/mutant-queue";
 var queueFull = "https://sqs.us-east-1.amazonaws.com/610795545904/HeadfullE2E_queue";
 
 aws.config.update({
-    region: 'us-east-1'
+    region: 'us-east-1',
+	accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 var sqs = new aws.SQS();
 

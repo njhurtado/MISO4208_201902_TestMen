@@ -13,7 +13,9 @@ const vrt = require('./manejador-vrt.js');
 var aws = require("aws-sdk");
 var queueURL = "https://sqs.us-east-1.amazonaws.com/610795545904/executionQueue";
 aws.config.update({
-    region: 'us-east-1'
+    region: 'us-east-1',
+	accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 var sqs = new aws.SQS();
 var registro = {
