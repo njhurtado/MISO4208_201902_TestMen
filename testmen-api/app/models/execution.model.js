@@ -28,6 +28,9 @@ var ExecutionSchema = mongoose.Schema({
     mutation_value: {
         type: String
     },
+    matrix_id: {
+        type: String
+    },
     schedule: {
         type: Date,
         default: Date.now

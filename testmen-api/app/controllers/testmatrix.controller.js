@@ -101,7 +101,8 @@ exports.new = function (req, res) {
             test_mode:req.body.test_mode,
             mutation:req.body.mutation,
             mutation_value:req.body.mutation_value,
-            app_type:req.body.app_type
+            app_type:req.body.app_type,
+            matrix_id:data._id
 			});
 
 			console.log(execution);
