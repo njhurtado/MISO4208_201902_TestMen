@@ -10,8 +10,19 @@ const mongoose = require('mongoose');
 const srvS3=require('./s3manager');
 var isExecution=false;
 const rm = require('rimraf')
-var _pathAPK="Car_Report_v3.25.0_apkpure.com.apk";//"./org.gnucash.android_2018-06-27.apk";
-var _pkgAPK="me.kuehle.carreport";//"org.gnucash.android";
+var _appGlobal={
+  _pathAPK:"org.gnucash.android_2018-06-27.apk",
+  _pkgAPK:"org.gnucash.android"
+}
+var _appGnuCash={
+  _pathAPK:"org.gnucash.android_2018-06-27.apk",
+  _pkgAPK:"org.gnucash.android"
+};
+var _appCarReport={
+  _pathAPK:"Car_Report_v3.25.0_apkpure.com.apk",
+  _pkgAPK:"me.kuehle.carreport"
+};
+
 var _numMut=5;
 var _sdkAndroidHome='/home/eanunezt/Android/Sdk';
 var _EmulatorAvd='@Nexus_5X_PLAY_64';
@@ -56,6 +67,13 @@ var task=cron.schedule("*/6 * * * * *", async function() {
             return console.log(err);
         }
         _test=test;
+
+        //Por ahora solo soportamos gnucash y carreport
+        _appGlobal=_appGnuCash;
+        if("5dbb800763447150bc13ac8c"===_test.version_id){
+          _appGlobal=_appCarReport;
+        }
+
         isExecution=true;       
       });
       } else {
@@ -89,8 +107,8 @@ var task=cron.schedule("*/6 * * * * *", async function() {
      .then( async func=>{
       console.log("execShellCommand 1--->"+func);
     // await  process.chdir(_dir);   
-      console.log("execShellCommand--->"+_sdkAndroidHome+'/platform-tools/adb -s emulator-5556 install -r '+_pathAPK);
-      return execShellCommand(_sdkAndroidHome+'/platform-tools/adb -s emulator-5556 install -r '+_pathAPK); 
+      console.log("execShellCommand--->"+_sdkAndroidHome+'/platform-tools/adb -s emulator-5556 install -r '+_appGlobal._pathAPK);
+      return execShellCommand(_sdkAndroidHome+'/platform-tools/adb -s emulator-5556 install -r '+_appGlobal._pathAPK); 
      })
      .then( async func=>{
       await sleep(9000)
@@ -111,12 +129,12 @@ var task=cron.schedule("*/6 * * * * *", async function() {
                 if(mat.random_seed )
                 seed=mat.random_seed;
 
-                console.log("events:.."+events+"  seed..."+seed);
+               
               })
          }
 
-         console.log(":::::::::::::::::::::::::::::events:.."+events+"  seed..."+seed);
-      return execShellCommand(_sdkAndroidHome+'/platform-tools/adb shell monkey -p '+_pkgAPK+' -v '+events+' -s '+seed+' > '+_nomReport+'-logs.txt'); 
+         
+      return execShellCommand(_sdkAndroidHome+'/platform-tools/adb shell monkey -p '+_appGlobal._pkgAPK+' -v '+events+' -s '+seed+' > '+_nomReport+'-logs.txt'); 
      })
      .then( async func=>{
       console.log("execShellCommand 3--->"+func);
