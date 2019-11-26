@@ -25,8 +25,8 @@ ResultSchema.virtual('id').get(function () {
 
 ResultSchema.virtual('file', {
     ref: 'File', // The model to use
-    localField: 'file_id', // Find people where `localField`
-    foreignField: '_id', // is equal to `foreignField`
+    localField: '_id', // Find people where `localField`
+    foreignField: 'result_id', // is equal to `foreignField`
     justOne: true // And only get the number of docs
 });
   ResultSchema.set('toJSON', { getters: true, virtuals: true });
