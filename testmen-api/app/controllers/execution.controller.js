@@ -137,15 +137,7 @@ exports.new = function (req, res) {
 					switch(execution.test_type)
 					{
 						case 'E2E':
-							switch(execution.test_mode)
-							{
-								case 'HEADLESS':
-									queueUrl = queueE2E;
-									break;
-								case 'HEADFULL':
-									queueUrl = queueFull;
-									break;
-							}
+							queueUrl = queueE2E;
 							break;
 						case 'RANDOM':
 							queueUrl = queueRandom;
