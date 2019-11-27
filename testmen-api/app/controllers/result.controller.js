@@ -48,13 +48,13 @@ exports.index = async (req, res) => {
            });
       
 
-   await Result.find(query,null,skip).sort(sort)
+   await Result.find(query,null,skip).sort(sort).populate({ path: 'file', select: 'url name' })
     .then(results => {
         console.log('Count is ' + count);
         res.set('x-total-count',count)
         var data=results.map(function(m) {
             //console.log(m.toObject()); 
-            //console.log(m.toJSON()); 
+            console.log(m.toJSON()); 
             return m.toJSON();});
         res.send(data);
     }).catch(err => {

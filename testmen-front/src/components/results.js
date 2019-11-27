@@ -1,18 +1,23 @@
 import React from 'react';
 
 import { List,  Datagrid, TextField, 
-    EditButton, ReferenceField} from 'react-admin';
-    const UrlFile = ({ record = {} }) => <a>{record.url}</a>;
+    UrlField, ReferenceField} from 'react-admin';
 
+    const useStyles ={
+        link: {
+            textDecoration: 'none',
+        },
+        icon: {
+            width: '0.5em',
+            paddingLeft: 2,
+        }}; 
 export const ResultList = props => (
     <List {...props}>
-        <Datagrid rowClick="edit">
+        <Datagrid >
             <TextField source="id" />
             <TextField source="execution_id" />
-            <TextField source="run_date" />   
-            <ReferenceField label="Show File" source="file_id" reference="files">
-             <UrlFile />
-            </ReferenceField>      
+            <TextField source="run_date" /> 
+            <UrlField source="file.url" rel="noopener noreferrer" target="_blank" style={useStyles}/>
         </Datagrid>
     </List>
 );
