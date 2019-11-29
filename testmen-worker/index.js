@@ -159,9 +159,9 @@ function main() {
 						}
 						*/
 						console.log("Executing ..." +pathTest);
-						if (fs.existsSync('./cypress/reports/'+exec1.test_id+'.html')) {
+						if (fs.existsSync('./cypress/reports/'+exec1.test_id+'.spec.html')) {
 							//se genera reporte en s3
-							srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
+							srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.spec.html','reports/'+exec1.test_id+'.html');
 							//var bPathImg='reports/assets/'+exec1.test_id+'.spec.js/Fill a ticket succesfull (failed).png'
 							// srvS3.uploadFile('./cypress/'+bPathImg,bPathImg);
 							shell.echo("S3 complete"); 
