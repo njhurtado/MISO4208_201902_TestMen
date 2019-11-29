@@ -27,7 +27,7 @@ var registro = {
   WaitTimeSeconds: 0
 };
 
-
+const execSync = require('child_process').execSync;
 Execution = require('./models/execution.model.js');
 Test = require('./models/test.model.js');
 File = require('./models/file.model.js');
@@ -147,7 +147,9 @@ function main() {
 
 					var pathTest='node cypress_runner.js --h ' + headless + ' --n '+exec1.test_id+".spec.js" ;
 
-					exec(pathTest, async (err, stdout, stderr) => {
+					code = execSync(pathTest);
+					console.log(code);
+					/*execSync(pathTest, async (err, stdout, stderr) => {
 						if (err) {
 							// node couldn't execute the command
 							Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
@@ -155,6 +157,7 @@ function main() {
 							});             
 							return;
 						}
+						*/
 						console.log("Executing ..." +pathTest);
 						if (fs.existsSync('./cypress/reports/'+exec1.test_id+'.html')) {
 							//se genera reporte en s3
@@ -170,15 +173,17 @@ function main() {
 							let rutaImagenes = "./cypress/reports/assets/"+exec1.test_id+'.spec.js/';
 							var pathCp='mv ' + rutaImagenes + 'after1.png ' + rutaImagenes + 'after2.png ' + rutaImagenes + 'after3.png ./reports/vrt/' ;
 							console.log("pathCp ->" + pathCp);
-							exec(pathCp, async (err, stdout, stderr) => {
+							code = execSync(pathCp);
+							console.log(code);
+							/*exec(pathCp, async (err, stdout, stderr) => {
 								if (err) {
 									// node couldn't execute the command
 									console.log("Fallo copia");
-								}
+								}*/
 								vrt.generarReporteVrt(configVrt, rutaReportes, rutaReportes, stderr);
 								console.log("Genera reporte VRT:" );
 								//Pendiente subir el reporte a S3
-							})
+							//})
 						}
 				
 						shell.echo("Cypress complete");
@@ -225,7 +230,7 @@ function main() {
 									console.log("File id:" +file._id+" saved.");              
 							});
 						});
-					});
+					//});
 				});
 			});
 		}
