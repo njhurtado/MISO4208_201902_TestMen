@@ -52,196 +52,187 @@ app = express();
 	console.log('Printing this line every minute in the terminal');
 });*/
 // To backup a database
-function sleep(millis) 
-{
-    return new Promise(resolve => setTimeout(resolve, millis));
-}
-
-async function main() 
-{
-	while(true)
+function main() {
+	console.log("checking queue for messages...");
+	sqs.receiveMessage(registro, (err, data) => 
 	{
-		console.log("checking queue for messages...");
-		sqs.receiveMessage(registro, (err, data) => 
-		{
-			if (err) {
-				console.log("Receive Error", err);
-			}
-			else if (data.Messages) 
-			{			
-				console.log("---------WORKER E2E 001------------");
-				
-				console.info("data.Messages.length", data.Messages.length, "\n");
-				console.info("data.Messages[0].Body", data.Messages[0].Body, "\n");
+		if (err) {
+			console.log("Receive Error", err);
+		}
+		else if (data.Messages) 
+		{			
+			console.log("---------WORKER E2E 001------------");
 			
-				var messageBody = data.Messages[0].Body;
-				console.log(messageBody);
-				var exec1 = JSON.parse(messageBody);
-				console.log(exec1);
-				
-				var pathScirptRemove="./cypress/integration/*.spec.js";     
-				// delete all existing report files
-				removeFiles(pathScirptRemove);
+			console.info("data.Messages.length", data.Messages.length, "\n");
+			console.info("data.Messages[0].Body", data.Messages[0].Body, "\n");
+		
+			var messageBody = data.Messages[0].Body;
+			console.log(messageBody);
+			var exec1 = JSON.parse(messageBody);
+			console.log(exec1);
 			
-				var pathSript;
-				//consulta el test para obtener el script
-				Test.findById(exec1.test_id, function (err, test) 
+			var pathScirptRemove="./cypress/integration/*.spec.js";     
+			// delete all existing report files
+			removeFiles(pathScirptRemove);
+		
+			var pathSript;
+			//consulta el test para obtener el script
+			Test.findById(exec1.test_id, function (err, test) 
+			{
+				if(err) 
 				{
-					if(err) 
-					{
+					return console.log(err);
+				}
+				Version.findById(test.version_id, function (err, version) 
+				{
+					if(err) {
 						return console.log(err);
 					}
-					Version.findById(test.version_id, function (err, version) 
-					{
+					//Se consulta la versión para saber si corresponde con la que se ecuentra localmente instalada
+					var dollibarVersion = process.env.DOLIBARR_VERSION || '9.0';
+					console.log('Dolibarr local version -> ' + dollibarVersion);
+					console.log('Dolibarr test version -> ' + version.version);
+					if(version.version != dollibarVersion){
+						//Si no es la versión local se deje en el mismo estado en que estaba la ejecución
+						Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).exec();
+						console.log('Version de Dolibarr no compatible');
+						var changeParams = {
+							QueueUrl: queueURL, /* required */
+							ReceiptHandle: data.Messages[0].ReceiptHandle, /* required */
+							VisibilityTimeout: '0' /* required */
+						};
+						sqs.changeMessageVisibility(changeParams, function(err, data) {
+							if (err) 
+								console.log(err, err.stack); // an error occurred
+							else
+							{
+								console.log(data);           // successful response
+								console.log("Visibility change to 0");
+							}
+						});
+						return;               
+					} 
+					pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
+
+					//console.log("-------------------------------------------------------------------------");
+					var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
+					contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
+					contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
+
+					contentFileBody=contentFileBody+' '+unescape(addScrenErro);
+					//console.log(contentFile);
+					fs.writeFile(pathSript,contentFileBody, function(err) {
 						if(err) {
 							return console.log(err);
 						}
-						//Se consulta la versión para saber si corresponde con la que se ecuentra localmente instalada
-						var dollibarVersion = process.env.DOLIBARR_VERSION || '9.0';
-						console.log('Dolibarr local version -> ' + dollibarVersion);
-						console.log('Dolibarr test version -> ' + version.version);
-						if(version.version != dollibarVersion){
-							//Si no es la versión local se deje en el mismo estado en que estaba la ejecución
-							Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).exec();
-							console.log('Version de Dolibarr no compatible');
-							var changeParams = {
-								QueueUrl: queueURL, /* required */
-								ReceiptHandle: data.Messages[0].ReceiptHandle, /* required */
-								VisibilityTimeout: '0' /* required */
+						//console.log(contentFileBody);
+					}); 
+
+					ls("./cypress/integration/*.spec.js", { recurse: true }, file => console.log(`script created ${file.full}`));
+
+					console.log("The file "+exec1.test_id+".spec.js was saved!");
+
+					console.log("Running Cypress");
+					var headless = false;
+					var modo_vrt = false;
+					console.log("Modo VRT -> " + exec1);
+					console.log("Modo VRT -> " + exec1.test_mode);
+					if(exec1.test_mode == 'HEADLESS'){
+						headless = true;
+					} 
+					if(exec1.test_mode == 'VRT'){
+						modo_vrt = true;
+						console.log("Modo VRT");
+					} 
+
+					var pathTest='node cypress_runner.js --h ' + headless + ' --n '+exec1.test_id+".spec.js" ;
+
+					exec(pathTest, async (err, stdout, stderr) => {
+						if (err) {
+							// node couldn't execute the command
+							Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
+								console.log("Execution id:" +exec1._id+".spec.js Failed.");   
+							});             
+							return;
+						}
+						console.log("Executing ..." +pathTest);
+						if (fs.existsSync('./cypress/reports/'+exec1.test_id+'.html')) {
+							//se genera reporte en s3
+							srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
+							//var bPathImg='reports/assets/'+exec1.test_id+'.spec.js/Fill a ticket succesfull (failed).png'
+							// srvS3.uploadFile('./cypress/'+bPathImg,bPathImg);
+							shell.echo("S3 complete"); 
+						}
+
+						if(modo_vrt) {
+							//genera el reporte de VRT
+							let rutaReportes = "./reports/vrt/";
+							let rutaImagenes = "./cypress/reports/assets/"+exec1.test_id+'.spec.js/';
+							var pathCp='mv ' + rutaImagenes + 'after1.png ' + rutaImagenes + 'after2.png ' + rutaImagenes + 'after3.png ./reports/vrt/' ;
+							console.log("pathCp ->" + pathCp);
+							exec(pathCp, async (err, stdout, stderr) => {
+								if (err) {
+									// node couldn't execute the command
+									console.log("Fallo copia");
+								}
+								vrt.generarReporteVrt(configVrt, rutaReportes, rutaReportes, stderr);
+								console.log("Genera reporte VRT:" );
+								//Pendiente subir el reporte a S3
+							})
+						}
+				
+						shell.echo("Cypress complete");
+						Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
+							console.log("Execution id:" +exec1._id+" Executed.");
+							console.log("Delete message from queue")
+							var deleteParams = {
+								QueueUrl: queueURL,
+								ReceiptHandle: data.Messages[0].ReceiptHandle
 							};
-							sqs.changeMessageVisibility(changeParams, function(err, data) {
+							sqs.deleteMessage(deleteParams, function(err, data) {
 								if (err) 
-									console.log(err, err.stack); // an error occurred
-								else
 								{
-									console.log(data);           // successful response
-									console.log("Visibility change to 0");
+									console.log("Delete Error", err);
+								} 
+								else 
+								{
+									console.log("Message Deleted", data);
 								}
 							});
-							return;               
-						} 
-						pathSript="./cypress/integration/"+exec1.test_id+".spec.js";
-
-						//console.log("-------------------------------------------------------------------------");
-						var contentFileBody=unescape(test.script).replace(new RegExp('\\\\r\\\\n', 'g'),'\n');
-						contentFileBody=contentFileBody.replace(new RegExp('\\\\\\n', 'g'),'\n');
-						contentFileBody=contentFileBody.replace(new RegExp('\\\\', 'g'),'');
-
-						contentFileBody=contentFileBody+' '+unescape(addScrenErro);
-						//console.log(contentFile);
-						fs.writeFile(pathSript,contentFileBody, function(err) {
-							if(err) {
-								return console.log(err);
-							}
-							//console.log(contentFileBody);
-						}); 
-
-						ls("./cypress/integration/*.spec.js", { recurse: true }, file => console.log(`script created ${file.full}`));
-
-						console.log("The file "+exec1.test_id+".spec.js was saved!");
-
-						console.log("Running Cypress");
-						var headless = false;
-						var modo_vrt = false;
-						console.log("Modo VRT -> " + exec1);
-						console.log("Modo VRT -> " + exec1.test_mode);
-						if(exec1.test_mode == 'HEADLESS'){
-							headless = true;
-						} 
-						if(exec1.test_mode == 'VRT'){
-							modo_vrt = true;
-							console.log("Modo VRT");
-						} 
-
-						var pathTest='node cypress_runner.js --h ' + headless + ' --n '+exec1.test_id+".spec.js" ;
-
-						exec(pathTest, async (err, stdout, stderr) => {
-							if (err) {
-								// node couldn't execute the command
-								Execution.updateOne({ _id: exec1._id }, { state: STATE_REGISTER }).then(u=>{
-									console.log("Execution id:" +exec1._id+".spec.js Failed.");   
-								});             
-								return;
-							}
-							console.log("Executing ..." +pathTest);
-							if (fs.existsSync('./cypress/reports/'+exec1.test_id+'.html')) {
-								//se genera reporte en s3
-								srvS3.uploadFile('./cypress/reports/'+exec1.test_id+'.html','reports/'+exec1.test_id+'.html');
-								//var bPathImg='reports/assets/'+exec1.test_id+'.spec.js/Fill a ticket succesfull (failed).png'
-								// srvS3.uploadFile('./cypress/'+bPathImg,bPathImg);
-								shell.echo("S3 complete"); 
-							}
-
-							if(modo_vrt) {
-								//genera el reporte de VRT
-								let rutaReportes = "./reports/vrt/";
-								let rutaImagenes = "./cypress/reports/assets/"+exec1.test_id+'.spec.js/';
-								var pathCp='mv ' + rutaImagenes + 'after1.png ' + rutaImagenes + 'after2.png ' + rutaImagenes + 'after3.png ./reports/vrt/' ;
-								console.log("pathCp ->" + pathCp);
-								exec(pathCp, async (err, stdout, stderr) => {
-									if (err) {
-										// node couldn't execute the command
-										console.log("Fallo copia");
-									}
-									vrt.generarReporteVrt(configVrt, rutaReportes, rutaReportes, stderr);
-									console.log("Genera reporte VRT:" );
-									//Pendiente subir el reporte a S3
-								})
-							}
-					
-							shell.echo("Cypress complete");
-							Execution.updateOne({ _id: exec1._id }, { state: STATE_EXECUTED }).then(u=>{
-								console.log("Execution id:" +exec1._id+" Executed.");
-								console.log("Delete message from queue")
-								var deleteParams = {
-									QueueUrl: queueURL,
-									ReceiptHandle: data.Messages[0].ReceiptHandle
-								};
-								sqs.deleteMessage(deleteParams, function(err, data) {
-									if (err) 
-									{
-										console.log("Delete Error", err);
-									} 
-									else 
-									{
-										console.log("Message Deleted", data);
-									}
-								});
-								
-								var result = new Result({
-									execution_id:exec1._id 
-								});
-								// save the app and check for errors
-								result.save(function (err) 
-								{
-									if (err)
-										console.log("Error registrando Resultado :" +err);     
-									else
-										console.log("Result id:" +result._id+" saved.");          
-								});
-				  
-								var file = new File({
-									result_id:result._id,
-									name: exec1.test_id,
-									url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1._id +'.html'
-								});
-				  
-								file.save(function (err) {
-									if (err)
-										console.log("Error registrando Archivo :" +err);   
-									else
-										console.log("File id:" +file._id+" saved.");              
-								});
+							
+							var result = new Result({
+								execution_id:exec1._id 
+							});
+							// save the app and check for errors
+							result.save(function (err) 
+							{
+								if (err)
+									console.log("Error registrando Resultado :" +err);     
+								else
+									console.log("Result id:" +result._id+" saved.");          
+							});
+			  
+							var file = new File({
+								result_id:result._id,
+								name: exec1.test_id,
+								url:"https://tsmen.s3-us-west-1.amazonaws.com/reports/"+exec1._id +'.html'
+							});
+			  
+							file.save(function (err) {
+								if (err)
+									console.log("Error registrando Archivo :" +err);   
+								else
+									console.log("File id:" +file._id+" saved.");              
 							});
 						});
 					});
 				});
-			}
-		});
-		await sleep(1000);
-	}
+			});
+		}
+	});
+	setTimeout(main, 1000,);
 };
-main();
+main();	
 app.listen("3128");
 
 mongoose.Promise = global.Promise;
