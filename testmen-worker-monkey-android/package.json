@@ -23,7 +23,7 @@
     "node-mailer": "^0.1.1",
     "nodemailer": "^4.6.5",
     "rimraf": "^3.0.0",
-    "shelljs": "^0.8.2",
+    "shelljs": "^0.8.5",
     "yargs": "^14.2.0"
   }
 }
